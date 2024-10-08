@@ -12,14 +12,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float playerSpeed = 7;
 
 
-    // Start is called before the first frame update
     void Awake()
     {
         inputAxis = playerInput.actions.FindAction("Move");
 
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         playerMovement();
@@ -27,9 +25,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void playerMovement()
     {
-        Vector2 direction = inputAxis.ReadValue<Vector2>(); //Read input regarding player movement
+        Vector2 movementInput = inputAxis.ReadValue<Vector2>(); //Read input regarding player movement
 
-        transform.position += playerSpeed * new Vector3(direction.x, 0, direction.y) * Time.deltaTime;
+        Vector3 direction = new Vector3(movementInput.x, 0, movementInput.y);
+        direction = transform.TransformDirection(direction); //local to world space
+
+        transform.position += playerSpeed * direction * Time.deltaTime;
 
     }
 }
