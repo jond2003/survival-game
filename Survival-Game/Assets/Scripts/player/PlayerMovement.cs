@@ -8,14 +8,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputAction inputAxis;
     [SerializeField] private PlayerInput playerInput;
 
-
     [SerializeField] private float playerSpeed = 7;
+    [SerializeField] private Rigidbody rigidBody;
 
 
     void Awake()
     {
         inputAxis = playerInput.actions.FindAction("Move");
-
+        rigidBody = gameObject.GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
@@ -29,8 +29,6 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 direction = new Vector3(movementInput.x, 0, movementInput.y);
         direction = transform.TransformDirection(direction); //local to world space
-
-        transform.position += playerSpeed * direction * Time.deltaTime;
-
+        rigidBody.velocity = playerSpeed * direction.normalized;
     }
 }
