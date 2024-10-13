@@ -9,11 +9,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
 
     [SerializeField] private float playerSpeed = 7;
+    [SerializeField] private Rigidbody rigidBody;
 
 
     void Awake()
     {
         inputAxis = playerInput.actions.FindAction("Move");
+        rigidBody = gameObject.GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
@@ -27,11 +29,6 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 direction = new Vector3(movementInput.x, 0, movementInput.y);
         direction = transform.TransformDirection(direction); //local to world space
-
-        //transform.position += playerSpeed * direction * Time.deltaTime;
-        // Replaced the line above to prevent phasing though corners. Directly modifying the player position bypasses the physics engine which caused the issue
-        // Normalising the direction is just for consistent speed
-        // The player no longer slides smoothly against walls though
-        gameObject.GetComponent<Rigidbody>().velocity = playerSpeed * direction.normalized;
+        rigidBody.velocity = playerSpeed * direction.normalized;
     }
 }
