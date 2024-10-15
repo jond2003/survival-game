@@ -6,6 +6,7 @@ public class Gun : MonoBehaviour
 {
     [SerializeField] private float damage = 10f;
     [SerializeField] private float range = 100f;
+    [SerializeField] private float impactForce = 100f;
 
     [SerializeField] private Camera fpsCam;
 
@@ -28,6 +29,11 @@ public class Gun : MonoBehaviour
             if (target)
             {
                 target.TakeDamage(damage);
+            }
+
+            if (hit.rigidbody != null)
+            {
+                hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
         }
     }
