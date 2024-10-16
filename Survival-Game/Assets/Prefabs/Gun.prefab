@@ -96,7 +96,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc915a60477ba024389f9c98f41b3a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputAxis:
+    m_Name: Input Axis
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 22b4f4a9-e322-4c8c-b156-35f798a2758f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  playerInput: {fileID: 0}
   damage: 10
   range: 100
-  impactForce: 100
+  fireRate: 5
+  impactForce: 25
   fpsCam: {fileID: 0}
