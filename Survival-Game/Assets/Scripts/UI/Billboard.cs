@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Billboard : MonoBehaviour
 {
-    [SerializeField] private Camera playerCamera;
+    [SerializeField] private GameObject playerCamera;
+
+
+    void Awake()
+    {
+        playerCamera = GameObject.FindWithTag("PlayerCamera");
+    }
 
     void Update()
     {
