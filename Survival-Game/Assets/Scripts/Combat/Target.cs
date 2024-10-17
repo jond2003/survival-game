@@ -13,7 +13,7 @@ public class Target : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        damageEnemy(damage);
+        DamageEnemy(damage);
         ShowDamage(damage);
     }
 
@@ -30,9 +30,9 @@ public class Target : MonoBehaviour
         Destroy(damageTextObject, 0.5f);
     }
 
-    private void damageEnemy(float damage)
+    private void DamageEnemy(float damage)
     {
-        enemyHealth.damageEnemy(damage);
+        enemyHealth.DamageEnemy(damage);
 
     }
 }

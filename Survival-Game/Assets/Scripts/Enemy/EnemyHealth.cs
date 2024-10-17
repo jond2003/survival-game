@@ -8,14 +8,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private float healthAmount = 50f;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    public void damageEnemy(float damage)
+    public void DamageEnemy(float damage)
     {
         healthAmount -= damage;
         Debug.Log(healthAmount + " health rn");

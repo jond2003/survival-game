@@ -107,9 +107,9 @@ MonoBehaviour:
     m_Flags: 0
   playerInput: {fileID: 7838910914143989060}
   damage: 10
-  range: 100
+  range: 500
   fireRate: 5
-  impactForce: 25
+  impactForce: 100
   playerCamera: {fileID: 511851105072833671}
 --- !u!1 &2289027266630935537
 GameObject:
@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 4194105926190900469}
   - component: {fileID: -1830351480359078973}
   - component: {fileID: 5442832774706745530}
+  - component: {fileID: 8089682336584280427}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -143,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 2289027266630935537}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.13, z: 0}
+  m_LocalPosition: {x: 0.89, y: 1.13, z: -0.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -291,6 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
   healthAmount: 100
+  timeSinceAttackedLimit: 1
 --- !u!54 &5442832774706745530
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -318,6 +320,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!136 &8089682336584280427
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289027266630935537}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9162915339291402840
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +357,7 @@ GameObject:
   - component: {fileID: 4647518505118886944}
   m_Layer: 0
   m_Name: PlayerCamera
-  m_TagString: Untagged
+  m_TagString: PlayerCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
