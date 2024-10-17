@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -9,35 +10,22 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Image healthBar;
     [SerializeField] private float healthAmount = 100f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    [SerializeField] private float timeSinceAttackedLimit = 0.5f;
 
-    }
+    private float timeSinceAttacked = 0f;
 
-    // Update is called once per frame
+
     void Update()
     {
-        // Check if health is zero or below, indicating the game is over
+        
         if (healthAmount <= 0)
         {
-            Debug.Log("Game Over"); // Output "Game Over" to the console
-        }
-
-        // If the Return key is pressed, deal 20 damage to the player
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            TakeDamage(20);
-        }
-
-        // If the Space key is pressed, heal the player by 5 points
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Heal(5);
+            Cursor.lockState = CursorLockMode.None;
+            SceneManager.LoadSceneAsync(3); //Lose scene
         }
     }
 
-    // Method to decrease the player's health by a certain damage amount
+
     public void TakeDamage(float damage)
     {
         healthAmount -= damage;
@@ -51,5 +39,22 @@ public class PlayerHealth : MonoBehaviour
         healthAmount = Mathf.Clamp(healthAmount, 0, 100);
 
         healthBar.fillAmount = healthAmount / 100f;
+    }
+    private void OnTriggerStay(Collider other)
+    {
+       
+        if (other.gameObject.tag == "Enemy")
+        {
+            
+            if (Time.time > timeSinceAttacked)
+            {
+                timeSinceAttacked = Time.time + timeSinceAttackedLimit;
+                Debug.Log("TAKING DAMAGE TO PLAYER");
+                TakeDamage(20);
+            }
+
+            
+            
+        }
     }
 }
