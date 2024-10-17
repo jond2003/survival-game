@@ -6,18 +6,17 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
 
-    [SerializeField] private Transform player;
+    [SerializeField] private GameObject player;
     private NavMeshAgent meshAgent;
 
-    // Start is called before the first frame update
     void Awake()
     {
+        player = GameObject.FindWithTag("Player");
         meshAgent = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        meshAgent.destination = player.position; 
+        meshAgent.destination = player.transform.position; 
     }
 }

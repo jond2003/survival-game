@@ -18,6 +18,7 @@ public class EnemyHealth : MonoBehaviour
     public void damageEnemy(float damage)
     {
         healthAmount -= damage;
+        Debug.Log(healthAmount + " health rn");
         if (healthAmount <= 0)
         {
             Debug.Log("Enemy killed");
