@@ -9,8 +9,11 @@ public class Target : MonoBehaviour
     [SerializeField] private GameObject damageText;
     [SerializeField] private Transform damageTextSpawnPosition;
 
+    [SerializeField] private EnemyHealth enemyHealth;
+
     public void TakeDamage(float damage)
     {
+        damageEnemy(damage);
         ShowDamage(damage);
     }
 
@@ -25,5 +28,11 @@ public class Target : MonoBehaviour
         damageTextObject.transform.localRotation = Quaternion.identity;
 
         Destroy(damageTextObject, 0.5f);
+    }
+
+    private void damageEnemy(float damage)
+    {
+        enemyHealth.damageEnemy(damage);
+
     }
 }

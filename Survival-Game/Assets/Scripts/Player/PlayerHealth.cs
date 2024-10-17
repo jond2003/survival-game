@@ -27,12 +27,14 @@ public class PlayerHealth : MonoBehaviour
         // If the Return key is pressed, deal 20 damage to the player
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            Debug.Log("take damage");
             TakeDamage(20);
         }
 
         // If the Space key is pressed, heal the player by 5 points
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log("heal");
             Heal(5);
         }
     }
