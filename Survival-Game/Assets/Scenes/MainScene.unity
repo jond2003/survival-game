@@ -1120,7 +1120,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1:00
+  m_text: 2:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6778,7 +6778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countDownText: {fileID: 416457626}
-  startTime: 60
+  startTime: 120
 --- !u!4 &1645419972
 Transform:
   m_ObjectHideFlags: 0
@@ -7881,6 +7881,18 @@ PrefabInstance:
     - target: {fileID: 2289027266630935537, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442832774706745530, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442832774706745530, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442832774706745530, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
