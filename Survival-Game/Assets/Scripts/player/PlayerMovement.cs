@@ -29,6 +29,11 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 direction = new Vector3(movementInput.x, 0, movementInput.y);
         direction = transform.TransformDirection(direction); //local to world space
-        rigidBody.velocity = playerSpeed * direction.normalized;
+
+        Vector3 rbVelocity = rigidBody.velocity;
+        Vector3 newVelocity = playerSpeed * direction.normalized;
+        newVelocity.y = rbVelocity.y;  //Allows gravity to work as normal, to prevent floating
+
+        rigidBody.velocity = newVelocity;
     }
 }
