@@ -126,8 +126,8 @@ GameObject:
   - component: {fileID: 7838910914143989060}
   - component: {fileID: 4194105926190900469}
   - component: {fileID: -1830351480359078973}
-  - component: {fileID: 5442832774706745530}
   - component: {fileID: 8089682336584280427}
+  - component: {fileID: 5744541705493377743}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 2289027266630935537}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.89, y: 1.13, z: -0.17}
+  m_LocalPosition: {x: 0.89, y: 1.22, z: -0.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -275,9 +275,44 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  sprintInput:
+    m_Name: Sprint Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e46d2a78-a12c-4e28-adf7-f10189360a75
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  crouchInput:
+    m_Name: Crouch Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 348cc315-20a5-4bf8-baa0-62f1b903fb58
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  jumpInput:
+    m_Name: Jump Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a02ea26d-51eb-43f9-af87-875dc9111580
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   playerInput: {fileID: 7838910914143989060}
+  velocity: {x: 0, y: 0, z: 0}
+  gravityForce: -15
+  jumpForce: 5
   playerSpeed: 8
-  rigidBody: {fileID: 5442832774706745530}
+  playerWalkingSpeed: 8
+  playerSprintSpeed: 11
+  playerCrouchSpeed: 4
+  characterController: {fileID: 5744541705493377743}
+  isSprinting: 0
+  isCrouching: 0
 --- !u!114 &-1830351480359078973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,33 +328,6 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   healthAmount: 100
   timeSinceAttackedLimit: 1
---- !u!54 &5442832774706745530
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2289027266630935537}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!136 &8089682336584280427
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -342,6 +350,32 @@ CapsuleCollider:
   m_Radius: 1
   m_Height: 2
   m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!143 &5744541705493377743
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289027266630935537}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5000001
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9162915339291402840
 GameObject:
