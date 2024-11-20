@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,21 +7,48 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private InputAction inputAxis;
+    [SerializeField] private InputAction sprintInput;
+    [SerializeField] private InputAction crouchInput;
+    [SerializeField] private InputAction jumpInput;
+
     [SerializeField] private PlayerInput playerInput;
 
-    [SerializeField] private float playerSpeed = 7;
-    [SerializeField] private Rigidbody rigidBody;
 
+
+
+    [SerializeField] private Vector3 velocity;
+    [SerializeField] private float gravityForce = -15f;
+    [SerializeField] private float jumpForce = 5f;
+
+    [SerializeField] private float playerSpeed = 8;
+    [SerializeField] private float playerWalkingSpeed = 8;
+    [SerializeField] private float playerSprintSpeed = 11;
+    [SerializeField] private float playerCrouchSpeed = 4;
+
+
+    [SerializeField] private CharacterController characterController;
+
+
+    [SerializeField] private bool isSprinting = false;
+    [SerializeField] private bool isCrouching = false;
+ 
 
     void Awake()
     {
         inputAxis = playerInput.actions.FindAction("Move");
-        rigidBody = gameObject.GetComponent<Rigidbody>();
+        sprintInput = playerInput.actions.FindAction("Sprint");
+        crouchInput = playerInput.actions.FindAction("Crouch");
+        jumpInput = playerInput.actions.FindAction("Jump");
+
+
     }
 
     void FixedUpdate()
     {
         playerMovement();
+        checkSprint();
+        checkCrouch();
+        checkJump();
     }
 
     private void playerMovement()
@@ -30,10 +58,56 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = new Vector3(movementInput.x, 0, movementInput.y);
         direction = transform.TransformDirection(direction); //local to world space
 
-        Vector3 rbVelocity = rigidBody.velocity;
-        Vector3 newVelocity = playerSpeed * direction.normalized;
-        newVelocity.y = rbVelocity.y;  //Allows gravity to work as normal, to prevent floating
+        Vector3 movement = direction * playerSpeed;
 
-        rigidBody.velocity = newVelocity;
+  
+        if (!characterController.isGrounded) //apply gravity
+        {
+            velocity.y += gravityForce * Time.deltaTime;
+
+        }
+    
+        movement.y = velocity.y;
+
+
+        characterController.Move(movement * Time.deltaTime);
+    }
+
+    private void checkSprint()
+    {
+        if ((sprintInput.phase == InputActionPhase.Performed || sprintInput.phase == InputActionPhase.Started) && isCrouching == false && characterController.isGrounded)
+        {
+            isSprinting = true;
+            playerSpeed = playerSprintSpeed;
+        }
+        else if ((sprintInput.phase == InputActionPhase.Canceled || sprintInput.phase == InputActionPhase.Waiting) && isCrouching == false && isSprinting == true)
+        {
+            isSprinting = false;
+            playerSpeed = playerWalkingSpeed;
+        }
+    }
+
+    private void checkCrouch()
+    {
+        if ((crouchInput.phase == InputActionPhase.Performed || crouchInput.phase == InputActionPhase.Started) && isSprinting == false && characterController.isGrounded)
+        {
+            isCrouching = true;
+            characterController.height = 1.5f;
+            playerSpeed = playerCrouchSpeed;
+        }
+        else if ((crouchInput.phase == InputActionPhase.Canceled || crouchInput.phase == InputActionPhase.Waiting) && isSprinting == false && isCrouching == true )
+        {
+            isCrouching = false;
+            characterController.height = 2f;
+            playerSpeed = playerWalkingSpeed;
+        }
+    }
+
+    private void checkJump()
+    {
+        if (jumpInput.IsPressed() && characterController.isGrounded)
+        {
+            velocity.y = jumpForce; 
+        }
     }
 }

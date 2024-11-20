@@ -819,6 +819,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 603531290552072969, guid: 81125d686ac65234094ce30e30475c4f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4380021542785303937, guid: 81125d686ac65234094ce30e30475c4f, type: 3}
       propertyPath: m_IsKinematic
       value: 1
@@ -7844,7 +7848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1553699941529852627, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.13
+      value: 1.22
       objectReference: {fileID: 0}
     - target: {fileID: 1553699941529852627, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7881,18 +7885,6 @@ PrefabInstance:
     - target: {fileID: 2289027266630935537, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5442832774706745530, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5442832774706745530, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_AngularDrag
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 5442832774706745530, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
