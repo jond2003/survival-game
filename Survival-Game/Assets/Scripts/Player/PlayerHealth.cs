@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Image healthBar;
     [SerializeField] private float healthAmount = 100f;
 
-    [SerializeField] private float timeSinceAttackedLimit = 0.5f;
+
 
     private float timeSinceAttacked = 0f;
 
@@ -40,21 +40,21 @@ public class PlayerHealth : MonoBehaviour
 
         healthBar.fillAmount = healthAmount / 100f;
     }
-    private void OnTriggerStay(Collider other)
-    {
+    //private void OnTriggerStay(Collider other)
+    //{
        
-        if (other.gameObject.tag == "Enemy")
-        {
+    //    if (other.gameObject.tag == "Enemy")
+    //    {
             
-            if (Time.time > timeSinceAttacked)
-            {
-                timeSinceAttacked = Time.time + timeSinceAttackedLimit;
-                Debug.Log("TAKING DAMAGE TO PLAYER");
-                TakeDamage(20);
-            }
+    //        if (Time.time > timeSinceAttacked)
+    //        {
+    //            timeSinceAttacked = Time.time + timeSinceAttackedLimit;
+    //            Debug.Log("TAKING DAMAGE TO PLAYER");
+    //            TakeDamage(20);
+    //        }
 
             
             
-        }
-    }
+    //    }
+    //}
 }
