@@ -782,7 +782,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 471633033790022482, guid: 81125d686ac65234094ce30e30475c4f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.91
+      value: 25.12
       objectReference: {fileID: 0}
     - target: {fileID: 471633033790022482, guid: 81125d686ac65234094ce30e30475c4f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -822,7 +822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 603531290552072969, guid: 81125d686ac65234094ce30e30475c4f, type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: NormalRobot
       objectReference: {fileID: 0}
     - target: {fileID: 603531290552072969, guid: 81125d686ac65234094ce30e30475c4f, type: 3}
       propertyPath: m_IsActive
@@ -1064,6 +1064,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13661999a69fbd349b4278e957e16435, type: 3}
+--- !u!1001 &317111348
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1605653076345228107, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 26.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605653076345228107, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605653076345228107, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605653076345228107, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605653076345228107, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605653076345228107, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605653076345228107, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605653076345228107, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605653076345228107, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605653076345228107, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781331218618341766, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
+      propertyPath: m_Name
+      value: ExplodingRobot
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
 --- !u!1 &332221393
 GameObject:
   m_ObjectHideFlags: 0
@@ -7509,7 +7566,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b67cec9e9a578ed4a8175b0e76c27538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 603531290552072969, guid: 81125d686ac65234094ce30e30475c4f, type: 3}
+  normalEnemyPrefab: {fileID: 603531290552072969, guid: 81125d686ac65234094ce30e30475c4f, type: 3}
+  ExplodingEnemyPrefab: {fileID: 8781331218618341766, guid: 71752b1281c734d43b0b2e18a71150b8, type: 3}
   spawnRate: 3
 --- !u!1 &1645419970
 GameObject:
@@ -9327,3 +9385,4 @@ SceneRoots:
   - {fileID: 1619504895}
   - {fileID: 20975453}
   - {fileID: 1645419972}
+  - {fileID: 317111348}

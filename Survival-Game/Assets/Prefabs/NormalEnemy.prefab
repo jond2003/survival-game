@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 988188871921791219}
   - component: {fileID: 8096934841885556624}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: NormalEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,6 +181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  playerHealth: {fileID: 0}
+  timeSinceAttackedLimit: 0.5
 --- !u!195 &8096934841885556624
 NavMeshAgent:
   m_ObjectHideFlags: 0
