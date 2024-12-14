@@ -11,6 +11,7 @@ public class PlayerLook : MonoBehaviour
 
     [SerializeField] private float cameraSensitivity = 4;
     float xRotate = 0f;
+    float yRotate = 0f;
 
     void Awake()
     {
@@ -18,13 +19,18 @@ public class PlayerLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked; //Hide cursor
 
         inputAxis = playerInput.actions.FindAction("Look");
-        playerTransform = transform.parent;         
+        playerTransform = transform.parent;
         
+    }
+
+    void Update()
+    {
+        playerLook();
     }
 
     void FixedUpdate()
     {
-        playerLook();
+        playerRotate();
     }
 
     private void playerLook()
@@ -37,9 +43,14 @@ public class PlayerLook : MonoBehaviour
         xRotate -= mouseY;
         xRotate = Mathf.Clamp(xRotate, -90f, 90f);
 
+        yRotate += mouseX;
+
         transform.localRotation = Quaternion.Euler(xRotate, 0, 0);
-        playerTransform.Rotate(Vector3.up * mouseX); //rotate on horizontal
+    }
 
-
+    private void playerRotate()
+    {
+        playerTransform.Rotate(Vector3.up * yRotate); //rotate on horizontal
+        yRotate = 0f;
     }
 }
