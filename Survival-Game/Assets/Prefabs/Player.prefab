@@ -327,7 +327,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
   healthAmount: 100
-  timeSinceAttackedLimit: 1
 --- !u!136 &8089682336584280427
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -389,6 +388,7 @@ GameObject:
   - component: {fileID: 511851105072833671}
   - component: {fileID: 3914663573818666684}
   - component: {fileID: 4647518505118886944}
+  - component: {fileID: 4187933440582515580}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: PlayerCamera
@@ -494,3 +494,27 @@ MonoBehaviour:
     m_Flags: 0
   playerInput: {fileID: 7838910914143989060}
   cameraSensitivity: 50
+--- !u!114 &4187933440582515580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9162915339291402840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d70915a2f09e3844b181422594e5151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactInput:
+    m_Name: Interact Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 925e99da-59ea-437d-b339-cd91fedb701e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  playerInput: {fileID: 7838910914143989060}
+  interactSource: {fileID: 2951051746932321162}
+  interactRange: 10
