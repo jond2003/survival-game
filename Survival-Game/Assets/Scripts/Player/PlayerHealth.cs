@@ -12,7 +12,7 @@ public class PlayerHealth : MonoBehaviour
 
 
 
-    private float timeSinceAttacked = 0f;
+    //private float timeSinceAttacked = 0f;
 
 
     void Update()
