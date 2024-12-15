@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-
     [SerializeField] private float healthAmount = 50f;
 
-
+    [SerializeField] private ItemDropper itemDropper;
 
     public void DamageEnemy(float damage)
     {
@@ -16,8 +15,8 @@ public class EnemyHealth : MonoBehaviour
         if (healthAmount <= 0)
         {
             Debug.Log("Enemy killed");
+            itemDropper.DropItem();
             Destroy(this.gameObject);
         }
-
     }
 }

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4605712570296491595}
   - component: {fileID: 988188871921791219}
   - component: {fileID: 8096934841885556624}
+  - component: {fileID: 6498838417057453779}
   m_Layer: 0
   m_Name: NormalEnemy
   m_TagString: Enemy
@@ -168,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthAmount: 50
+  itemDropper: {fileID: 6498838417057453779}
 --- !u!114 &988188871921791219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +207,19 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6498838417057453779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603531290552072969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f372bb35c6340648b0f6fd564960504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drop: {fileID: 6631490095044359674, guid: ce28f7e31204c594287ae5e333a4e18f, type: 3}
 --- !u!1 &3157885513739840368
 GameObject:
   m_ObjectHideFlags: 0
