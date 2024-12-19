@@ -9340,6 +9340,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Animal
       objectReference: {fileID: 0}
+    - target: {fileID: 858530408611065420, guid: b9a3cd182952a184c944b65b69133b3a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4922923358721752979, guid: b9a3cd182952a184c944b65b69133b3a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.95
