@@ -18,7 +18,7 @@ public class Target : MonoBehaviour
         ShowDamage(damage);
     }
 
-    // Creates TextMeshPro Object to temporarily display the amount of damage dealt to the target
+    
     private void ShowDamage(float damage)
     {
         GameObject damageTextObject = Instantiate(this.damageText, damageTextSpawnPosition.position + new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-0.5f, 1.0f), 0), Quaternion.identity, damageTextSpawnPosition);
@@ -26,11 +26,11 @@ public class Target : MonoBehaviour
         TMP_Text damageText = damageTextObject.GetComponent<TMP_Text>();
         damageText.text = damage.ToString();
 
-        // Reset rotation to face the same direction as the parent canvas
+ 
         damageTextObject.transform.localRotation = Quaternion.identity;
 
         damageTextObject.transform.SetParent(null);
-        //needed because gets detached from parent
+        //Needed because gets detached from parent
         damageTextObject.transform.position = damageTextSpawnPosition.position + new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-0.5f, 1.0f), 0);
 
         //To make sure text isnt stretched based on the parent object scale
