@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,8 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     private Transform playerTransform;
 
-    [SerializeField] private float cameraSensitivity = 4;
+    [SerializeField] private float cameraSensitivity;
+    float newSensitivity = 0f;
     float xRotate = 0f;
     float yRotate = 0f;
 
@@ -35,10 +37,12 @@ public class PlayerLook : MonoBehaviour
 
     private void playerLook()
     {
+
+        newSensitivity = cameraSensitivity * PlayerPrefs.GetFloat("Sensitivity", 1);
         Vector2 direction = inputAxis.ReadValue<Vector2>(); //Read mouse movement
 
-        float mouseX = cameraSensitivity * direction.x * Time.deltaTime;
-        float mouseY = cameraSensitivity * direction.y * Time.deltaTime;
+        float mouseX = newSensitivity * direction.x * Time.deltaTime;
+        float mouseY = newSensitivity * direction.y * Time.deltaTime;
 
         xRotate -= mouseY;
         xRotate = Mathf.Clamp(xRotate, -90f, 90f);

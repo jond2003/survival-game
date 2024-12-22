@@ -389,6 +389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d04dc852ce3e2f446869740de5e69721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHotbarItems: 5
+  maxInventoryItems: 25
 --- !u!1 &9162915339291402840
 GameObject:
   m_ObjectHideFlags: 0
