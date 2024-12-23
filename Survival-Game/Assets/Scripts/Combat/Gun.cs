@@ -36,8 +36,6 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range))
         {
-            //Debug.Log(hit.transform.name);
-            //Debug.DrawRay(transform.position, playerCamera.transform.forward, Color.green,range);
             Target target = hit.transform.GetComponent<Target>();
             if (target)
             {
