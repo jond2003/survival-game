@@ -9,4 +9,15 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(1);
     }
+
+    public void GoToSettingsMenu()
+    {
+        SceneManager.LoadScene(4);
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 }
