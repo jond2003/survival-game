@@ -149,8 +149,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1462181552}
+  m_Children: []
   m_Father: {fileID: 865232542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1985,6 +1984,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 86289308}
+  - {fileID: 1462181552}
   - {fileID: 1879386682}
   - {fileID: 376979220}
   - {fileID: 1229777792}
@@ -4107,7 +4107,7 @@ Transform:
   - {fileID: 1372950455}
   - {fileID: 1907633677}
   - {fileID: 1435016464}
-  m_Father: {fileID: 86289308}
+  m_Father: {fileID: 865232542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1462181554
 MonoBehaviour:
