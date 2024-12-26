@@ -11,10 +11,6 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float healthAmount = 100f;
 
 
-
-    //private float timeSinceAttacked = 0f;
-
-
     void Update()
     {
         
@@ -29,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         healthAmount -= damage;
+        healthAmount = Mathf.Clamp(healthAmount, 0, 100);
         healthBar.fillAmount = healthAmount / 100f;
     }
 
@@ -40,21 +37,10 @@ public class PlayerHealth : MonoBehaviour
 
         healthBar.fillAmount = healthAmount / 100f;
     }
-    //private void OnTriggerStay(Collider other)
-    //{
-       
-    //    if (other.gameObject.tag == "Enemy")
-    //    {
-            
-    //        if (Time.time > timeSinceAttacked)
-    //        {
-    //            timeSinceAttacked = Time.time + timeSinceAttackedLimit;
-    //            Debug.Log("TAKING DAMAGE TO PLAYER");
-    //            TakeDamage(20);
-    //        }
 
-            
-            
-    //    }
-    //}
+    public float GetCurrentHealth()
+    {
+        return healthAmount;
+    }
+ 
 }
