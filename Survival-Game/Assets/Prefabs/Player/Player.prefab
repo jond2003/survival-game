@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 8089682336584280427}
   - component: {fileID: 5744541705493377743}
   - component: {fileID: 4956782743676026329}
+  - component: {fileID: 8138660893947140156}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -238,7 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 3b42f69ecb5ba9448bf4259468d13fb7, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -279,22 +280,6 @@ MonoBehaviour:
     m_ActionId: d4e362d7-5e74-4fce-a345-2f4bcdec24c7
     m_ActionName: 'Player/Interact[/Keyboard/e]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 102900000, guid: 6b5361fb2f1daa14aa02ccbe2860aeaf, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: c440228a-abf4-4154-8ff9-00003137f590
-    m_ActionName: 'Player/Pause[/Keyboard/escape]'
-  - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 6199131f-92e0-4eb1-ae77-fc8a7f95d992
     m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
@@ -334,6 +319,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8218f5de-f56c-4857-81f1-03521af578c6
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e192d85b-c0ee-422c-bb5a-168e659cb901
+    m_ActionName: 'Player/Pause[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -475,6 +464,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHotbarItems: 5
   maxInventoryItems: 25
+--- !u!114 &8138660893947140156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289027266630935537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 513790e403112c541bc7e27acf8e5e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hungerBar: {fileID: 0}
+  hungerAmount: 100
+  damageToPlayerForHungerRate: 4
+  damageToPlayerForHunger: 5
+  hungerLossRate: 2
+  hungerLossPerDecrement: 4
+  healthIncreaseRate: 5
+  healthIncreasePerIncrement: -4
+  playerHealth: {fileID: -1830351480359078973}
 --- !u!1 &9162915339291402840
 GameObject:
   m_ObjectHideFlags: 0
