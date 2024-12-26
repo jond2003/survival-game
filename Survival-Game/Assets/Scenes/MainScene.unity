@@ -1861,6 +1861,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &514717034 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6037405899575874291, guid: b6ad40cc9ddc49040827a3b3b4044cb4, type: 3}
+  m_PrefabInstance: {fileID: 1240111778}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &527574838
 GameObject:
   m_ObjectHideFlags: 0
@@ -9185,6 +9196,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793509717}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1798321153 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2289027266630935537, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
+  m_PrefabInstance: {fileID: 1957710611}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1798321154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798321153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 513790e403112c541bc7e27acf8e5e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hungerBar: {fileID: 514717034}
+  hungerAmount: 100
+  damageToPlayerForHungerRate: 4
+  damageToPlayerForHunger: 5
+  hungerLossRate: 2
+  hungerLossPerDecrement: 4
+  healthIncreaseRate: 5
+  healthIncreasePerIncrement: -4
+  playerHealth: {fileID: 1798321158}
+--- !u!114 &1798321158 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1830351480359078973, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
+  m_PrefabInstance: {fileID: 1957710611}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798321153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8b95b580f2f8b94abc74f375f207d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1829816072
 GameObject:
   m_ObjectHideFlags: 0
@@ -9881,47 +9929,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_ActionId
-      value: c440228a-abf4-4154-8ff9-00003137f590
-      objectReference: {fileID: 0}
-    - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[8].m_ActionId
       value: 6199131f-92e0-4eb1-ae77-fc8a7f95d992
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[9].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionId
       value: 3c7a1fa3-7cd2-4711-8a78-6b653f6dcb1d
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[10].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[9].m_ActionId
       value: ab485298-9eba-4530-a1a2-05277ef8ea64
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[11].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionId
       value: 3dc38bdc-95a1-4de0-b213-d3c5487bf22d
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[11].m_ActionId
       value: 921e8d3f-cefd-476c-aea2-837ca33dd035
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[12].m_ActionId
       value: d3ef896f-045d-4ec3-b9ce-cc5179cdae6d
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[13].m_ActionId
       value: 3542795a-af11-4c8b-81db-9dddb304724b
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[15].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[14].m_ActionId
       value: 882fdca8-6345-4657-be9a-b14b7545a072
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[16].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[15].m_ActionId
       value: 33e2bf95-3e52-424a-a401-24a101d1b30b
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[16].m_ActionId
       value: 8218f5de-f56c-4857-81f1-03521af578c6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_ActionId
+      value: e192d85b-c0ee-422c-bb5a-168e659cb901
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_ActionName
@@ -9953,51 +10001,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_ActionName
-      value: 'Player/Pause[/Keyboard/escape]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[8].m_ActionName
       value: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[9].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionName
       value: 'UI/Submit[/Keyboard/enter]'
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[10].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[9].m_ActionName
       value: 'UI/Cancel[/Keyboard/escape]'
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[11].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionName
       value: 'UI/Point[/Mouse/position]'
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[12].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[11].m_ActionName
       value: 'UI/Click[/Mouse/leftButton]'
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[13].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[12].m_ActionName
       value: 'UI/ScrollWheel[/Mouse/scroll]'
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[13].m_ActionName
       value: 'UI/MiddleClick[/Mouse/middleButton]'
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[15].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[14].m_ActionName
       value: 'UI/RightClick[/Mouse/rightButton]'
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[16].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[15].m_ActionName
       value: UI/TrackedDevicePosition
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
-      propertyPath: m_ActionEvents.Array.data[17].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[16].m_ActionName
       value: UI/TrackedDeviceOrientation
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_ActionName
+      value: 'Player/Pause[/Keyboard/escape]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -10010,7 +10058,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2289027266630935537, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1798321154}
   m_SourcePrefab: {fileID: 100100000, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
 --- !u!1 &1986779847
 GameObject:
