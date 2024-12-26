@@ -7,6 +7,8 @@ public class Resource : MonoBehaviour, IInteractable
 {
     [SerializeField] private Transform canvasPosition;
     [SerializeField] private GameObject highlightText;
+    
+    public Sprite sprite;
 
     private PlayerInventory inventory;
 
@@ -24,10 +26,21 @@ public class Resource : MonoBehaviour, IInteractable
         {
             highlightTextObject = Instantiate(highlightText, canvasPosition.position, Quaternion.identity, canvasPosition);
 
-            highlightTextObject.GetComponent<TMP_Text>().text = "Pick Up (E)";
+            TMP_Text highlightTextComponent = highlightTextObject.GetComponent<TMP_Text>();
 
             // Reset rotation to face the same direction as the parent canvas
             highlightTextObject.transform.localRotation = Quaternion.identity;
+
+            highlightTextObject.transform.SetParent(null);
+            //Needed because gets detached from parent
+            highlightTextObject.transform.position = canvasPosition.position + new Vector3(0.0f, gameObject.transform.localScale.y / 2, 0.0f);
+
+            //To make sure text isnt stretched based on the parent object scale
+            highlightTextComponent.text = "Pick Up (E)";
+            highlightTextObject.transform.localScale = Vector3.one;
+            highlightTextComponent.fontSize = 0.4f;
+
+            highlightTextObject.transform.SetParent(canvasPosition);
 
             isHighlighted = true;
         }
@@ -40,7 +53,6 @@ public class Resource : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        inventory.StoreItem(gameObject);
-        gameObject.SetActive(false);
+        inventory.StoreItem(this);
     }
 }
