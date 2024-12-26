@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 5744541705493377743}
   - component: {fileID: 4956782743676026329}
   - component: {fileID: 8138660893947140156}
-  - component: {fileID: 6192600550948550504}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -466,27 +465,6 @@ MonoBehaviour:
   maxHotbarItems: 5
   maxInventoryItems: 25
 --- !u!114 &8138660893947140156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2289027266630935537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 513790e403112c541bc7e27acf8e5e93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hungerBar: {fileID: 0}
-  hungerAmount: 100
-  damageToPlayerForHungerRate: 4
-  damageToPlayerForHunger: 5
-  hungerLossRate: 2
-  hungerLossPerDecrement: 4
-  healthIncreaseRate: 5
-  healthIncreasePerIncrement: -4
-  playerHealth: {fileID: -1830351480359078973}
---- !u!114 &6192600550948550504
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
