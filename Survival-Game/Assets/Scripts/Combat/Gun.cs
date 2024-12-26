@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Gun : MonoBehaviour
+public class Gun : MonoBehaviour, IUsable
 {
     [SerializeField] private InputAction inputAxis;
     [SerializeField] private PlayerInput playerInput;
@@ -15,18 +15,30 @@ public class Gun : MonoBehaviour
 
     private float nextTimeToFire = 0f;
 
-    [SerializeField] private Camera playerCamera;
+    private Camera playerCamera;
 
-    private void Awake()
+    public void Initialise()
     {
+        if (transform.parent != null)
+        {
+            playerCamera = transform.parent.parent.GetComponent<Camera>();
+        }
         inputAxis = playerInput.actions.FindAction("Fire");
     }
 
     void Update()
     {
+        if (playerCamera != null)
+        {
+            CheckShoot();
+        }
+    }
+
+    private void CheckShoot()
+    {
         if (inputAxis.IsPressed() && Time.time > nextTimeToFire)
         {
-            nextTimeToFire = Time.time + 1f/fireRate;
+            nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
         }
     }
