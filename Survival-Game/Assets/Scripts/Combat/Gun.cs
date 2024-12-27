@@ -25,22 +25,18 @@ public class Gun : MonoBehaviour, IUsable
         {
             playerCamera = transform.parent.parent.GetComponent<Camera>();
         }
-        inputAxis = playerInput.actions.FindAction("Fire");
 
         layersToHit = LayerMask.GetMask("Default");
     }
 
-    void Update()
+    public void LMB_Action()
     {
-        if (playerCamera != null)
-        {
-            CheckShoot();
-        }
+        CheckShoot();
     }
 
     private void CheckShoot()
     {
-        if (inputAxis.IsPressed() && Time.time > nextTimeToFire)
+        if (Time.time > nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
@@ -64,4 +60,5 @@ public class Gun : MonoBehaviour, IUsable
             }
         }
     }
+    public void RMB_Action() { }
 }
