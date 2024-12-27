@@ -9,6 +9,7 @@ public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] private InputAction pauseInput;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject HUDUI;
     [SerializeField] private PlayerInput playerInput;
 
     private bool isPaused = false;
@@ -35,6 +36,7 @@ public class PauseMenuManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None; //Show cursor
         pauseMenu.SetActive(true);
+        HUDUI.SetActive(false);
         isPaused = true;
     }
 
@@ -43,6 +45,7 @@ public class PauseMenuManager : MonoBehaviour
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked; //Hide cursor
         pauseMenu.SetActive(false);
+        HUDUI.SetActive(true);
         isPaused = false;
     }
 
