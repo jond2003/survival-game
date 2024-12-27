@@ -721,6 +721,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun
       objectReference: {fileID: 0}
+    - target: {fileID: 4606353574863728319, guid: 6a2c8edb556c9a44ab2adcac18be4fc3, type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 1466020521}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
