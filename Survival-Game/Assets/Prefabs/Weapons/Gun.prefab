@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8721102041264671615}
   - component: {fileID: 6863978236034659553}
   - component: {fileID: 3730829129175746572}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,6 @@ MonoBehaviour:
   range: 100
   fireRate: 5
   impactForce: 25
-  playerCamera: {fileID: 0}
 --- !u!114 &6863978236034659553
 MonoBehaviour:
   m_ObjectHideFlags: 0

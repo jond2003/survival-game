@@ -17,6 +17,8 @@ public class Gun : MonoBehaviour, IUsable
 
     private Camera playerCamera;
 
+    private LayerMask layersToHit;
+
     public void Initialise()
     {
         if (transform.parent != null)
@@ -24,6 +26,8 @@ public class Gun : MonoBehaviour, IUsable
             playerCamera = transform.parent.parent.GetComponent<Camera>();
         }
         inputAxis = playerInput.actions.FindAction("Fire");
+
+        layersToHit = LayerMask.GetMask("Default");
     }
 
     void Update()
@@ -46,7 +50,7 @@ public class Gun : MonoBehaviour, IUsable
     private void Shoot()
     {
         RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range))
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range, layersToHit))
         {
             Target target = hit.transform.GetComponent<Target>();
             if (target)
