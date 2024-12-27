@@ -26,17 +26,21 @@ public class AutomaticGun : MonoBehaviour, IUsable
 
     public void Initialise()
     {
-        if (transform.parent != null)
+        if (!isInitialised)
         {
-            playerCamera = transform.parent.parent.GetComponent<Camera>();
+            if (transform.parent != null)
+            {
+                playerCamera = transform.parent.parent.GetComponent<Camera>();
+            }
+
+            layersToHit = LayerMask.GetMask("Default");
+
+            bulletsInClip = clipSize;
+
+            isInitialised = true;
         }
 
-        layersToHit = LayerMask.GetMask("Default");
-
-        bulletsInClip = clipSize;
         UpdateAmmoText();
-
-        isInitialised = true;
     }
 
     public void LMB_Action(bool isPressed)
@@ -102,7 +106,7 @@ public class AutomaticGun : MonoBehaviour, IUsable
     {
         if (!isReloading && bulletsInClip < clipSize)
         {
-            nextTimeToFire += reloadTime;
+            nextTimeToFire = Time.time + reloadTime;
             isReloading = true;
             Debug.Log("Reloading...");
         }
@@ -111,6 +115,14 @@ public class AutomaticGun : MonoBehaviour, IUsable
     private void UpdateAmmoText()
     {
         ammoText.text = bulletsInClip + "/" + clipSize;
+        if (bulletsInClip == 0)
+        {
+            ammoText.color = Color.red;
+        }
+        else
+        {
+            ammoText.color = Color.black;
+        }
     }
 
     public void RMB_Action(bool isPressed) { }
