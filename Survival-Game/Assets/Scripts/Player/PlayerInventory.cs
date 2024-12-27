@@ -6,14 +6,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-// Interfaces all generic usable objects
-interface IUsable
-{
-    public void Initialise();  // Initialise to make usable
-    public void LMB_Action();  // Left Mouse Button Action
-    public void RMB_Action();  // Right Mouse Button Action
-}
-
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private InputAction scrollInput;
