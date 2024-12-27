@@ -12,7 +12,7 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private GameObject HUDUI;
     [SerializeField] private PlayerInput playerInput;
 
-    private bool isPaused = false;
+    public static bool isPaused = false;
 
 
     // Start is called before the first frame update
