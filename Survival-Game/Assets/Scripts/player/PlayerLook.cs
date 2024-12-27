@@ -41,8 +41,8 @@ public class PlayerLook : MonoBehaviour
         newSensitivity = cameraSensitivity * PlayerPrefs.GetFloat("Sensitivity", 1);
         Vector2 direction = inputAxis.ReadValue<Vector2>(); //Read mouse movement
 
-        float mouseX = newSensitivity * direction.x * Time.deltaTime;
-        float mouseY = newSensitivity * direction.y * Time.deltaTime;
+        float mouseX = newSensitivity * direction.x;
+        float mouseY = newSensitivity * direction.y;
 
         xRotate -= mouseY;
         xRotate = Mathf.Clamp(xRotate, -90f, 90f);
