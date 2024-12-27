@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4755367334078855348}
   - component: {fileID: 4229658809452430688}
   - component: {fileID: 4773114698015955227}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Food
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasPosition: {fileID: 8944906670445348039}
   highlightText: {fileID: 3494738309370299511, guid: 39a7a0c57d35bd94cad5166ab3167c11, type: 3}
+  sprite: {fileID: 0}
 --- !u!1 &4798514540896858107
 GameObject:
   m_ObjectHideFlags: 0

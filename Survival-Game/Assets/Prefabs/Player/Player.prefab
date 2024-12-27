@@ -534,7 +534,7 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   playerInput: {fileID: 7838910914143989060}
-  cameraSensitivity: 50
+  cameraSensitivity: 0.1
 --- !u!114 &4187933440582515580
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ using UnityEngine.UI;
 interface IUsable
 {
     public void Initialise();  // Initialise to make usable
+    public void LMB_Action();  // Left Mouse Button Action
+    public void RMB_Action();  // Right Mouse Button Action
 }
 
 public class PlayerInventory : MonoBehaviour
@@ -29,6 +31,9 @@ public class PlayerInventory : MonoBehaviour
     private Image[] hotbarSlots;
 
     public static PlayerInventory Instance { get; private set; }
+
+    public delegate void ItemChange(Resource r);
+    public static event ItemChange OnHeldItemChanged;
 
     void Awake()
     {
@@ -119,6 +124,10 @@ public class PlayerInventory : MonoBehaviour
                     else item.gameObject.SetActive(false);
 
                 }
+                else  // Hotbar is full
+                {
+                    item.gameObject.SetActive(false);
+                }
             }
             index++;
         }
@@ -156,6 +165,8 @@ public class PlayerInventory : MonoBehaviour
 
             IUsable usableItem = currentItem.gameObject.GetComponent<IUsable>();
             usableItem?.Initialise();
+
+            if (OnHeldItemChanged != null) OnHeldItemChanged(currentItem);
         }
     }
 

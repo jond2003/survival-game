@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Fire",
+                    "name": "LMB",
                     "type": "Button",
                     "id": "ebbbb236-3033-44cb-8e79-b42e801c12b2",
                     "expectedControlType": "Button",
@@ -72,6 +72,15 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "e192d85b-c0ee-422c-bb5a-168e659cb901",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RMB",
+                    "type": "Button",
+                    "id": "58e4b469-7de9-430a-b9b1-c67f3081d3f2",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -251,7 +260,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Fire",
+                    "action": "LMB",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -262,7 +271,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Fire",
+                    "action": "LMB",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -273,7 +282,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Touch",
-                    "action": "Fire",
+                    "action": "LMB",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -284,7 +293,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
-                    "action": "Fire",
+                    "action": "LMB",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -295,7 +304,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Fire",
+                    "action": "LMB",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -351,6 +360,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d37d22a5-631c-4914-9ebd-e45fe71dbfed",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RMB",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
