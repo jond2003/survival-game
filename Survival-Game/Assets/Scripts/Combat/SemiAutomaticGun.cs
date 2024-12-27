@@ -25,22 +25,26 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
 
     public void Initialise()
     {
-        if (transform.parent != null)
+        if (!isInitialised)
         {
-            playerCamera = transform.parent.parent.GetComponent<Camera>();
+            if (transform.parent != null)
+            {
+                playerCamera = transform.parent.parent.GetComponent<Camera>();
+            }
+
+            layersToHit = LayerMask.GetMask("Default");
+
+            bulletsInClip = clipSize;
+
+            isInitialised = true;
         }
 
-        layersToHit = LayerMask.GetMask("Default");
-
-        bulletsInClip = clipSize;
         UpdateAmmoText();
-
-        isInitialised = true;
     }
 
     public void LMB_Action(bool isPressed)
     {
-        CheckShoot();
+        if (isPressed) CheckShoot();
     }
 
     public void ReloadAction(bool isPressed)
@@ -73,6 +77,7 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
 
     private void Shoot()
     {
+        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward, Color.green);
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range, layersToHit))
         {
@@ -95,7 +100,7 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     {
         if (!isReloading && bulletsInClip < clipSize)
         {
-            nextTimeToFire += reloadTime;
+            nextTimeToFire = Time.time + reloadTime;
             isReloading = true;
             Debug.Log("Reloading...");
         }
@@ -104,6 +109,14 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     private void UpdateAmmoText()
     {
         ammoText.text = bulletsInClip + "/" + clipSize;
+        if (bulletsInClip == 0)
+        {
+            ammoText.color = Color.red;
+        }
+        else
+        {
+            ammoText.color = Color.black;
+        }
     }
 
     public void RMB_Action(bool isPressed) { }

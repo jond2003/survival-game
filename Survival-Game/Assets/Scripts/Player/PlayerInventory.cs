@@ -84,7 +84,10 @@ public class PlayerInventory : MonoBehaviour
         // Remove previous assigned item from player hand
         if (playerHand.transform.childCount > 0)
         {
-            playerHand.transform.GetChild(0).gameObject.SetActive(false);
+            GameObject oldHeldItem = playerHand.transform.GetChild(0).gameObject;
+            Collider itemCollider = oldHeldItem.GetComponent<Collider>();
+            itemCollider.enabled = true;
+            oldHeldItem.SetActive(false);
             playerHand.transform.DetachChildren();
         }
 
@@ -154,6 +157,9 @@ public class PlayerInventory : MonoBehaviour
 
             currentItem.transform.localPosition = Vector3.zero;
             currentItem.transform.localRotation = Quaternion.identity;
+
+            Collider itemCollider = currentItem.GetComponent<Collider>();
+            itemCollider.enabled = false;
 
             IUsable usableItem = currentItem.gameObject.GetComponent<IUsable>();
             usableItem?.Initialise();
