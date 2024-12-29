@@ -121,6 +121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasPosition: {fileID: 8944906670445348039}
   highlightText: {fileID: 3494738309370299511, guid: 39a7a0c57d35bd94cad5166ab3167c11, type: 3}
+  maxStack: 1
+  itemName: Food
   sprite: {fileID: 0}
 --- !u!1 &4798514540896858107
 GameObject:
