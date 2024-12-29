@@ -121,6 +121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasPosition: {fileID: 5542453126760679200}
   highlightText: {fileID: 3494738309370299511, guid: 39a7a0c57d35bd94cad5166ab3167c11, type: 3}
+  maxStack: 1
+  itemName: Steel
   sprite: {fileID: 0}
 --- !u!1001 &4102331313656752178
 PrefabInstance:

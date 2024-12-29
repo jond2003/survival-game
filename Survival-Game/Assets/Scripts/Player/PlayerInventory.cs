@@ -5,6 +5,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+record InventorySlot
+{
+    public Resource Item { get; set; }
+    public int Quantity { get; set; }
+}
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -17,8 +22,10 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private int maxHotbarItems = 5;
     [SerializeField] private int maxInventoryItems = 25;
 
-    private Resource[] inventory;
+    private InventorySlot[] inventory;
+    private Dictionary<string, List<int>> itemIndices = new Dictionary<string, List<int>>();
 
+    private Resource heldItem;
     private int hotbarIndex = 0;
     private Image[] hotbarSlots;
 
@@ -33,7 +40,7 @@ public class PlayerInventory : MonoBehaviour
         if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
 
-        inventory = new Resource[maxInventoryItems];
+        inventory = new InventorySlot[maxInventoryItems];
 
         // Prevent hotbar size larger than inventory size
         if (maxHotbarItems > maxInventoryItems) maxHotbarItems = maxInventoryItems;
@@ -76,64 +83,101 @@ public class PlayerInventory : MonoBehaviour
     // Update hotbar UI and usability of assigned/unassigned hotbar items
     private void IncrementHotbarSlot(int increment)
     {
+        UnassignHeldItem();
+
         hotbarSlots[hotbarIndex].color = Color.white;
 
         hotbarIndex = (maxHotbarItems + hotbarIndex + increment) % maxHotbarItems;
         hotbarSlots[hotbarIndex].color = Color.cyan;
 
-        // Remove previous assigned item from player hand
-        if (playerHand.transform.childCount > 0)
-        {
-            GameObject oldHeldItem = playerHand.transform.GetChild(0).gameObject;
-            Collider itemCollider = oldHeldItem.GetComponent<Collider>();
-            itemCollider.enabled = true;
-            oldHeldItem.SetActive(false);
-            playerHand.transform.DetachChildren();
-        }
-
         AssignItemToPlayer();
     }
 
     // Stores an item in the next free space in the inventory
+    // Stacks item if item is already in inventory and is stackable and maxStack not yet reached
     // Returns the index at which it is stored
     // Returns -1 if inventory is full
     public int StoreItem(Resource item)
     {
-        int index = 0;
-        bool isAppended = false;
+        bool itemStored = false;
+        int indexStoredAt = -1;
 
-        while (index < inventory.Length && !isAppended) {
-            if (inventory[index] == null)
+        List<int> indices = GetItemIndices(item);
+
+        if (indices.Count > 0)
+        {
+            int i = 0;
+            while (i < indices.Count && !itemStored)
             {
-                inventory[index] = item;
-                isAppended = true;
-                Debug.Log("Added " + item.name + " to Inventory!");
-
-                // If item stored in hotbar slot
-                if (index < maxHotbarItems)
+                int index = indices[i];
+                InventorySlot slot = inventory[index];
+                if (slot.Quantity != item.maxStack)
                 {
-                    UpdateHotbar(index);
+                    slot.Quantity += 1;
+                    indexStoredAt = index;
 
-                    // Check if item is stored in player's current hotbar slot
-                    if (index == hotbarIndex) AssignItemToPlayer();
-                    else item.gameObject.SetActive(false);
-
-                }
-                else  // Hotbar is full
-                {
+                    if (index < maxHotbarItems) UpdateHotbar(i);
                     item.gameObject.SetActive(false);
+
+                    itemStored = true;
                 }
+                i++;
             }
-            index++;
         }
 
-        return isAppended ? index : -1;
+        if (!itemStored)
+        {
+            int i = 0;
+
+            while (i < inventory.Length && !itemStored)
+            {
+                if (inventory[i] == null)
+                {
+                    inventory[i] = new InventorySlot();
+                    inventory[i].Item = item;
+                    inventory[i].Quantity = 1;
+
+                    indexStoredAt = i;
+                    itemStored = true;
+
+                    Debug.Log("Added " + item.name + " to Inventory!");
+
+                    // If item stored in hotbar slot
+                    if (i < maxHotbarItems)
+                    {
+                        UpdateHotbar(i);
+
+                        // Check if item is stored in player's current hotbar slot
+                        if (i == hotbarIndex) AssignItemToPlayer();
+                        else item.gameObject.SetActive(false);
+
+                    }
+                    else  // Hotbar is full
+                    {
+                        item.gameObject.SetActive(false);
+                    }
+                }
+                i++;
+            }
+        }
+
+        return indexStoredAt;
+    }
+
+    // Gets the indices of the inventory where the item resides
+    private List<int> GetItemIndices(Resource item)
+    {
+        if (itemIndices.TryGetValue(item.itemName, out List<int> indices))
+        {
+            return indices;
+        }
+        return new List<int>();
     }
 
     // Updates hotbar UI
     private void UpdateHotbar(int index)
     {
-        Resource item = inventory[index];
+        Resource item = inventory[index].Item;
         if (item != null)
         {
             GameObject imageObj = new GameObject("UIImage");
@@ -148,7 +192,7 @@ public class PlayerInventory : MonoBehaviour
     // Initialises the resource to make it usable
     private void AssignItemToPlayer()
     {
-        Resource currentItem = inventory[hotbarIndex];
+        Resource currentItem = inventory[hotbarIndex]?.Item;
 
         if (currentItem != null)
         {
@@ -166,12 +210,29 @@ public class PlayerInventory : MonoBehaviour
 
             if (OnHeldItemChanged != null) OnHeldItemChanged(currentItem);
         }
+
+        heldItem = currentItem;
     }
 
-    // Returns an array copy of the hotbar portion of the inventory
-    public Resource[] GetHotbar()
+    // Remove previous assigned item from player hand
+    private void UnassignHeldItem()
     {
-        return inventory.Take(maxHotbarItems).ToArray();
+        if (heldItem != null)
+        {
+            Collider itemCollider = heldItem.gameObject.GetComponent<Collider>();
+            itemCollider.enabled = true;
+            heldItem.gameObject.SetActive(false);
+            playerHand.transform.DetachChildren();
+        }
+    }
+
+    public Resource RemoveHeldItem()
+    {
+        UnassignHeldItem();
+        Resource removedItem = RemoveOneItem(hotbarIndex);
+        UpdateHotbar(hotbarIndex);
+
+        return removedItem;
     }
 
     // Returns an array copy of the inventory
@@ -184,13 +245,46 @@ public class PlayerInventory : MonoBehaviour
 
     public Resource GetItem(int index)
     {
-        return index > 0 && index < inventory.Length ? inventory[index] : null;
+        return index > 0 && index < inventory.Length ? inventory[index].Item : null;
     }
 
-    // Nullifies the index and returns the item at the given index
-    public Resource RemoveItem(int index)
+    // Uses instance id to get the index of the item in the inventory
+    // Returns -1 if no instance is found in the inventory with the same id
+    public int GetIndexById(int id)
     {
-        Resource item = inventory[index];
+        int i = 0;
+        while (i < inventory.Length)
+        {
+            Resource item = inventory[i].Item;
+            if (item.GetInstanceID() == id)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // Removes one item and returns the item at the given index
+    // If there is one item left, it nullifies the index
+    public Resource RemoveOneItem(int index)
+    {
+        InventorySlot slot = inventory[index];
+        Resource item = slot.Item;
+
+        if (slot.Quantity == 1) inventory[index] = null;
+        else slot.Quantity -= 1;
+
+        return item;
+    }
+
+    // Nullifies the index and returns the item at the given object's index
+    // Returns null if no object with given id can be found in the inventory
+    public Resource RemoveOneItemById(int id)
+    {
+        int index = GetIndexById(id);
+        if (index == -1) return null;
+
+        Resource item = inventory[index].Item;
         inventory[index] = null;
         return item;
     }
@@ -198,6 +292,6 @@ public class PlayerInventory : MonoBehaviour
     // Gets current selected hotbar item
     public Resource GetHeldItem()
     {
-        return inventory[hotbarIndex];
+        return inventory[hotbarIndex].Item;
     }
 }

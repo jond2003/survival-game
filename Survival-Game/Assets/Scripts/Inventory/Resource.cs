@@ -7,7 +7,10 @@ public class Resource : MonoBehaviour, IInteractable
 {
     [SerializeField] private Transform canvasPosition;
     [SerializeField] private GameObject highlightText;
-    
+
+    public int maxStack = 1;
+    public string itemName;
+
     public Sprite sprite;
 
     private PlayerInventory inventory;
@@ -18,6 +21,11 @@ public class Resource : MonoBehaviour, IInteractable
     void Start()
     {
         inventory = PlayerInventory.Instance;
+
+        if (itemName == null)
+        {
+            itemName = gameObject.name;
+        }
     }
 
     public void Highlight(bool isOn)
