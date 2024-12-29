@@ -101,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasPosition: {fileID: 5710891879463542568}
   highlightText: {fileID: 3494738309370299511, guid: 39a7a0c57d35bd94cad5166ab3167c11, type: 3}
+  maxStack: 1
+  itemName: Default Gun
   sprite: {fileID: 0}
 --- !u!65 &3730829129175746572
 BoxCollider:
