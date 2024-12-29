@@ -11,6 +11,15 @@ interface IInteractable
     public void Highlight(bool isOn);  // Indicate that object is interactable
 }
 
+// Interfaces all generic usable objects
+interface IUsable
+{
+    public void Initialise();  // Initialise to make usable
+    public void LMB_Action(bool isPressed);  // Left Mouse Button Action
+    public void RMB_Action(bool isPressed);  // Right Mouse Button Action
+    public void ReloadAction(bool isPressed);  // Reload (R) Action
+}
+
 public class Interactor : MonoBehaviour
 {
     [SerializeField] private float interactRange;
@@ -19,18 +28,18 @@ public class Interactor : MonoBehaviour
     private InputAction interactInput;
     private InputAction lmbInput;
     private InputAction rmbInput;
+    private InputAction reloadInput;
 
 
     private IInteractable interactable;
     private IUsable heldItem;
-
-    private bool registerInteract = false;
 
     void Awake()
     {
         interactInput = playerInput.actions.FindAction("Interact");
         lmbInput = playerInput.actions.FindAction("LMB");
         rmbInput = playerInput.actions.FindAction("RMB");
+        reloadInput = playerInput.actions.FindAction("Reload");
     }
 
     void OnEnable()
@@ -75,22 +84,18 @@ public class Interactor : MonoBehaviour
         }
 
         // Interact with interactable when interact button pressed
-        if (interactInput.IsPressed() && registerInteract)
+        if (interactInput.WasPressedThisFrame())
         {
             interactable.Interact();
         }
-
-        // Reset input
-        registerInteract = !interactInput.IsPressed();  // need to release input button to be registered
     }
 
-    // Removes highlights, nullifies the current interactable and resets interaction inputs
+    // Removes highlights and nullifies the current interactable
     void NoInteraction()
     {
         // Remove highlight after looking away from interactable
         interactable?.Highlight(false);
         interactable = null;
-        registerInteract = false;
     }
 
     void SetCurrentItem(Resource item)
@@ -100,14 +105,31 @@ public class Interactor : MonoBehaviour
 
     void CheckInputs()
     {
-        if (lmbInput.IsPressed())
+        if (lmbInput.WasPressedThisFrame())
         {
-            heldItem.LMB_Action();
+            heldItem.LMB_Action(true);
+        }
+        else if (lmbInput.WasReleasedThisFrame())
+        {
+            heldItem.LMB_Action(false);
         }
 
-        if (rmbInput.IsPressed())
+        if (rmbInput.WasPressedThisFrame())
         {
-            heldItem.RMB_Action();
+            heldItem.RMB_Action(true);
+        }
+        else if (rmbInput.WasReleasedThisFrame())
+        {
+            heldItem.RMB_Action(false);
+        }
+
+        if (reloadInput.WasPressedThisFrame())
+        {
+            heldItem.ReloadAction(true);
+        }
+        else if (reloadInput.WasReleasedThisFrame())
+        {
+            heldItem.ReloadAction(false);
         }
     }
 }

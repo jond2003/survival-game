@@ -17,17 +17,15 @@ public class PlayerLook : MonoBehaviour
 
     void Awake()
     {
-
         Cursor.lockState = CursorLockMode.Locked; //Hide cursor
 
         inputAxis = playerInput.actions.FindAction("Look");
         playerTransform = transform.parent;
-        
     }
 
     void Update()
     {
-        playerLook();
+        if (!PauseMenuManager.isPaused) playerLook();
     }
 
     void FixedUpdate()
