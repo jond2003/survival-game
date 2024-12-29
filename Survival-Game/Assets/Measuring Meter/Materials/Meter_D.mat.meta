@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 87996306bd5c6e24d972c65418c52437
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 843
+  packageName: Measuring Meter
+  packageVersion: 2.0
+  assetPath: Assets/Measuring Meter/Materials/Meter_D.mat
+  uploadId: 0
