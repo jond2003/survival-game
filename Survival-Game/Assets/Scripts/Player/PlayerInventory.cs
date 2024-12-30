@@ -205,6 +205,9 @@ public class PlayerInventory : MonoBehaviour
                     inventory[i].Item = item;
                     inventory[i].Quantity = 1;
 
+                    if (itemIndices.TryGetValue(item.itemName, out List<int> inventoryItemPositions)) inventoryItemPositions.Add(i);
+                    else itemIndices.Add(item.itemName, new List<int>(new int[] { i }));
+
                     indexStoredAt = i;
                     itemStored = true;
 
@@ -314,16 +317,6 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public Resource RemoveHeldItem()
-    {
-        UnassignHeldItem();
-        Resource removedItem = RemoveOneItem(hotbarIndex);
-        UpdateHotbar(hotbarIndex);
-        UpdateInventoryUI();
-
-        return removedItem;
-    }
-
     // Returns an array copy of the inventory
     public Resource[] GetInventory()
     {
@@ -337,47 +330,6 @@ public class PlayerInventory : MonoBehaviour
         return index > 0 && index < inventory.Length ? inventory[index].Item : null;
     }
 
-    // Uses instance id to get the index of the item in the inventory
-    // Returns -1 if no instance is found in the inventory with the same id
-    public int GetIndexById(int id)
-    {
-        int i = 0;
-        while (i < inventory.Length)
-        {
-            Resource item = inventory[i].Item;
-            if (item.GetInstanceID() == id)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    // Removes one item and returns the item at the given index
-    // If there is one item left, it nullifies the index
-    public Resource RemoveOneItem(int index)
-    {
-        InventorySlot slot = inventory[index];
-        Resource item = slot.Item;
-
-        if (slot.Quantity == 1) inventory[index] = null;
-        else slot.Quantity -= 1;
-
-        return item;
-    }
-
-    // Nullifies the index and returns the item at the given object's index
-    // Returns null if no object with given id can be found in the inventory
-    public Resource RemoveOneItemById(int id)
-    {
-        int index = GetIndexById(id);
-        if (index == -1) return null;
-
-        Resource item = inventory[index].Item;
-        inventory[index] = null;
-        return item;
-    }
-
     public void ConsumeHeldItem()
     {
         InventorySlot slot = inventory[hotbarIndex];
@@ -387,6 +339,7 @@ public class PlayerInventory : MonoBehaviour
         {
             UnassignHeldItem();
             inventory[hotbarIndex] = null;
+            itemIndices.Remove(item.itemName);
             Destroy(item.gameObject);
             AssignItemToPlayer();
         }
