@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 record InventorySlot
@@ -17,6 +18,9 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject hotbar;
     [SerializeField] private GameObject playerHand;
+
+    [SerializeField] private GameObject inventoryUI;
+    [SerializeField] private InputAction InventoryInput;
 
     // Hotbar takes up first maxHotbarItems spaces in inventory array
     [SerializeField] private int maxHotbarItems = 5;
@@ -57,7 +61,27 @@ public class PlayerInventory : MonoBehaviour
             i++;
         }
 
+        InventoryInput = playerInput.actions.FindAction("Inventory");
+
         IncrementHotbarSlot(0);
+    }
+
+    void Update()
+    {
+        if (InventoryInput.WasPerformedThisFrame())
+        {
+            inventoryUI.SetActive(!inventoryUI.activeSelf);
+            if (inventoryUI.activeSelf)
+            {
+                UpdateInventoryUI();
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            
+        }
     }
 
     private void OnEnable()
@@ -70,6 +94,33 @@ public class PlayerInventory : MonoBehaviour
     {
         scrollInput.Disable();
         scrollInput.performed -= OnScroll;
+    }
+
+    private void UpdateInventoryUI()
+    {
+        // Clear existing slots (prevents duplicate items)
+        foreach (Transform slot in inventoryUI.transform)
+        {
+            if (slot.childCount > 0)
+            {
+                Destroy(slot.GetChild(0).gameObject);
+            }
+        }
+
+        // Populate slots with items from inventory array
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            if (inventory[i] != null && inventory[i].Item != null)
+            {
+                // Instantiate an image for each item in the inventory slot
+                GameObject itemIcon = new GameObject("ItemIcon");
+                itemIcon.transform.SetParent(inventoryUI.transform.GetChild(i), false);
+
+                Image itemImage = itemIcon.AddComponent<Image>();
+                itemImage.sprite = inventory[i].Item.sprite;  // Use the item's sprite
+                itemImage.preserveAspect = true;
+            }
+        }
     }
 
     private void OnScroll(InputAction.CallbackContext context)
@@ -116,7 +167,11 @@ public class PlayerInventory : MonoBehaviour
                     slot.Quantity += 1;
                     indexStoredAt = index;
 
-                    if (index < maxHotbarItems) UpdateHotbar(i);
+                    if (index < maxHotbarItems)
+                    {
+                        UpdateHotbar(i);
+                        UpdateInventoryUI();
+                    }
                     item.gameObject.SetActive(false);
 
                     itemStored = true;
@@ -146,6 +201,7 @@ public class PlayerInventory : MonoBehaviour
                     if (i < maxHotbarItems)
                     {
                         UpdateHotbar(i);
+                        UpdateInventoryUI();
 
                         // Check if item is stored in player's current hotbar slot
                         if (i == hotbarIndex) AssignItemToPlayer();
@@ -231,6 +287,7 @@ public class PlayerInventory : MonoBehaviour
         UnassignHeldItem();
         Resource removedItem = RemoveOneItem(hotbarIndex);
         UpdateHotbar(hotbarIndex);
+        UpdateInventoryUI();
 
         return removedItem;
     }
