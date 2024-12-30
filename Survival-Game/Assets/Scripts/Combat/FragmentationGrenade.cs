@@ -2,86 +2,85 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FragmentationGrenade : MonoBehaviour, IUsable
+public class FragmentationGrenade : MonoBehaviour, IGrenade
 {
-    [SerializeField] private float damage = 50f;
-    [SerializeField] private float explosionRadius = 5f;
-    [SerializeField] private float cookTime = 3f;
+    private Throwable throwable;
+
+    private float explosionRadius;
+    private float damage;
+    private float timeToExplode;
 
     private bool isCooking = false;
-    private float explodeTime = 0f;
+    private bool isThrown = false;
 
-    private Camera playerCamera;
-    private Throwable throwable;
-    private PlayerInventory inventory;
-    private GameObject thrownItem;
-
-    private bool isInitialised = false;
-
-    void Start()
+    private void Awake()
     {
-        throwable = GetComponent<Throwable>();
-        inventory = PlayerInventory.Instance;
+        throwable = gameObject.GetComponent<Throwable>();
     }
 
-    public void Initialise()
+    private void Update()
     {
-        if (!isInitialised)
+        if (isCooking)
         {
-            if (transform.parent != null)
+            timeToExplode -= Time.deltaTime;
+
+            if (timeToExplode <= 0)
             {
-                playerCamera = transform.parent.parent.GetComponent<Camera>();
+                Explode();
             }
-
-            isInitialised = true;
         }
     }
 
-    public void LMB_Action(bool isPressed)
+    public void Throw(Vector3 throwDirection, float explosionRadius, float damage, float cookTime)
     {
-        if (!isPressed) Throw();
-    }
-
-    public void RMB_Action(bool isPressed)
-    {
-        if (!isPressed) Cook();
-    }
-
-    void Update()
-    {
-        if (isInitialised)
+        if (!isThrown)
         {
-            if (isCooking) CheckExplode();
+            this.explosionRadius = explosionRadius;
+            this.damage = damage;
+            this.timeToExplode = isCooking ? this.timeToExplode : cookTime;
+
+            Cook();
+
+            throwable.Throw(throwDirection);
+
+            isThrown = true;
         }
     }
 
-    private void Throw()
+    public void Cook(float explosionRadius, float damage, float cookTime)
     {
-        if (!isCooking) Cook();
-        thrownItem = throwable.Throw(playerCamera.transform.forward);
+        this.explosionRadius = explosionRadius;
+        this.damage = damage;
+        this.timeToExplode = cookTime;
+
+        Cook();
     }
 
     private void Cook()
     {
         isCooking = true;
-        explodeTime = Time.time + cookTime;
     }
 
-    private void CheckExplode()
+    public void Explode()
     {
-        if (Time.time > explodeTime) Explode();
-    }
+        Debug.Log("Exploded!");
 
-    private void Explode()
-    {
-        isCooking = false;
-        Debug.Log("Exploded at " + transform.position);
-        
-        if (thrownItem != null)
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+
+        bool playerTakenDamage = false;
+        foreach (Collider collider in colliders)
         {
-            Destroy(thrownItem);
-        }
-    }
+            Target enemy = collider.GetComponent<Target>();
+            PlayerHealth player = collider.GetComponent<PlayerHealth>();
 
-    public void ReloadAction(bool isPressed) { }
+            if (enemy != null) enemy.TakeDamage(damage);
+            if (player != null && !collider.isTrigger && !playerTakenDamage)
+            {
+                player.TakeDamage(damage);
+                playerTakenDamage = true;
+            }
+        }
+
+        Destroy(this.gameObject);
+    }
 }

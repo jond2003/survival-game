@@ -40,6 +40,12 @@ public class AutomaticGun : MonoBehaviour, IUsable
             isInitialised = true;
         }
 
+        if (isReloading)
+        {
+            isReloading = false;
+            nextTimeToFire = Time.time;
+        }
+
         UpdateAmmoText();
     }
 
