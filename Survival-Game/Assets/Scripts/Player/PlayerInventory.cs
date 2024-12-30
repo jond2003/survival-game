@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 record InventorySlot
@@ -17,6 +18,13 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject hotbar;
     [SerializeField] private GameObject playerHand;
+
+    [SerializeField] private PlayerLook playerLook;
+
+    public bool IsInventoryOpen = false;
+
+    [SerializeField] private GameObject inventoryUI;
+    [SerializeField] private InputAction InventoryInput;
 
     // Hotbar takes up first maxHotbarItems spaces in inventory array
     [SerializeField] private int maxHotbarItems = 5;
@@ -57,7 +65,36 @@ public class PlayerInventory : MonoBehaviour
             i++;
         }
 
+        InventoryInput = playerInput.actions.FindAction("Inventory");
+
         IncrementHotbarSlot(0);
+    }
+
+    void Update()
+    {
+        if (InventoryInput.WasPerformedThisFrame())
+        {
+            bool isInventoryActive = !inventoryUI.activeSelf;
+            inventoryUI.SetActive(isInventoryActive);
+
+            // Now use the assigned reference
+            if (playerLook != null)
+            {
+                playerLook.SetInventoryOpen(isInventoryActive);
+            }
+
+            if (inventoryUI.activeSelf)
+            {
+                UpdateInventoryUI();
+                IsInventoryOpen = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                IsInventoryOpen = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
     }
 
     private void OnEnable()
@@ -70,6 +107,33 @@ public class PlayerInventory : MonoBehaviour
     {
         scrollInput.Disable();
         scrollInput.performed -= OnScroll;
+    }
+
+    public void UpdateInventoryUI()
+    {
+        // Clear existing slots (prevents duplicate items)
+        foreach (Transform slot in inventoryUI.transform)
+        {
+            if (slot.childCount > 0)
+            {
+                Destroy(slot.GetChild(0).gameObject);
+            }
+        }
+
+        // Populate slots with items from inventory array
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            if (inventory[i] != null && inventory[i].Item != null)
+            {
+                // Instantiate an image for each item in the inventory slot
+                GameObject itemIcon = new GameObject("ItemIcon");
+                itemIcon.transform.SetParent(inventoryUI.transform.GetChild(i), false);
+
+                Image itemImage = itemIcon.AddComponent<Image>();
+                itemImage.sprite = inventory[i].Item.sprite;  // Use the item's sprite
+                itemImage.preserveAspect = true;
+            }
+        }
     }
 
     private void OnScroll(InputAction.CallbackContext context)
@@ -116,7 +180,11 @@ public class PlayerInventory : MonoBehaviour
                     slot.Quantity += 1;
                     indexStoredAt = index;
 
-                    if (index < maxHotbarItems) UpdateHotbar(i);
+                    if (index < maxHotbarItems)
+                    {
+                        UpdateHotbar(i);
+                        UpdateInventoryUI();
+                    }
                     item.gameObject.SetActive(false);
 
                     itemStored = true;
@@ -146,6 +214,7 @@ public class PlayerInventory : MonoBehaviour
                     if (i < maxHotbarItems)
                     {
                         UpdateHotbar(i);
+                        UpdateInventoryUI();
 
                         // Check if item is stored in player's current hotbar slot
                         if (i == hotbarIndex) AssignItemToPlayer();
@@ -175,16 +244,35 @@ public class PlayerInventory : MonoBehaviour
     }
 
     // Updates hotbar UI
-    private void UpdateHotbar(int index)
+    public void UpdateHotbar(int index)
     {
-        Resource item = inventory[index].Item;
-        if (item != null)
+        if (index < 0 || index >= hotbarSlots.Length)
         {
-            GameObject imageObj = new GameObject("UIImage");
-            imageObj.transform.SetParent(hotbarSlots[index].transform, false);
+            Debug.LogWarning($"Hotbar index {index} is out of bounds.");
+            return;
+        }
 
-            Image image = imageObj.AddComponent<Image>();
-            image.sprite = item.sprite;
+        if (inventory[index] != null && inventory[index].Item != null)
+        {
+            GameObject imageObj = hotbarSlots[index].transform.Find("UIImage")?.gameObject;
+            if (imageObj == null)
+            {
+                imageObj = new GameObject("UIImage");
+                imageObj.transform.SetParent(hotbarSlots[index].transform, false);
+            }
+
+            Image image = imageObj.GetComponent<Image>() ?? imageObj.AddComponent<Image>();
+            image.sprite = inventory[index].Item.sprite;
+            image.enabled = true;
+        }
+        else
+        {
+            // Clear slot if no item
+            Transform imageObj = hotbarSlots[index].transform.Find("UIImage");
+            if (imageObj != null)
+            {
+                Destroy(imageObj.gameObject);
+            }
         }
     }
 
@@ -231,6 +319,7 @@ public class PlayerInventory : MonoBehaviour
         UnassignHeldItem();
         Resource removedItem = RemoveOneItem(hotbarIndex);
         UpdateHotbar(hotbarIndex);
+        UpdateInventoryUI();
 
         return removedItem;
     }
@@ -293,5 +382,18 @@ public class PlayerInventory : MonoBehaviour
     public Resource GetHeldItem()
     {
         return inventory[hotbarIndex].Item;
+    }
+
+    public void SwapItems(int slotA, int slotB)
+    {
+        // Swap the items in the inventory array
+        InventorySlot temp = inventory[slotA];
+        inventory[slotA] = inventory[slotB];
+        inventory[slotB] = temp;
+
+        // Update the inventory UI to reflect the changes
+        UnassignHeldItem();
+        AssignItemToPlayer();
+        UpdateInventoryUI(); 
     }
 }
