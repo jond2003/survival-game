@@ -24,8 +24,6 @@ public class Interactor : MonoBehaviour
 {
     [SerializeField] private float interactRange;
 
-    [SerializeField] private PlayerInventory playerinventory;
-
     [SerializeField] private PlayerInput playerInput;
     private InputAction interactInput;
     private InputAction lmbInput;
@@ -57,7 +55,7 @@ public class Interactor : MonoBehaviour
     void Update()
     {
         // Skip interaction checks if the inventory is open
-        if (playerinventory.IsInventoryOpen)
+        if (PlayerInventory.Instance.IsInventoryOpen)
         {
             return;  
         }
