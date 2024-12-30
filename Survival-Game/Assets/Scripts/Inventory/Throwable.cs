@@ -5,7 +5,6 @@ using UnityEngine;
 public class Throwable : MonoBehaviour
 {
     [SerializeField] private float throwForce = 15f;
-    //[SerializeField] private float throwUpwardForce = 1f;
 
     public GameObject Throw(Vector3 direction)
     {

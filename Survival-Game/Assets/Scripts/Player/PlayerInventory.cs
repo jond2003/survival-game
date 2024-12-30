@@ -34,7 +34,7 @@ public class PlayerInventory : MonoBehaviour
     private Dictionary<string, List<int>> itemIndices = new Dictionary<string, List<int>>();
 
     private Resource heldItem;
-    private int hotbarIndex = 0;
+    public int hotbarIndex = 0;
     private Image[] hotbarSlots;
 
     public static PlayerInventory Instance { get; private set; }
