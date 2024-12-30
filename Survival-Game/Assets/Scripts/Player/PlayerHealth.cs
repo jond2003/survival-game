@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour
         if (healthAmount <= 0)
         {
             Cursor.lockState = CursorLockMode.None;
-            SceneManager.LoadSceneAsync(3); //Lose scene
+            SceneManager.LoadScene("LoseScene"); //Lose scene
         }
     }
 
@@ -42,5 +42,10 @@ public class PlayerHealth : MonoBehaviour
     {
         return healthAmount;
     }
- 
+
+    public void KillPlayer()
+    {
+        healthAmount = 0;
+    }
+
 }
