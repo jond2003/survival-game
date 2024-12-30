@@ -109,7 +109,7 @@ public class Interactor : MonoBehaviour
 
     void SetCurrentItem(Resource item)
     {
-        heldItem = item.gameObject.GetComponent<IUsable>();
+        heldItem = item != null ? item.gameObject.GetComponent<IUsable>() : null;
     }
 
     void CheckInputs()

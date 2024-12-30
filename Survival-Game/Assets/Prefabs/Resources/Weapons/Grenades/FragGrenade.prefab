@@ -134,8 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasPosition: {fileID: 2521584024360502374}
   highlightText: {fileID: 3494738309370299511, guid: 39a7a0c57d35bd94cad5166ab3167c11, type: 3}
-  maxStack: 1
-  itemName: 
+  maxStack: 10
+  itemName: Frag Grenade
   sprite: {fileID: 21300036, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
 --- !u!65 &7845943197948083134
 BoxCollider:
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e670a1f8abdaee6408f397ec4d68dd28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 50
+  damage: 40
   explosionRadius: 5
   cookTime: 3
   fragGrenade: {fileID: 1543755912402619151, guid: c32a2e4f1a28aec4ca9bab86a1287e51, type: 3}

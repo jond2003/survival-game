@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FragmentationGrenade : MonoBehaviour
+public class FragmentationGrenade : MonoBehaviour, IGrenade
 {
     private Throwable throwable;
 
@@ -61,10 +61,21 @@ public class FragmentationGrenade : MonoBehaviour
         isCooking = true;
     }
 
-    private void Explode()
+    public void Explode()
     {
-        // Explode
         Debug.Log("Exploded!");
-        Destroy(gameObject);
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+
+        foreach (Collider collider in colliders)
+        {
+            Target enemy = collider.GetComponent<Target>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
+        }
+
+        Destroy(this.gameObject);
     }
 }

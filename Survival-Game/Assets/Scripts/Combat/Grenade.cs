@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+interface IGrenade
+{
+    public void Throw(Vector3 throwDirection, float explosionRadius, float damage, float cookTime);
+    public void Cook(float explosionRadius, float damage, float cookTime);
+    public void Explode();
+}
+
 public class Grenade : MonoBehaviour, IUsable
 {
     [SerializeField] private float damage = 50f;
@@ -15,7 +22,7 @@ public class Grenade : MonoBehaviour, IUsable
     private Camera playerCamera;
     private PlayerInventory inventory;
     private GameObject grenade;
-    private FragmentationGrenade explosiveGrenade;
+    private IGrenade explosiveGrenade;
 
     private bool isInitialised = false;
 
@@ -51,12 +58,12 @@ public class Grenade : MonoBehaviour, IUsable
     {
         if (makeNewGrenade)
         {
-            grenade = Instantiate(fragGrenade, transform.parent);
-            explosiveGrenade = grenade.GetComponent<FragmentationGrenade>();
+            grenade = Instantiate(fragGrenade, transform.parent.position, Quaternion.identity);
+            explosiveGrenade = grenade.GetComponent<IGrenade>();
 
-            inventory.RemoveOneItem(inventory.hotbarIndex);
         }
         explosiveGrenade.Throw(playerCamera.transform.forward, explosionRadius, damage, cookTime);
+        inventory.ConsumeHeldItem();
 
         makeNewGrenade = true;
     }
@@ -65,13 +72,13 @@ public class Grenade : MonoBehaviour, IUsable
     {
         if (makeNewGrenade)
         {
-            grenade = Instantiate(fragGrenade, transform.parent);
-            explosiveGrenade = grenade.GetComponent<FragmentationGrenade>();
+            grenade = Instantiate(fragGrenade, transform.parent.position, Quaternion.identity);
+            explosiveGrenade = grenade.GetComponent<IGrenade>();
             explosiveGrenade.Cook(explosionRadius, damage, cookTime);
 
             makeNewGrenade = false;
 
-            inventory.RemoveOneItem(inventory.hotbarIndex);
+            inventory.ConsumeHeldItem();
         }
     }
 

@@ -295,11 +295,11 @@ public class PlayerInventory : MonoBehaviour
 
             IUsable usableItem = currentItem.gameObject.GetComponent<IUsable>();
             usableItem?.Initialise();
-
-            if (OnHeldItemChanged != null) OnHeldItemChanged(currentItem);
         }
 
         heldItem = currentItem;
+
+        if (OnHeldItemChanged != null) OnHeldItemChanged(heldItem);
     }
 
     // Remove previous assigned item from player hand
@@ -376,6 +376,23 @@ public class PlayerInventory : MonoBehaviour
         Resource item = inventory[index].Item;
         inventory[index] = null;
         return item;
+    }
+
+    public void ConsumeHeldItem()
+    {
+        InventorySlot slot = inventory[hotbarIndex];
+        Resource item = slot.Item;
+
+        if (slot.Quantity == 1)
+        {
+            UnassignHeldItem();
+            inventory[hotbarIndex] = null;
+            Destroy(item.gameObject);
+            AssignItemToPlayer();
+        }
+        else slot.Quantity -= 1;
+
+        UpdateHotbar(hotbarIndex);
     }
 
     // Gets current selected hotbar item
