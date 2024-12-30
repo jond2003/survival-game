@@ -17,7 +17,8 @@ public class Grenade : MonoBehaviour, IUsable
 
     [SerializeField] private GameObject fragGrenade;
 
-    private bool makeNewGrenade = true;
+    private bool isCooking = false;
+    private float explosionTime = 0f;
 
     private Camera playerCamera;
     private PlayerInventory inventory;
@@ -46,39 +47,55 @@ public class Grenade : MonoBehaviour, IUsable
 
     public void LMB_Action(bool isPressed)
     {
-        if (!isPressed) Throw();
+        if (!isPressed && !isCooking) Throw();
     }
 
     public void RMB_Action(bool isPressed)
     {
-        if (!isPressed) Cook();
+        if (isPressed) Cook();  // Press and hold
+        if (!isPressed && isCooking) Throw();  // Release
+    }
+
+    void Update()
+    {
+        if (isInitialised)
+        {
+            if (isCooking)
+            {
+                grenade.transform.localScale = Vector3.zero;  // Make unthrown cooking grenade invisible
+                if (Time.time >= explosionTime)
+                {
+                    grenade.transform.localScale = Vector3.one;  // Make cooking grenade visible
+                    inventory.ConsumeHeldItem();
+                }
+            }
+        }
     }
 
     private void Throw()
     {
-        if (makeNewGrenade)
+        if (!isCooking)
         {
             grenade = Instantiate(fragGrenade, transform.parent.position, Quaternion.identity);
             explosiveGrenade = grenade.GetComponent<IGrenade>();
-
         }
+        grenade.transform.localScale = Vector3.one;  // Make cooking grenade visible
         explosiveGrenade.Throw(playerCamera.transform.forward, explosionRadius, damage, cookTime);
         inventory.ConsumeHeldItem();
 
-        makeNewGrenade = true;
+        isCooking = false;
     }
 
     private void Cook()
     {
-        if (makeNewGrenade)
+        if (!isCooking)
         {
             grenade = Instantiate(fragGrenade, transform.parent.position, Quaternion.identity);
             explosiveGrenade = grenade.GetComponent<IGrenade>();
             explosiveGrenade.Cook(explosionRadius, damage, cookTime);
 
-            makeNewGrenade = false;
-
-            inventory.ConsumeHeldItem();
+            explosionTime = Time.time + cookTime;
+            isCooking = true;
         }
     }
 

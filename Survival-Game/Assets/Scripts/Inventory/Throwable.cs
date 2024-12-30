@@ -12,6 +12,7 @@ public class Throwable : MonoBehaviour
 
         Rigidbody rb = GetComponent<Rigidbody>();
 
+        rb.useGravity = true;
         rb.AddForce(finalThrowForce, ForceMode.Impulse);
     }
 }

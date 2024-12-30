@@ -67,12 +67,17 @@ public class FragmentationGrenade : MonoBehaviour, IGrenade
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
+        bool playerTakenDamage = false;
         foreach (Collider collider in colliders)
         {
             Target enemy = collider.GetComponent<Target>();
-            if (enemy != null)
+            PlayerHealth player = collider.GetComponent<PlayerHealth>();
+
+            if (enemy != null) enemy.TakeDamage(damage);
+            if (player != null && !collider.isTrigger && !playerTakenDamage)
             {
-                enemy.TakeDamage(damage);
+                player.TakeDamage(damage);
+                playerTakenDamage = true;
             }
         }
 
