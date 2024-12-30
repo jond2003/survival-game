@@ -19,6 +19,10 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private GameObject hotbar;
     [SerializeField] private GameObject playerHand;
 
+    [SerializeField] private PlayerLook playerLook;
+
+    public bool IsInventoryOpen = false;
+
     [SerializeField] private GameObject inventoryUI;
     [SerializeField] private InputAction InventoryInput;
 
@@ -70,17 +74,26 @@ public class PlayerInventory : MonoBehaviour
     {
         if (InventoryInput.WasPerformedThisFrame())
         {
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
+            bool isInventoryActive = !inventoryUI.activeSelf;
+            inventoryUI.SetActive(isInventoryActive);
+
+            // Now use the assigned reference
+            if (playerLook != null)
+            {
+                playerLook.SetInventoryOpen(isInventoryActive);
+            }
+
             if (inventoryUI.activeSelf)
             {
                 UpdateInventoryUI();
+                IsInventoryOpen = true;
                 Cursor.lockState = CursorLockMode.None;
             }
             else
             {
+                IsInventoryOpen = false;
                 Cursor.lockState = CursorLockMode.Locked;
             }
-            
         }
     }
 
@@ -96,7 +109,7 @@ public class PlayerInventory : MonoBehaviour
         scrollInput.performed -= OnScroll;
     }
 
-    private void UpdateInventoryUI()
+    public void UpdateInventoryUI()
     {
         // Clear existing slots (prevents duplicate items)
         foreach (Transform slot in inventoryUI.transform)
@@ -231,16 +244,35 @@ public class PlayerInventory : MonoBehaviour
     }
 
     // Updates hotbar UI
-    private void UpdateHotbar(int index)
+    public void UpdateHotbar(int index)
     {
-        Resource item = inventory[index].Item;
-        if (item != null)
+        if (index < 0 || index >= hotbarSlots.Length)
         {
-            GameObject imageObj = new GameObject("UIImage");
-            imageObj.transform.SetParent(hotbarSlots[index].transform, false);
+            Debug.LogWarning($"Hotbar index {index} is out of bounds.");
+            return;
+        }
 
-            Image image = imageObj.AddComponent<Image>();
-            image.sprite = item.sprite;
+        if (inventory[index] != null && inventory[index].Item != null)
+        {
+            GameObject imageObj = hotbarSlots[index].transform.Find("UIImage")?.gameObject;
+            if (imageObj == null)
+            {
+                imageObj = new GameObject("UIImage");
+                imageObj.transform.SetParent(hotbarSlots[index].transform, false);
+            }
+
+            Image image = imageObj.GetComponent<Image>() ?? imageObj.AddComponent<Image>();
+            image.sprite = inventory[index].Item.sprite;
+            image.enabled = true;
+        }
+        else
+        {
+            // Clear slot if no item
+            Transform imageObj = hotbarSlots[index].transform.Find("UIImage");
+            if (imageObj != null)
+            {
+                Destroy(imageObj.gameObject);
+            }
         }
     }
 
@@ -350,5 +382,18 @@ public class PlayerInventory : MonoBehaviour
     public Resource GetHeldItem()
     {
         return inventory[hotbarIndex].Item;
+    }
+
+    public void SwapItems(int slotA, int slotB)
+    {
+        // Swap the items in the inventory array
+        InventorySlot temp = inventory[slotA];
+        inventory[slotA] = inventory[slotB];
+        inventory[slotB] = temp;
+
+        // Update the inventory UI to reflect the changes
+        UnassignHeldItem();
+        AssignItemToPlayer();
+        UpdateInventoryUI(); 
     }
 }
