@@ -51,13 +51,13 @@ public class PlayerHunger : MonoBehaviour
 
             hungerAmount -= hungerLossPerDecrement;
 
-            if (hungerAmount <= 0 && healthDecreaseCoroutine == null) //minimum hunger is 0
+            if (hungerAmount < 30  && hungerAmount > 0 && healthDecreaseCoroutine == null) //minimum hunger is 0
             {
                 healthDecreaseCoroutine = StartCoroutine(DecrementHealthDueToHunger());
-                hungerAmount = 0;
-            } else if (hungerAmount <= 0)
+
+            } else if (hungerAmount <= 0) //Player dies when hunger is 0
             {
-                hungerAmount = 0;
+                playerHealth.KillPlayer();
             } else if (hungerAmount >= 70 && healthIncreaseCoroutine == null) // heal player incremently
             {
                 healthIncreaseCoroutine = StartCoroutine(IncreaseHealthDueToHunger());

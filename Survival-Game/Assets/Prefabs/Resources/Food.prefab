@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4755367334078855348}
   - component: {fileID: 4229658809452430688}
   - component: {fileID: 4773114698015955227}
+  - component: {fileID: -3356573751672630623}
   m_Layer: 6
   m_Name: Food
   m_TagString: Untagged
@@ -124,6 +125,18 @@ MonoBehaviour:
   maxStack: 1
   itemName: Food
   sprite: {fileID: 0}
+--- !u!114 &-3356573751672630623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2169571238704991193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6c56a888316f94cbe1fbe0b3e4e015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4798514540896858107
 GameObject:
   m_ObjectHideFlags: 0

@@ -42,5 +42,10 @@ public class PlayerHealth : MonoBehaviour
     {
         return healthAmount;
     }
- 
+
+    public void KillPlayer()
+    {
+        healthAmount = 0;
+    }
+
 }
