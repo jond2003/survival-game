@@ -95,7 +95,7 @@ public class PlayerHunger : MonoBehaviour
         hungerAmount += hungerAmountIncrease;
         hungerAmount = Mathf.Clamp(hungerAmount, 0, 100);
 
-        if (hungerAmount > 0 && healthDecreaseCoroutine != null)
+        if (hungerAmount > 30 && healthDecreaseCoroutine != null)
         {
             StopCoroutine(healthDecreaseCoroutine);
             healthDecreaseCoroutine = null;

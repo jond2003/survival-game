@@ -10,12 +10,18 @@ public class Food : MonoBehaviour, IUsable
 
     private PlayerInventory inventory;
 
+    [SerializeField] private PlayerHunger playerHunger;
 
     void Start()
     {
         inventory = PlayerInventory.Instance;
-    }
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            playerHunger = player.GetComponent<PlayerHunger>();
+        }
 
+    }
 
 
     public void LMB_Action(bool isPressed)
@@ -39,6 +45,7 @@ public class Food : MonoBehaviour, IUsable
 
     void Eat()
     {
-
+        playerHunger.IncreaseHunger(50);
+        PlayerInventory.Instance.ConsumeHeldItem();
     }
 }
