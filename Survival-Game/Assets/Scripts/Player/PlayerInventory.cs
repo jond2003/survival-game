@@ -205,6 +205,9 @@ public class PlayerInventory : MonoBehaviour
                     inventory[i].Item = item;
                     inventory[i].Quantity = 1;
 
+                    if (itemIndices.TryGetValue(item.itemName, out List<int> inventoryItemPositions)) inventoryItemPositions.Add(i);
+                    else itemIndices.Add(item.itemName, new List<int>(new int[] { i }));
+
                     indexStoredAt = i;
                     itemStored = true;
 
