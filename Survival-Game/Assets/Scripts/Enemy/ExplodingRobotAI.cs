@@ -10,9 +10,12 @@ public class ExplodingEnemyAI : MonoBehaviour
     [SerializeField] private PlayerHealth playerHealth;
     private NavMeshAgent meshAgent;
 
-    [SerializeField] private float timeSinceAttackedLimit = 0.5f;
+    [SerializeField] private GameObject explosion;
+
 
     private float timeSinceAttacked = 0f;
+
+    [SerializeField] private float timeSinceAttackedLimit = 4f;
 
 
     void Awake()
@@ -20,7 +23,7 @@ public class ExplodingEnemyAI : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
         meshAgent = GetComponent<NavMeshAgent>();
-        meshAgent.stoppingDistance = 1.1f; //Stop enemy pushing player
+        meshAgent.stoppingDistance = 1.6f; //Stop enemy pushing player
     }
 
     void Update()
@@ -40,13 +43,34 @@ public class ExplodingEnemyAI : MonoBehaviour
                 AttackPlayer();
             }
 
+            
+
         }
     }
 
     private void AttackPlayer()
     {
         playerHealth.TakeDamage(50);
+        StartCoroutine(TriggerExplosion());
+
+ 
+    }
+
+    private IEnumerator TriggerExplosion()
+    {
+        GameObject generatedExplosion = Instantiate(explosion, transform.position, transform.rotation);
+
+        Renderer[] renderersInRobot = GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderersInRobot)
+        {
+            renderer.enabled = false; 
+        }
+
+        yield return new WaitForSeconds(1f);
+        Destroy(generatedExplosion);
         Destroy(this.gameObject);
+
+
     }
 
 }
