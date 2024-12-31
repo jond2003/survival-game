@@ -189,7 +189,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f372bb35c6340648b0f6fd564960504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drop: {fileID: 2737755742862602445, guid: b93d49c45323da745ac19c37ce2a33a7, type: 3}
+  drops:
+  - drop: {fileID: 3505231996041249065, guid: b93d49c45323da745ac19c37ce2a33a7, type: 3}
+    maxDrops: 3
+    initialDropChance: 1
+    chanceDivisor: 1.5
 --- !u!1 &8772977530994776272
 GameObject:
   m_ObjectHideFlags: 0
