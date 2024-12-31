@@ -341,3 +341,13 @@ MonoBehaviour:
     initialDropChance: 1
     chanceDivisor: 1.2
     exponentStep: 0.2
+  - drop: {fileID: 8979712513836856141, guid: 25be791f54a62504cad7abc0e523c4cf, type: 3}
+    maxDrops: 2
+    initialDropChance: 0.5
+    chanceDivisor: 1.1
+    exponentStep: 0.5
+  - drop: {fileID: 8979712513836856141, guid: c562a15c956c2ba4a86f5f633a9c447b, type: 3}
+    maxDrops: 1
+    initialDropChance: 0.25
+    chanceDivisor: 1
+    exponentStep: 0.47

@@ -34,7 +34,7 @@ public class ItemDropper : MonoBehaviour
                 // Instantiate all won items
                 for (int i = 0; i < numDrops; i++)
                 {
-                    Instantiate(drop.drop.gameObject, newPosition + new Vector3(Random.Range(-1, 1), 0f, Random.Range(-1, 1)), Quaternion.identity);
+                    Instantiate(drop.drop.gameObject, newPosition + new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)), Quaternion.identity);
                 }
             }
         }
