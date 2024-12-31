@@ -13,7 +13,7 @@ public class SensitivityManager : MonoBehaviour
         // Check if a sensitivity value exists in PlayerPrefs, if not, set a default value of 1.
         if (!PlayerPrefs.HasKey("Sensitivity"))
         {
-            PlayerPrefs.SetFloat("Sensitivity", 1f);
+            PlayerPrefs.SetFloat("Sensitivity", 2f);
         }
 
         // Load the saved sensitivity value and apply it to the slider.

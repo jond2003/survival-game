@@ -25,10 +25,12 @@ public class PauseMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pauseInput.WasPerformedThisFrame() && !isPaused)
+        if (pauseInput.WasPerformedThisFrame())
         {
-            PauseGame();
+            if (!isPaused) PauseGame();
+            else ResumeGame();
         }
+
     }
 
     public void PauseGame()
