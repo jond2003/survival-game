@@ -295,6 +295,7 @@ MonoBehaviour:
   damageText: {fileID: 124471008924464442, guid: 129c4f127b749fe40b935cf2d42f099f, type: 3}
   damageTextSpawnPosition: {fileID: 7663509008106436739}
   enemyHealth: {fileID: 719622890934491647}
+  animalHealth: {fileID: 0}
 --- !u!54 &7728441556295924859
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -334,4 +335,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f372bb35c6340648b0f6fd564960504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drop: {fileID: 6631490095044359674, guid: ce28f7e31204c594287ae5e333a4e18f, type: 3}
+  drops:
+  - drop: {fileID: 8979712513836856141, guid: ce28f7e31204c594287ae5e333a4e18f, type: 3}
+    maxDrops: 5
+    initialDropChance: 1
+    chanceDivisor: 1.2
+    exponentStep: 0.2

@@ -1,15 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+record ItemDrop
+{
+    public Resource drop;
+    [Range(1, 10)] public int maxDrops = 1;
+    [Range(0, 1)] public float initialDropChance = 1f;  // Probability of 1 item being dropped
+    [Range(1, 10)] public float chanceDivisor = 2f;  // Amount that the chance is divided by after each drop
+    [Range(0, 1)] public float exponentStep = 0f;  // Increase in the amount that the divisor is raised to after each drop
+}
 
 public class ItemDropper : MonoBehaviour
 {
-    [SerializeField] private GameObject drop;
+    [SerializeField] private List<ItemDrop> drops = new List<ItemDrop>();
     private float dropYaxis = 1.5f;
 
     public void DropItem()
     {
-
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit))
         {
             Vector3 ground = hit.point;
@@ -17,7 +27,45 @@ public class ItemDropper : MonoBehaviour
 
             newPosition.y = ground.y + dropYaxis; //fixed axis on y
 
-            Instantiate(drop, newPosition, Quaternion.identity);
+            foreach (ItemDrop drop in drops)
+            {
+                int numDrops = Gamble(drop);
+
+                // Instantiate all won items
+                for (int i = 0; i < numDrops; i++)
+                {
+                    Instantiate(drop.drop.gameObject, newPosition + new Vector3(Random.Range(-1, 1), 0f, Random.Range(-1, 1)), Quaternion.identity);
+                }
+            }
         }
+    }
+
+    // Determines the number of items to drop
+    // Generates a random number between 0 and 1, checks if this number is within the dropChance, grants the player a drop if it is
+    // Responsible gambling since it stops playing at the first loss
+    private int Gamble(ItemDrop drop)
+    {
+        int numDrops = 0;
+
+        float currentDropChance = drop.initialDropChance;
+        float exponent = 1f;
+
+        bool winning = true;
+        while (winning && numDrops < drop.maxDrops)
+        {
+            float randomNum = Random.Range(0, 1);
+            if (randomNum < currentDropChance)
+            {
+                numDrops++;
+            }
+            else
+            {
+                 winning = false;
+            }
+            currentDropChance /= Mathf.Pow(drop.chanceDivisor, exponent);
+            exponent += drop.exponentStep;
+        }
+
+        return numDrops;
     }
 }
