@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class RebindMenuManager : MonoBehaviour
 {
-    public InputActionReference FireRef, InteractRef, CrouchRef, SprintRef, JumpRef, MoveRef;
+    public InputActionReference FireRef, InteractRef, CrouchRef, SprintRef, JumpRef, MoveRef, ReloadRef, InventoryRef;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +21,8 @@ public class RebindMenuManager : MonoBehaviour
         SprintRef.action.Disable();
         JumpRef.action.Disable();
         MoveRef.action.Disable();
+        ReloadRef.action.Disable();
+        InventoryRef.action.Disable();
     }
 
     // Re-enable all action references to restore player control.
@@ -32,6 +34,8 @@ public class RebindMenuManager : MonoBehaviour
         SprintRef.action.Enable();
         JumpRef.action.Enable();
         MoveRef.action.Enable();
+        ReloadRef.action.Enable();
+        InventoryRef.action.Enable();
     }
 
 
