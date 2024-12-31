@@ -44,7 +44,7 @@ public class Resource : MonoBehaviour, IInteractable
             highlightTextObject.transform.position = canvasPosition.position + new Vector3(0.0f, gameObject.transform.localScale.y / 2, 0.0f);
 
             //To make sure text isnt stretched based on the parent object scale
-            highlightTextComponent.text = "Pick Up (E)";
+            highlightTextComponent.text = itemName;
             highlightTextObject.transform.localScale = Vector3.one;
             highlightTextComponent.fontSize = 0.4f;
 
@@ -59,8 +59,10 @@ public class Resource : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact()
+    public void Collect()
     {
         inventory.StoreItem(this);
     }
+
+    public void Interact() { }
 }
