@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7069141820422665830}
   - component: {fileID: 7845943197948083134}
   - component: {fileID: 2703252720406634976}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FragGrenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
