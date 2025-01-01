@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SettingsScene.unity
     guid: 6b5361fb2f1daa14aa02ccbe2860aeaf
+  - enabled: 1
+    path: Assets/Scenes/PregameMenuScene.unity
+    guid: 772819f45506aeb489945d06d2258925
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

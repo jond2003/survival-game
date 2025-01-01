@@ -4,19 +4,32 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-record ItemDrop
+public record ItemDrop
 {
     public Resource drop;
     [Range(1, 10)] public int maxDrops = 1;
     [Range(0, 1)] public float initialDropChance = 1f;  // Probability of 1 item being dropped
     [Range(1, 10)] public float chanceDivisor = 2f;  // Amount that the chance is divided by after each drop
-    [Range(0, 1)] public float exponentStep = 0f;  // Increase in the amount that the divisor is raised to after each drop
+    [Range(1, 8)] public float exponentStep = 0f;  // Increase in the amount that the divisor is raised to after each drop
 }
 
 public class ItemDropper : MonoBehaviour
 {
-    [SerializeField] private List<ItemDrop> drops = new List<ItemDrop>();
+    private List<ItemDrop> drops = new List<ItemDrop>();
     private float dropYaxis = 1.5f;
+
+    [SerializeField] private ItemDropperData easyItemDropperData;
+    [SerializeField] private ItemDropperData hardItemDropperData;
+    [SerializeField] private ItemDropperData impossibleItemDropperData;
+    private ItemDropperData itemDropperData;
+
+    public void Start()
+    {
+        itemDropperData = (ItemDropperData)GameSettingsManager.GetDifficultyData(easyItemDropperData, hardItemDropperData, impossibleItemDropperData);
+
+        Debug.Log(itemDropperData);
+        drops = itemDropperData.drops;
+    }
 
     public void DropItem()
     {
@@ -54,7 +67,7 @@ public class ItemDropper : MonoBehaviour
         while (winning && numDrops < drop.maxDrops)
         {
             float randomNum = Random.Range(0, 1);
-            if (randomNum < currentDropChance)
+            if (randomNum <= currentDropChance)
             {
                 numDrops++;
             }
