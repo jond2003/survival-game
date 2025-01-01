@@ -14,7 +14,8 @@ public class AutomaticGun : MonoBehaviour, IUsable
     [SerializeField] private int clipSize = 30;
     [SerializeField] private float reloadTime = 1f;
 
-    [SerializeField] private GameObject gunInfoPanel;
+    private HUDManager hudManager;
+    private GameObject gunInfoPanel;
 
     private TMP_Text ammoText;
     private TMP_Text totalAmmoText;
@@ -31,6 +32,9 @@ public class AutomaticGun : MonoBehaviour, IUsable
 
     void Awake()
     {
+        hudManager = HUDManager.Instance;
+        gunInfoPanel = hudManager.gunInfoPanel;
+
         foreach (Transform child in gunInfoPanel.transform)
         {
             switch (child.name)
