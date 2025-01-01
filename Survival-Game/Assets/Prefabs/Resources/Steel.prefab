@@ -123,7 +123,7 @@ MonoBehaviour:
   highlightText: {fileID: 3494738309370299511, guid: 39a7a0c57d35bd94cad5166ab3167c11, type: 3}
   maxStack: 5
   itemName: Steel
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: c17928f5ba732f84781cfb4de932a8a3, type: 3}
 --- !u!1001 &4102331313656752178
 PrefabInstance:
   m_ObjectHideFlags: 0
