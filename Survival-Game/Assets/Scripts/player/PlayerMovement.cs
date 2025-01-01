@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool isSprinting = false;
     [SerializeField] private bool isCrouching = false;
+
+    [SerializeField] private AudioSource steppingAudioSource;
  
 
     void Awake()
@@ -41,6 +43,9 @@ public class PlayerMovement : MonoBehaviour
         jumpInput = playerInput.actions.FindAction("Jump");
 
 
+        steppingAudioSource = GetComponent<AudioSource>();
+
+ 
     }
 
     void FixedUpdate()
@@ -66,11 +71,22 @@ public class PlayerMovement : MonoBehaviour
             velocity.y += gravityForce * Time.deltaTime;
 
         }
-    
+
+        if (movementInput.magnitude > 0.1f && PauseMenuManager.isPaused == false)
+        {
+            steppingAudioSource.enabled = true;
+        }
+        else
+        {
+            steppingAudioSource.enabled = false;
+        }
+
+
         movement.y = velocity.y;
 
 
         characterController.Move(movement * Time.deltaTime);
+        //steppingAudioSource.Play();
     }
 
     private void checkSprint()
@@ -79,11 +95,13 @@ public class PlayerMovement : MonoBehaviour
         {
             isSprinting = true;
             playerSpeed = playerSprintSpeed;
+            steppingAudioSource.pitch = 1.5f;
         }
         else if ((sprintInput.phase == InputActionPhase.Canceled || sprintInput.phase == InputActionPhase.Waiting) && isCrouching == false && isSprinting == true)
         {
             isSprinting = false;
             playerSpeed = playerWalkingSpeed;
+            steppingAudioSource.pitch = 1f;
         }
     }
 
