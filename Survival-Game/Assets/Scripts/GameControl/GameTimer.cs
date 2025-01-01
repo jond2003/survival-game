@@ -1,20 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameTimer : MonoBehaviour
 {
 
     [SerializeField] private TextMeshProUGUI countDownText;
-    [SerializeField] private float startTime = 60.00f;
     private float currentTime;
 
 
     void Awake()
     {
-        currentTime = startTime;
+        currentTime = GameSettingsManager.gameTimeMinutes * 60;
     }
 
     void Update()

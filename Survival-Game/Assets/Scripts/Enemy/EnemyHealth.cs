@@ -5,18 +5,27 @@ using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private float healthAmount = 50f;
+    private float healthAmount = 50f;
 
     [SerializeField] private ItemDropper itemDropper;
 
     [SerializeField] Animator animator;
 
+    [SerializeField] private EnemyData easyEnemyData;
+    [SerializeField] private EnemyData hardEnemyData;
+    [SerializeField] private EnemyData impossibleEnemyData;
+    private EnemyData enemyData;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
+
+        enemyData = (EnemyData)GameSettingsManager.GetDifficultyData(easyEnemyData, hardEnemyData, impossibleEnemyData);
+
+        healthAmount = enemyData.health;
     }
 
-    public void DamageEnemy(float damage)
+    public bool DamageEnemy(float damage)
     {
         healthAmount -= damage;
         //Debug.Log(healthAmount + " health rn");
@@ -25,6 +34,7 @@ public class EnemyHealth : MonoBehaviour
             StartCoroutine(DyingAnimation());
 
         }
+        return healthAmount <= 0;
     }
 
 

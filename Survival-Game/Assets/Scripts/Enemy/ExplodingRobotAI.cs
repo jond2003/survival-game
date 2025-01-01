@@ -12,11 +12,16 @@ public class ExplodingEnemyAI : MonoBehaviour
 
     [SerializeField] private GameObject explosion;
 
+    private EnemyHealth enemyHealth;
 
     private float timeSinceAttacked = 0f;
 
-    [SerializeField] private float timeSinceAttackedLimit = 4f;
+    private float timeSinceAttackedLimit = 4f;
 
+    [SerializeField] private EnemyData easyEnemyData;
+    [SerializeField] private EnemyData hardEnemyData;
+    [SerializeField] private EnemyData impossibleEnemyData;
+    private EnemyData enemyData;
 
     void Awake()
     {
@@ -24,6 +29,12 @@ public class ExplodingEnemyAI : MonoBehaviour
         playerHealth = player.GetComponent<PlayerHealth>();
         meshAgent = GetComponent<NavMeshAgent>();
         meshAgent.stoppingDistance = 1.6f; //Stop enemy pushing player
+
+        enemyData = (EnemyData)GameSettingsManager.GetDifficultyData(easyEnemyData, hardEnemyData, impossibleEnemyData);
+
+        timeSinceAttackedLimit = enemyData.attackSpeed;
+
+        enemyHealth = GetComponent<EnemyHealth>();
     }
 
     void Update()
@@ -34,7 +45,7 @@ public class ExplodingEnemyAI : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && !enemyHealth.DamageEnemy(0))
         {
             if (Time.time > timeSinceAttacked)
             {
@@ -42,15 +53,12 @@ public class ExplodingEnemyAI : MonoBehaviour
                 Debug.Log("Exploding at player");
                 AttackPlayer();
             }
-
-            
-
         }
     }
 
     private void AttackPlayer()
     {
-        playerHealth.TakeDamage(50);
+        playerHealth.TakeDamage(enemyData.attackDamage);
         StartCoroutine(TriggerExplosion());
 
  

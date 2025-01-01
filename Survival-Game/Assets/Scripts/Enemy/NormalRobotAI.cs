@@ -10,12 +10,16 @@ public class NormalRobotAI : MonoBehaviour
     [SerializeField] private PlayerHealth playerHealth;
     private NavMeshAgent meshAgent;
 
-    [SerializeField] private float timeSinceAttackedLimit = 2f;
+    private float timeSinceAttackedLimit = 2f;
 
     private float timeSinceAttacked = 0f;
 
     [SerializeField] Animator animator;
 
+    [SerializeField] private EnemyData easyEnemyData;
+    [SerializeField] private EnemyData hardEnemyData;
+    [SerializeField] private EnemyData impossibleEnemyData;
+    private EnemyData enemyData;
 
     void Awake()
     {
@@ -24,6 +28,10 @@ public class NormalRobotAI : MonoBehaviour
         meshAgent = GetComponent<NavMeshAgent>();
         meshAgent.stoppingDistance = 2f; //Stop enemy pushing player
         animator = GetComponent<Animator>();
+
+        enemyData = (EnemyData)GameSettingsManager.GetDifficultyData(easyEnemyData, hardEnemyData, impossibleEnemyData);
+
+        timeSinceAttackedLimit = enemyData.attackSpeed;
     }
 
     void Update()
@@ -55,7 +63,7 @@ public class NormalRobotAI : MonoBehaviour
     {
         animator.SetBool("isAttacking", true);
         yield return new WaitForSeconds(1f);
-        playerHealth.TakeDamage(20);
+        playerHealth.TakeDamage(enemyData.attackDamage);
         animator.SetBool("isAttacking", false);
     }
 
