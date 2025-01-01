@@ -26,6 +26,7 @@ public class PlayerInventory : MonoBehaviour
     public bool IsInventoryOpen = false;
 
     [SerializeField] private GameObject inventoryUI;
+    [SerializeField] private GameObject craftingMenuUI;
     [SerializeField] private InputAction InventoryInput;
 
     // Hotbar takes up first maxHotbarItems spaces in inventory array
@@ -78,6 +79,7 @@ public class PlayerInventory : MonoBehaviour
         {
             bool isInventoryActive = !inventoryUI.activeSelf;
             inventoryUI.SetActive(isInventoryActive);
+            craftingMenuUI.SetActive(isInventoryActive);
 
             // Now use the assigned reference
             if (playerLook != null)
@@ -358,12 +360,26 @@ public class PlayerInventory : MonoBehaviour
         return inventory[hotbarIndex].Item;
     }
 
-    public void SwapItems(int slotA, int slotB)
+    public void SwapItems(int slotAIndex, int slotBIndex)
     {
+        // Swap indices
+        InventorySlot slotA = inventory[slotAIndex];
+        InventorySlot slotB = inventory[slotBIndex];
+        if (itemIndices.TryGetValue(slotA.Item.itemName, out List<int> slotAIndices))
+        {
+            int oldSlotIndex = slotAIndices.FindIndex(i => i == slotAIndex);
+            slotAIndices[oldSlotIndex] = slotBIndex;
+        }
+        if (itemIndices.TryGetValue(slotB.Item.itemName, out List<int> slotBIndices))
+        {
+            int oldSlotIndex = slotBIndices.FindIndex(i => i == slotBIndex);
+            slotBIndices[oldSlotIndex] = slotAIndex;
+        }
+
         // Swap the items in the inventory array
-        InventorySlot temp = inventory[slotA];
-        inventory[slotA] = inventory[slotB];
-        inventory[slotB] = temp;
+        InventorySlot temp = inventory[slotAIndex];
+        inventory[slotAIndex] = inventory[slotBIndex];
+        inventory[slotBIndex] = temp;
 
         // Update the inventory UI to reflect the changes
         UnassignHeldItem();

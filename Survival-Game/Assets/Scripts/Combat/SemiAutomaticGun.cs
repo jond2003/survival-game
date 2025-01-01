@@ -29,28 +29,6 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     private LayerMask layersToHit;
     private bool isInitialised = false;
 
-    void Awake()
-    {
-        hudManager = HUDManager.Instance;
-        gunInfoPanel = hudManager.gunInfoPanel;
-
-        foreach (Transform child in gunInfoPanel.transform)
-        {
-            switch (child.name)
-            {
-                case "Reload Slider":
-                    reloadSlider = child.GetComponent<Slider>();
-                    break;
-                case "TotalAmmoText":
-                    totalAmmoText = child.GetComponent<TMP_Text>();
-                    break;
-                case "AmmoText":
-                    ammoText = child.GetComponent<TMP_Text>();
-                    break;
-            }
-        }
-    }
-
     public void Initialise()
     {
         if (!isInitialised)
@@ -58,6 +36,25 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
             if (transform.parent != null)
             {
                 playerCamera = transform.parent.parent.GetComponent<Camera>();
+            }
+
+            hudManager = HUDManager.Instance;
+            gunInfoPanel = hudManager.gunInfoPanel;
+
+            foreach (Transform child in gunInfoPanel.transform)
+            {
+                switch (child.name)
+                {
+                    case "Reload Slider":
+                        reloadSlider = child.GetComponent<Slider>();
+                        break;
+                    case "TotalAmmoText":
+                        totalAmmoText = child.GetComponent<TMP_Text>();
+                        break;
+                    case "AmmoText":
+                        ammoText = child.GetComponent<TMP_Text>();
+                        break;
+                }
             }
 
             layersToHit = LayerMask.GetMask("Default");
