@@ -10,17 +10,20 @@ public class PlayerHunger : MonoBehaviour
     [SerializeField] private Image hungerBar;
     [SerializeField] private float hungerAmount = 100f;
 
-    [SerializeField] private float damageToPlayerForHungerRate = 4f;
-    [SerializeField] private float damageToPlayerForHunger = 5f; //deal damage to player when under hunger threshhold
+    private float damageToPlayerForHungerRate = 4f;
+    private float damageToPlayerForHunger = 5f; //deal damage to player when under hunger threshhold
     
 
-    [SerializeField] float hungerLossRate = 5.0f; //time between each decrement of hunger
-    [SerializeField] float hungerLossPerDecrement = 2.0f; //How much hunger loss per decrement
+    private float hungerLossRate = 5.0f; //time between each decrement of hunger
+    private float hungerLossPerDecrement = 2.0f; //How much hunger loss per decrement
 
+    private float healthIncreaseRate = 5.0f; 
+    private float healthIncreasePerIncrement = -4.0f;  //minus because uses takedamage function
 
-
-    [SerializeField] float healthIncreaseRate = 5.0f; 
-    [SerializeField] float healthIncreasePerIncrement = -4.0f;  //minus because uses takedamage function
+    [SerializeField] private PlayerData easyPlayerData;
+    [SerializeField] private PlayerData hardPlayerData;
+    [SerializeField] private PlayerData impossiblePlayerData;
+    private PlayerData playerData;
 
     [SerializeField] PlayerHealth playerHealth;
 
@@ -31,6 +34,15 @@ public class PlayerHunger : MonoBehaviour
 
     void Start()
     {
+        playerData = (PlayerData)GameSettingsManager.GetDifficultyData(easyPlayerData, hardPlayerData, impossiblePlayerData);
+
+        damageToPlayerForHunger = playerData.hungerDamageRate;
+        damageToPlayerForHunger = playerData.hungerDamage;
+        hungerLossRate = playerData.hungerLossRate;
+        hungerLossPerDecrement = playerData.hungerLossAmount;
+        healthIncreaseRate = playerData.hungerHealRate;
+        healthIncreasePerIncrement = playerData.hungerHealAmount;
+
         StartCoroutine(DecrementHunger());
     }
 
@@ -58,10 +70,10 @@ public class PlayerHunger : MonoBehaviour
             } else if (hungerAmount <= 0) //Player dies when hunger is 0
             {
                 playerHealth.KillPlayer();
-            } else if (hungerAmount >= 70 && healthIncreaseCoroutine == null) // heal player incremently
+            } else if (hungerAmount >= playerData.hungerHealThreshold && healthIncreaseCoroutine == null) // heal player incremently
             {
                 healthIncreaseCoroutine = StartCoroutine(IncreaseHealthDueToHunger());
-            } else if (hungerAmount < 70 && healthIncreaseCoroutine != null) // stop heal player incremently
+            } else if (hungerAmount < playerData.hungerHealThreshold && healthIncreaseCoroutine != null) // stop heal player incremently
             {
                 StopCoroutine(healthIncreaseCoroutine);
                 healthIncreaseCoroutine = null;
@@ -95,7 +107,7 @@ public class PlayerHunger : MonoBehaviour
         hungerAmount += hungerAmountIncrease;
         hungerAmount = Mathf.Clamp(hungerAmount, 0, 100);
 
-        if (hungerAmount > 30 && healthDecreaseCoroutine != null)
+        if (hungerAmount > playerData.hungerDamageThreshold && healthDecreaseCoroutine != null)
         {
             StopCoroutine(healthDecreaseCoroutine);
             healthDecreaseCoroutine = null;

@@ -15,7 +15,6 @@ public class Target : MonoBehaviour
     public void TakeDamage(float damage)
     {
         DamageNPC(damage);
-        ShowDamage(damage);
     }
 
     
@@ -45,13 +44,15 @@ public class Target : MonoBehaviour
 
     private void DamageNPC(float damage)
     {
+        bool isDead = false;
         if (enemyHealth != null)
         {
-            enemyHealth.DamageEnemy(damage);
+            isDead = enemyHealth.DamageEnemy(damage);
         }
         else if (animalHealth != null)
         {
-            animalHealth.DamageAnimal(damage);
+            isDead = animalHealth.DamageAnimal(damage);
         }
+        if (!isDead) ShowDamage(damage);
     }
 }

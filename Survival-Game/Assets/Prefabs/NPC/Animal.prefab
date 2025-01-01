@@ -189,11 +189,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f372bb35c6340648b0f6fd564960504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drops:
-  - drop: {fileID: 3505231996041249065, guid: b93d49c45323da745ac19c37ce2a33a7, type: 3}
-    maxDrops: 3
-    initialDropChance: 1
-    chanceDivisor: 1.5
+  easyItemDropperData: {fileID: 11400000, guid: c5d8fa6383824af45bdd7863059a30f6, type: 2}
+  hardItemDropperData: {fileID: 11400000, guid: 20255db8b5a071f4f82e578235635e44, type: 2}
+  impossibleItemDropperData: {fileID: 11400000, guid: e9e24e79e8664054eb68117d669e4d53, type: 2}
 --- !u!1 &8772977530994776272
 GameObject:
   m_ObjectHideFlags: 0

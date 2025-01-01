@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e4a8c93c9e04f4798ec3820b5628cf, type: 3}
+  m_Name: Hard Exploding Enemy
+  m_EditorClassIdentifier: 
+  health: 80
+  movementSpeed: 12
+  attackDamage: 50
+  attackSpeed: 4
+  drops:
+  - drop: {fileID: 8979712513836856141, guid: ce28f7e31204c594287ae5e333a4e18f, type: 3}
+    maxDrops: 2
+    initialDropChance: 1
+    chanceDivisor: 1.5
+    exponentStep: 0
+  - drop: {fileID: 8979712513836856141, guid: 25be791f54a62504cad7abc0e523c4cf, type: 3}
+    maxDrops: 2
+    initialDropChance: 0.75
+    chanceDivisor: 2
+    exponentStep: 0
+  - drop: {fileID: 8979712513836856141, guid: c562a15c956c2ba4a86f5f633a9c447b, type: 3}
+    maxDrops: 0
+    initialDropChance: 0.33
+    chanceDivisor: 0
+    exponentStep: 0

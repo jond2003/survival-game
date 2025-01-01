@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 interface IGrenade
 {
@@ -17,6 +19,11 @@ public class Grenade : MonoBehaviour, IUsable
 
     [SerializeField] private GameObject fragGrenade;
 
+    [SerializeField] private GameObject grenadeInfoPanel;
+
+    private TMP_Text grenadeCountText;
+    private Slider cookingSlider;
+
     private bool isCooking = false;
     private float explosionTime = 0f;
 
@@ -26,6 +33,22 @@ public class Grenade : MonoBehaviour, IUsable
     private IGrenade explosiveGrenade;
 
     private bool isInitialised = false;
+
+    void Awake()
+    {
+        foreach (Transform child in grenadeInfoPanel.transform)
+        {
+            switch (child.name)
+            {
+                case "Cooking Slider":
+                    cookingSlider = child.GetComponent<Slider>();
+                    break;
+                case "GrenadeCountText":
+                    grenadeCountText = child.GetComponent<TMP_Text>();
+                    break;
+            }
+        }
+    }
 
     void Start()
     {
@@ -43,6 +66,9 @@ public class Grenade : MonoBehaviour, IUsable
 
             isInitialised = true;
         }
+
+        grenadeInfoPanel.SetActive(true);
+        grenadeCountText.text = inventory.GetStackQuantity(inventory.hotbarIndex).ToString();
     }
 
     public void LMB_Action(bool isPressed)
@@ -62,9 +88,12 @@ public class Grenade : MonoBehaviour, IUsable
         {
             if (isCooking)
             {
+                cookingSlider.value -= Time.deltaTime;
+
                 grenade.transform.localScale = Vector3.zero;  // Make unthrown cooking grenade invisible
                 if (Time.time >= explosionTime)
                 {
+                    cookingSlider.gameObject.SetActive(false);
                     grenade.transform.localScale = Vector3.one;  // Make cooking grenade visible
                     inventory.ConsumeHeldItem();
                 }
@@ -96,7 +125,16 @@ public class Grenade : MonoBehaviour, IUsable
 
             explosionTime = Time.time + cookTime;
             isCooking = true;
+            
+            cookingSlider.gameObject.SetActive(true);
+            cookingSlider.maxValue = cookTime;
+            cookingSlider.value = cookTime;
         }
+    }
+
+    public void Uninitialise()
+    {
+        grenadeInfoPanel.SetActive(false);
     }
 
     public void ReloadAction(bool isPressed) { }

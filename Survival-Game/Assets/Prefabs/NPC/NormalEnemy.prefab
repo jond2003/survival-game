@@ -2065,9 +2065,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa171ff730993e45863fb5842409eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthAmount: 50
   itemDropper: {fileID: 6852023630944388478}
   animator: {fileID: 0}
+  easyEnemyData: {fileID: 11400000, guid: 49d3e7863378a95468029021b2946f88, type: 2}
+  hardEnemyData: {fileID: 11400000, guid: 769b426431630154c92f1d7ec72da9d6, type: 2}
+  impossibleEnemyData: {fileID: 11400000, guid: fa2647cdfe7e8ed4095093c6b044479c, type: 2}
 --- !u!114 &7232947792743837602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2082,8 +2084,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   playerHealth: {fileID: 0}
-  timeSinceAttackedLimit: 2
   animator: {fileID: 0}
+  easyEnemyData: {fileID: 11400000, guid: 49d3e7863378a95468029021b2946f88, type: 2}
+  hardEnemyData: {fileID: 11400000, guid: 769b426431630154c92f1d7ec72da9d6, type: 2}
+  impossibleEnemyData: {fileID: 11400000, guid: fa2647cdfe7e8ed4095093c6b044479c, type: 2}
 --- !u!195 &3272247552204253700
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2166,17 +2170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f372bb35c6340648b0f6fd564960504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drops:
-  - drop: {fileID: 8979712513836856141, guid: ce28f7e31204c594287ae5e333a4e18f, type: 3}
-    maxDrops: 3
-    initialDropChance: 1
-    chanceDivisor: 1.5
-    exponentStep: 0.2
-  - drop: {fileID: 8979712513836856141, guid: c562a15c956c2ba4a86f5f633a9c447b, type: 3}
-    maxDrops: 2
-    initialDropChance: 0.75
-    chanceDivisor: 2
-    exponentStep: 0.5
+  easyItemDropperData: {fileID: 11400000, guid: 8440dcbff383aa2458878ceeadb60c3e, type: 2}
+  hardItemDropperData: {fileID: 11400000, guid: d492420ce173ffd41a6a2919d0df3c43, type: 2}
+  impossibleItemDropperData: {fileID: 11400000, guid: 32d94544655c6d94f8b6bc1283c1214c, type: 2}
 --- !u!1 &7333271314404711014
 GameObject:
   m_ObjectHideFlags: 0

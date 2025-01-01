@@ -8,7 +8,7 @@ public class AnimalHealth : MonoBehaviour
 
     [SerializeField] private ItemDropper itemDropper;
 
-    public void DamageAnimal(float damage)
+    public bool DamageAnimal(float damage)
     {
         healthAmount -= damage;
         if (healthAmount <= 0)
@@ -17,5 +17,7 @@ public class AnimalHealth : MonoBehaviour
             itemDropper.DropItem();
             Destroy(this.gameObject);
         }
+
+        return healthAmount <= 0;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class SemiAutomaticGun : MonoBehaviour, IUsable
 {
@@ -13,7 +14,11 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     [SerializeField] private int clipSize = 30;
     [SerializeField] private float reloadTime = 1f;
 
-    [SerializeField] private TMP_Text ammoText;
+    [SerializeField] private GameObject gunInfoPanel;
+
+    private TMP_Text ammoText;
+    private TMP_Text totalAmmoText;
+    private Slider reloadSlider;
 
     private float nextTimeToFire = 0f;
     private int bulletsInClip;
@@ -22,6 +27,25 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     private Camera playerCamera;
     private LayerMask layersToHit;
     private bool isInitialised = false;
+
+    void Awake()
+    {
+        foreach (Transform child in gunInfoPanel.transform)
+        {
+            switch (child.name)
+            {
+                case "Reload Slider":
+                    reloadSlider = child.GetComponent<Slider>();
+                    break;
+                case "TotalAmmoText":
+                    totalAmmoText = child.GetComponent<TMP_Text>();
+                    break;
+                case "AmmoText":
+                    ammoText = child.GetComponent<TMP_Text>();
+                    break;
+            }
+        }
+    }
 
     public void Initialise()
     {
@@ -45,6 +69,11 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
             nextTimeToFire = Time.time;
         }
 
+        gunInfoPanel.SetActive(true);
+        reloadSlider.gameObject.SetActive(true);
+        reloadSlider.maxValue = reloadTime;
+        reloadSlider.gameObject.SetActive(false);
+
         UpdateAmmoText();
     }
 
@@ -62,12 +91,18 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     {
         if (isInitialised)
         {
-            if (isReloading && Time.time > nextTimeToFire)
+            if (isReloading)
             {
-                Debug.Log("Finished reloading...");
-                bulletsInClip = clipSize;
-                UpdateAmmoText();
-                isReloading = false;
+                // Update reload UI
+                reloadSlider.value = Mathf.Clamp(reloadSlider.value + Time.deltaTime, 0, reloadSlider.maxValue);
+
+                if (Time.time > nextTimeToFire)
+                {
+                    bulletsInClip = clipSize;
+                    UpdateAmmoText();
+                    isReloading = false;
+                    reloadSlider.gameObject.SetActive(false);
+                }
             }
         }
     }
@@ -107,8 +142,11 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
         if (!isReloading && bulletsInClip < clipSize)
         {
             nextTimeToFire = Time.time + reloadTime;
+
+            reloadSlider.gameObject.SetActive(true);
+            reloadSlider.value = 0f;
+
             isReloading = true;
-            Debug.Log("Reloading...");
         }
     }
 
@@ -123,6 +161,11 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
         {
             ammoText.color = Color.black;
         }
+    }
+
+    public void Uninitialise()
+    {
+        gunInfoPanel.gameObject.SetActive(false);
     }
 
     public void RMB_Action(bool isPressed) { }

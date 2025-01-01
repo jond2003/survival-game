@@ -500,12 +500,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hungerBar: {fileID: 0}
   hungerAmount: 100
-  damageToPlayerForHungerRate: 4
-  damageToPlayerForHunger: 5
-  hungerLossRate: 2
-  hungerLossPerDecrement: 4
-  healthIncreaseRate: 5
-  healthIncreasePerIncrement: -4
+  easyPlayerData: {fileID: 11400000, guid: 078f60318337aa4419e943b3efbb8157, type: 2}
+  hardPlayerData: {fileID: 11400000, guid: a45b37801a5e0284b964d093ed7ee35a, type: 2}
+  impossiblePlayerData: {fileID: 11400000, guid: 738573996a3e8c84e89941a440d58480, type: 2}
   playerHealth: {fileID: -1830351480359078973}
 --- !u!1 &8564979594488980245
 GameObject:
