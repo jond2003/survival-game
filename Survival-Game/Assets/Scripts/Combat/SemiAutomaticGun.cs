@@ -28,6 +28,8 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     private LayerMask layersToHit;
     private bool isInitialised = false;
 
+    private AudioSource audioSource;
+
     void Awake()
     {
         foreach (Transform child in gunInfoPanel.transform)
@@ -45,6 +47,8 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
                     break;
             }
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void Initialise()
@@ -118,6 +122,8 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
 
     private void Shoot()
     {
+        audioSource.Play();
+
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward, Color.green);
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range, layersToHit))

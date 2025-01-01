@@ -12,10 +12,16 @@ public class FragmentationGrenade : MonoBehaviour, IGrenade
 
     private bool isCooking = false;
     private bool isThrown = false;
+    private bool hasExploded = false;
+
+    private AudioSource audioSource;
+
+    [SerializeField] private GameObject explosion;
 
     private void Awake()
     {
         throwable = gameObject.GetComponent<Throwable>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -24,7 +30,7 @@ public class FragmentationGrenade : MonoBehaviour, IGrenade
         {
             timeToExplode -= Time.deltaTime;
 
-            if (timeToExplode <= 0)
+            if (timeToExplode <= 0 && hasExploded == false)
             {
                 Explode();
             }
@@ -63,8 +69,8 @@ public class FragmentationGrenade : MonoBehaviour, IGrenade
 
     public void Explode()
     {
+        hasExploded = true;
         Debug.Log("Exploded!");
-
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
         bool playerTakenDamage = false;
@@ -81,6 +87,25 @@ public class FragmentationGrenade : MonoBehaviour, IGrenade
             }
         }
 
+        Renderer[] renderersInRobot = GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderersInRobot)
+        {
+            renderer.enabled = false;
+        }
+
+        StartCoroutine(ExplosionEffects());
+    }
+
+    private IEnumerator ExplosionEffects()
+    {
+        audioSource.Play();
+        GameObject generatedExplosion = Instantiate(explosion, transform.position, transform.rotation);
+        
+
+        yield return new WaitForSeconds(1f);
+        Destroy(generatedExplosion);
         Destroy(this.gameObject);
+
+
     }
 }
