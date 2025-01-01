@@ -17,6 +17,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Called when the drag starts
     public void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.Log("Dragging");
         // If there's no item in the slot, return early
         if (itemImage.sprite == null) return;
 
@@ -56,6 +57,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 if (targetSlot != null && targetSlot != this)  // If it's a different slot
                 {
                     PlayerInventory.Instance.SwapItems(slotIndex, targetSlot.slotIndex);
+                    PlayerInventory.Instance.UpdateInventoryUI();
 
                     if (slotIndex < 5)
                     {
@@ -78,6 +80,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
   
             PlayerInventory.Instance.SwapItems(draggedSlot.slotIndex, slotIndex);
+            PlayerInventory.Instance.UpdateInventoryUI();
 
             if (slotIndex < 5)
             {
