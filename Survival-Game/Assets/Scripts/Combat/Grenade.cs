@@ -19,7 +19,8 @@ public class Grenade : MonoBehaviour, IUsable
 
     [SerializeField] private GameObject fragGrenade;
 
-    [SerializeField] private GameObject grenadeInfoPanel;
+    private HUDManager hudManager;
+    private GameObject grenadeInfoPanel;
 
     private TMP_Text grenadeCountText;
     private Slider cookingSlider;
@@ -36,6 +37,9 @@ public class Grenade : MonoBehaviour, IUsable
 
     void Awake()
     {
+        hudManager = HUDManager.Instance;
+        grenadeInfoPanel = hudManager.grenadeInfoPanel;
+
         foreach (Transform child in grenadeInfoPanel.transform)
         {
             switch (child.name)

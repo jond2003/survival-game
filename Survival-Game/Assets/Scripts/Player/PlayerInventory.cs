@@ -6,10 +6,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-record InventorySlot
+
+[System.Serializable]
+public record InventorySlot
 {
-    public Resource Item { get; set; }
-    public int Quantity { get; set; }
+    public Resource Item;
+    public int Quantity;
 }
 
 public class PlayerInventory : MonoBehaviour
@@ -374,7 +376,7 @@ public class PlayerInventory : MonoBehaviour
         return inventory[index].Quantity;
     }
 
-    public int GetItemQuantity(string itemName)
+    public int HasItem(string itemName)
     {
         int quantity = 0;
         if (itemIndices.TryGetValue(itemName, out List<int> indices))
