@@ -6,10 +6,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-record InventorySlot
+
+[System.Serializable]
+public record InventorySlot
 {
-    public Resource Item { get; set; }
-    public int Quantity { get; set; }
+    public Resource Item;
+    public int Quantity;
 }
 
 public class PlayerInventory : MonoBehaviour
@@ -24,6 +26,7 @@ public class PlayerInventory : MonoBehaviour
     public bool IsInventoryOpen = false;
 
     [SerializeField] private GameObject inventoryUI;
+    [SerializeField] private GameObject craftingMenuUI;
     [SerializeField] private InputAction InventoryInput;
 
     // Hotbar takes up first maxHotbarItems spaces in inventory array
@@ -76,6 +79,7 @@ public class PlayerInventory : MonoBehaviour
         {
             bool isInventoryActive = !inventoryUI.activeSelf;
             inventoryUI.SetActive(isInventoryActive);
+            craftingMenuUI.SetActive(isInventoryActive);
 
             // Now use the assigned reference
             if (playerLook != null)
@@ -112,11 +116,11 @@ public class PlayerInventory : MonoBehaviour
     public void UpdateInventoryUI()
     {
         // Clear existing slots (prevents duplicate items)
-        foreach (Transform slot in inventoryUI.transform)
-        {
-            if (slot.childCount > 0)
+        foreach(Transform slot in inventoryUI.transform)
+{
+            foreach (Transform child in slot)
             {
-                Destroy(slot.GetChild(0).gameObject);
+                Destroy(child.gameObject);  // Destroy all children
             }
         }
 
@@ -182,11 +186,9 @@ public class PlayerInventory : MonoBehaviour
 
                     if (index < maxHotbarItems)
                     {
-                        UpdateHotbar(i);
-                        UpdateInventoryUI();
+                        UpdateHotbar(index);
                     }
                     item.gameObject.SetActive(false);
-
                     itemStored = true;
                 }
                 i++;
@@ -196,7 +198,6 @@ public class PlayerInventory : MonoBehaviour
         if (!itemStored)
         {
             int i = 0;
-
             while (i < inventory.Length && !itemStored)
             {
                 if (inventory[i] == null)
@@ -205,33 +206,33 @@ public class PlayerInventory : MonoBehaviour
                     inventory[i].Item = item;
                     inventory[i].Quantity = 1;
 
-                    if (itemIndices.TryGetValue(item.itemName, out List<int> inventoryItemPositions)) inventoryItemPositions.Add(i);
-                    else itemIndices.Add(item.itemName, new List<int>(new int[] { i }));
+                    if (itemIndices.TryGetValue(item.itemName, out List<int> inventoryItemPositions))
+                    {
+                        inventoryItemPositions.Add(i);
+                    }
+                    else
+                    {
+                        itemIndices.Add(item.itemName, new List<int> { i });
+                    }
 
                     indexStoredAt = i;
                     itemStored = true;
 
                     Debug.Log("Added " + item.name + " to Inventory!");
 
-                    // If item stored in hotbar slot
                     if (i < maxHotbarItems)
                     {
                         UpdateHotbar(i);
-                        UpdateInventoryUI();
-
-                        // Check if item is stored in player's current hotbar slot
-                        if (i == hotbarIndex) AssignItemToPlayer();
-                        else item.gameObject.SetActive(false);
-
                     }
-                    else  // Hotbar is full
-                    {
-                        item.gameObject.SetActive(false);
-                    }
+                    item.gameObject.SetActive(false);
                 }
                 i++;
             }
         }
+
+        // Refresh the inventory UI after item is stored
+        UpdateInventoryUI();
+        AssignItemToPlayer();
 
         return indexStoredAt;
     }
@@ -356,12 +357,26 @@ public class PlayerInventory : MonoBehaviour
         return inventory[hotbarIndex].Item;
     }
 
-    public void SwapItems(int slotA, int slotB)
+    public void SwapItems(int slotAIndex, int slotBIndex)
     {
+        // Swap indices
+        InventorySlot slotA = inventory[slotAIndex];
+        InventorySlot slotB = inventory[slotBIndex];
+        if (itemIndices.TryGetValue(slotA.Item.itemName, out List<int> slotAIndices))
+        {
+            int oldSlotIndex = slotAIndices.FindIndex(i => i == slotAIndex);
+            slotAIndices[oldSlotIndex] = slotBIndex;
+        }
+        if (itemIndices.TryGetValue(slotB.Item.itemName, out List<int> slotBIndices))
+        {
+            int oldSlotIndex = slotBIndices.FindIndex(i => i == slotBIndex);
+            slotBIndices[oldSlotIndex] = slotAIndex;
+        }
+
         // Swap the items in the inventory array
-        InventorySlot temp = inventory[slotA];
-        inventory[slotA] = inventory[slotB];
-        inventory[slotB] = temp;
+        InventorySlot temp = inventory[slotAIndex];
+        inventory[slotAIndex] = inventory[slotBIndex];
+        inventory[slotBIndex] = temp;
 
         // Update the inventory UI to reflect the changes
         UnassignHeldItem();
@@ -374,7 +389,7 @@ public class PlayerInventory : MonoBehaviour
         return inventory[index].Quantity;
     }
 
-    public int GetItemQuantity(string itemName)
+    public int HasItem(string itemName)
     {
         int quantity = 0;
         if (itemIndices.TryGetValue(itemName, out List<int> indices))

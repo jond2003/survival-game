@@ -19,7 +19,8 @@ public class Grenade : MonoBehaviour, IUsable
 
     [SerializeField] private GameObject fragGrenade;
 
-    [SerializeField] private GameObject grenadeInfoPanel;
+    private HUDManager hudManager;
+    private GameObject grenadeInfoPanel;
 
     private TMP_Text grenadeCountText;
     private Slider cookingSlider;
@@ -34,22 +35,6 @@ public class Grenade : MonoBehaviour, IUsable
 
     private bool isInitialised = false;
 
-    void Awake()
-    {
-        foreach (Transform child in grenadeInfoPanel.transform)
-        {
-            switch (child.name)
-            {
-                case "Cooking Slider":
-                    cookingSlider = child.GetComponent<Slider>();
-                    break;
-                case "GrenadeCountText":
-                    grenadeCountText = child.GetComponent<TMP_Text>();
-                    break;
-            }
-        }
-    }
-
     void Start()
     {
         inventory = PlayerInventory.Instance;
@@ -62,6 +47,23 @@ public class Grenade : MonoBehaviour, IUsable
             if (transform.parent != null)
             {
                 playerCamera = transform.parent.parent.GetComponent<Camera>();
+            }
+
+            hudManager = HUDManager.Instance;
+
+            grenadeInfoPanel = hudManager.grenadeInfoPanel;
+
+            foreach (Transform child in grenadeInfoPanel.transform)
+            {
+                switch (child.name)
+                {
+                    case "Cooking Slider":
+                        cookingSlider = child.GetComponent<Slider>();
+                        break;
+                    case "GrenadeCountText":
+                        grenadeCountText = child.GetComponent<TMP_Text>();
+                        break;
+                }
             }
 
             isInitialised = true;

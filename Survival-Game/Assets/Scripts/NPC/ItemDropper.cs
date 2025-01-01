@@ -26,8 +26,6 @@ public class ItemDropper : MonoBehaviour
     public void Start()
     {
         itemDropperData = (ItemDropperData)GameSettingsManager.GetDifficultyData(easyItemDropperData, hardItemDropperData, impossibleItemDropperData);
-
-        Debug.Log(itemDropperData);
         drops = itemDropperData.drops;
     }
 

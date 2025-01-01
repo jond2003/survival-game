@@ -14,7 +14,8 @@ public class AutomaticGun : MonoBehaviour, IUsable
     [SerializeField] private int clipSize = 30;
     [SerializeField] private float reloadTime = 1f;
 
-    [SerializeField] private GameObject gunInfoPanel;
+    private HUDManager hudManager;
+    private GameObject gunInfoPanel;
 
     private TMP_Text ammoText;
     private TMP_Text totalAmmoText;
@@ -33,22 +34,6 @@ public class AutomaticGun : MonoBehaviour, IUsable
 
     void Awake()
     {
-        foreach (Transform child in gunInfoPanel.transform)
-        {
-            switch (child.name)
-            {
-                case "Reload Slider":
-                    reloadSlider = child.GetComponent<Slider>();
-                    break;
-                case "TotalAmmoText":
-                    totalAmmoText = child.GetComponent<TMP_Text>();
-                    break;
-                case "AmmoText":
-                    ammoText = child.GetComponent<TMP_Text>();
-                    break;
-            }
-        }
-
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -59,6 +44,25 @@ public class AutomaticGun : MonoBehaviour, IUsable
             if (transform.parent != null)
             {
                 playerCamera = transform.parent.parent.GetComponent<Camera>();
+            }
+
+            hudManager = HUDManager.Instance;
+            gunInfoPanel = hudManager.gunInfoPanel;
+
+            foreach (Transform child in gunInfoPanel.transform)
+            {
+                switch (child.name)
+                {
+                    case "Reload Slider":
+                        reloadSlider = child.GetComponent<Slider>();
+                        break;
+                    case "TotalAmmoText":
+                        totalAmmoText = child.GetComponent<TMP_Text>();
+                        break;
+                    case "AmmoText":
+                        ammoText = child.GetComponent<TMP_Text>();
+                        break;
+                }
             }
 
             layersToHit = LayerMask.GetMask("Default");
