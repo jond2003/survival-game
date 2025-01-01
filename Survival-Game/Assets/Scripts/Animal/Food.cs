@@ -48,4 +48,6 @@ public class Food : MonoBehaviour, IUsable
         playerHunger.IncreaseHunger(50);
         PlayerInventory.Instance.ConsumeHeldItem();
     }
+
+    public void Uninitialise() { }
 }

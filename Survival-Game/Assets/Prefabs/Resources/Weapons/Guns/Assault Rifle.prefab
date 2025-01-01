@@ -154,7 +154,7 @@ MonoBehaviour:
   impactForce: 25
   clipSize: 25
   reloadTime: 1.5
-  ammoText: {fileID: 0}
+  gunInfoPanel: {fileID: 0}
 --- !u!65 &3712907373352921295
 BoxCollider:
   m_ObjectHideFlags: 0

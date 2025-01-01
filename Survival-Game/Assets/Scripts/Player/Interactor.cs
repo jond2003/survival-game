@@ -18,6 +18,7 @@ interface IUsable
     public void LMB_Action(bool isPressed);  // Left Mouse Button Action
     public void RMB_Action(bool isPressed);  // Right Mouse Button Action
     public void ReloadAction(bool isPressed);  // Reload (R) Action
+    public void Uninitialise();  // Unitialise to make unusable
 }
 
 public class Interactor : MonoBehaviour

@@ -312,6 +312,8 @@ public class PlayerInventory : MonoBehaviour
         {
             Collider itemCollider = heldItem.gameObject.GetComponent<Collider>();
             itemCollider.enabled = true;
+            IUsable usableItem = heldItem.gameObject.GetComponent<IUsable>();
+            usableItem?.Uninitialise();
             heldItem.gameObject.SetActive(false);
             playerHand.transform.DetachChildren();
         }
@@ -365,5 +367,23 @@ public class PlayerInventory : MonoBehaviour
         UnassignHeldItem();
         AssignItemToPlayer();
         UpdateInventoryUI(); 
+    }
+
+    public int GetStackQuantity(int index)
+    {
+        return inventory[index].Quantity;
+    }
+
+    public int GetItemQuantity(string itemName)
+    {
+        int quantity = 0;
+        if (itemIndices.TryGetValue(itemName, out List<int> indices))
+        {
+            foreach (int i in indices)
+            {
+                quantity += inventory[i].Quantity;
+            }
+        }
+        return quantity;
     }
 }
