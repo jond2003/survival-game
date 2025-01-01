@@ -23,6 +23,12 @@ public class ExplodingEnemyAI : MonoBehaviour
     [SerializeField] private EnemyData impossibleEnemyData;
     private EnemyData enemyData;
 
+
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip enemyRunAudioClip;
+    [SerializeField] private AudioClip enemyExplosionAudioClip;
+
+
     void Awake()
     {
         player = GameObject.FindWithTag("Player");
@@ -35,6 +41,8 @@ public class ExplodingEnemyAI : MonoBehaviour
         timeSinceAttackedLimit = enemyData.attackSpeed;
 
         enemyHealth = GetComponent<EnemyHealth>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.enabled = true;
     }
 
     void Update()
@@ -58,7 +66,10 @@ public class ExplodingEnemyAI : MonoBehaviour
 
     private void AttackPlayer()
     {
+        audioSource.loop = false;
         playerHealth.TakeDamage(enemyData.attackDamage);
+        audioSource.volume = 0.5f; //increase volume for explosion
+        audioSource.PlayOneShot(enemyExplosionAudioClip);
         StartCoroutine(TriggerExplosion());
 
  
