@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Easy Player
   m_EditorClassIdentifier: 
   hungerDamage: 0
-  hungerDamageRate: 0
-  hungerLossAmount: 0
-  hungerLossRate: 0
-  hungerHealAmount: 0
-  hungerHealRate: 0
+  hungerDamageRate: 4
+  hungerDamageThreshold: 0
+  hungerLossAmount: 2
+  hungerLossRate: 5
+  hungerHealAmount: -5
+  hungerHealRate: 5
+  hungerHealThreshold: 50
