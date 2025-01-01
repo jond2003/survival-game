@@ -21,6 +21,11 @@ public class NormalRobotAI : MonoBehaviour
     [SerializeField] private EnemyData impossibleEnemyData;
     private EnemyData enemyData;
 
+
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip enemyRunAudioClip;
+    [SerializeField] private AudioClip enemyAttackAudioClip;
+
     void Awake()
     {
         player = GameObject.FindWithTag("Player");
@@ -32,7 +37,11 @@ public class NormalRobotAI : MonoBehaviour
         enemyData = (EnemyData)GameSettingsManager.GetDifficultyData(easyEnemyData, hardEnemyData, impossibleEnemyData);
 
         timeSinceAttackedLimit = enemyData.attackSpeed;
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.enabled = true;
     }
+
 
     void Update()
     {
@@ -61,10 +70,22 @@ public class NormalRobotAI : MonoBehaviour
 
     private IEnumerator AttackAnimation()
     {
+
         animator.SetBool("isAttacking", true);
         yield return new WaitForSeconds(1f);
         playerHealth.TakeDamage(enemyData.attackDamage);
         animator.SetBool("isAttacking", false);
+        StartCoroutine(AttackSound());
     }
 
+    private IEnumerator AttackSound()
+    {
+        audioSource.loop = false;
+        audioSource.volume = 0.6f;
+        audioSource.PlayOneShot(enemyAttackAudioClip);
+        yield return new WaitForSeconds(1f);
+        audioSource.volume = 0.15f;
+        audioSource.loop = true;
+        audioSource.Play();
+    }
 }

@@ -24,7 +24,8 @@ public class SoundManager : MonoBehaviour
     // Save the new volume value whenever the slider is adjusted.
     public void ChangeVolume()
     {
-        AudioListener.volume = volumeSlider.value / 100f;
+        AudioListener.volume = Mathf.FloorToInt(volumeSlider.value) / 100f;
+        Debug.Log("Changed to " + AudioListener.volume);
         Save();
         UpdateVolumeText();
     }

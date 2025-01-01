@@ -14,6 +14,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public static bool isPaused = false;
 
+    float beforePauseVolume; //Used to mute during pause 
 
     // Start is called before the first frame update
     void Awake()
@@ -40,6 +41,9 @@ public class PauseMenuManager : MonoBehaviour
         pauseMenu.SetActive(true);
         HUDUI.SetActive(false);
         isPaused = true;
+        beforePauseVolume = Mathf.FloorToInt(AudioListener.volume);
+        AudioListener.volume = 0f;
+        
     }
 
     public void ResumeGame()
@@ -49,6 +53,12 @@ public class PauseMenuManager : MonoBehaviour
         pauseMenu.SetActive(false);
         HUDUI.SetActive(true);
         isPaused = false;
+
+        if (AudioListener.volume == 0f && beforePauseVolume != 0f) //They may have changed it during pause
+        {
+            AudioListener.volume = beforePauseVolume;
+        }
+        
     }
 
     public void GoToMainMenu()
