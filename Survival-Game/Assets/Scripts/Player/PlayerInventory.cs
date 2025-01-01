@@ -112,11 +112,11 @@ public class PlayerInventory : MonoBehaviour
     public void UpdateInventoryUI()
     {
         // Clear existing slots (prevents duplicate items)
-        foreach (Transform slot in inventoryUI.transform)
-        {
-            if (slot.childCount > 0)
+        foreach(Transform slot in inventoryUI.transform)
+{
+            foreach (Transform child in slot)
             {
-                Destroy(slot.GetChild(0).gameObject);
+                Destroy(child.gameObject);  // Destroy all children
             }
         }
 
@@ -182,11 +182,9 @@ public class PlayerInventory : MonoBehaviour
 
                     if (index < maxHotbarItems)
                     {
-                        UpdateHotbar(i);
-                        UpdateInventoryUI();
+                        UpdateHotbar(index);
                     }
                     item.gameObject.SetActive(false);
-
                     itemStored = true;
                 }
                 i++;
@@ -196,7 +194,6 @@ public class PlayerInventory : MonoBehaviour
         if (!itemStored)
         {
             int i = 0;
-
             while (i < inventory.Length && !itemStored)
             {
                 if (inventory[i] == null)
@@ -205,33 +202,33 @@ public class PlayerInventory : MonoBehaviour
                     inventory[i].Item = item;
                     inventory[i].Quantity = 1;
 
-                    if (itemIndices.TryGetValue(item.itemName, out List<int> inventoryItemPositions)) inventoryItemPositions.Add(i);
-                    else itemIndices.Add(item.itemName, new List<int>(new int[] { i }));
+                    if (itemIndices.TryGetValue(item.itemName, out List<int> inventoryItemPositions))
+                    {
+                        inventoryItemPositions.Add(i);
+                    }
+                    else
+                    {
+                        itemIndices.Add(item.itemName, new List<int> { i });
+                    }
 
                     indexStoredAt = i;
                     itemStored = true;
 
                     Debug.Log("Added " + item.name + " to Inventory!");
 
-                    // If item stored in hotbar slot
                     if (i < maxHotbarItems)
                     {
                         UpdateHotbar(i);
-                        UpdateInventoryUI();
-
-                        // Check if item is stored in player's current hotbar slot
-                        if (i == hotbarIndex) AssignItemToPlayer();
-                        else item.gameObject.SetActive(false);
-
                     }
-                    else  // Hotbar is full
-                    {
-                        item.gameObject.SetActive(false);
-                    }
+                    item.gameObject.SetActive(false);
                 }
                 i++;
             }
         }
+
+        // Refresh the inventory UI after item is stored
+        UpdateInventoryUI();
+        AssignItemToPlayer();
 
         return indexStoredAt;
     }
