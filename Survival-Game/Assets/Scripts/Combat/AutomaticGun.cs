@@ -7,12 +7,7 @@ using UnityEngine.UI;
 
 public class AutomaticGun : MonoBehaviour, IUsable
 {
-    [SerializeField] private float damage = 10f;
-    [SerializeField] private float range = 100f;
-    [SerializeField] private float fireRate = 5f;
-    [SerializeField] private float impactForce = 25f;
-    [SerializeField] private int clipSize = 30;
-    [SerializeField] private float reloadTime = 1f;
+    [SerializeField] GunData gunData;
 
     private HUDManager hudManager;
     private GameObject gunInfoPanel;
@@ -23,6 +18,7 @@ public class AutomaticGun : MonoBehaviour, IUsable
 
     private float nextTimeToFire = 0f;
     private int bulletsInClip;
+    private int ammoInInventory;
     private bool isReloading;
     private bool isFiring = false;
 
@@ -67,7 +63,7 @@ public class AutomaticGun : MonoBehaviour, IUsable
 
             layersToHit = LayerMask.GetMask("Default");
 
-            bulletsInClip = clipSize;
+            bulletsInClip = gunData.clipSize;
 
             isInitialised = true;
         }
@@ -80,7 +76,7 @@ public class AutomaticGun : MonoBehaviour, IUsable
 
         gunInfoPanel.SetActive(true);
         reloadSlider.gameObject.SetActive(true);
-        reloadSlider.maxValue = reloadTime;
+        reloadSlider.maxValue = gunData.reloadTime;
         reloadSlider.gameObject.SetActive(false);
 
         UpdateAmmoText();
@@ -100,6 +96,7 @@ public class AutomaticGun : MonoBehaviour, IUsable
     {
         if (isInitialised)
         {
+            ammoInInventory = PlayerInventory.Instance.HasItem(gunData.ammoType.itemName);
             if (isReloading)
             {
                 // Update reload UI
@@ -107,11 +104,13 @@ public class AutomaticGun : MonoBehaviour, IUsable
 
                 if (Time.time > nextTimeToFire)
                 {
-                    bulletsInClip = clipSize;
-                    UpdateAmmoText();
-                    isReloading = false;
-                    isFiring = false;
-                    reloadSlider.gameObject.SetActive(false);
+                    if (LoadAmmo())
+                    {
+                        UpdateAmmoText();
+                        isReloading = false;
+                        isFiring = false;
+                        reloadSlider.gameObject.SetActive(false);
+                    }
                 }
             }
 
@@ -126,7 +125,7 @@ public class AutomaticGun : MonoBehaviour, IUsable
     {
         if (Time.time > nextTimeToFire && bulletsInClip > 0)
         {
-            nextTimeToFire = Time.time + 1f / fireRate;
+            nextTimeToFire = Time.time + 1f / gunData.fireRate;
             Shoot();
         }
     }
@@ -136,17 +135,12 @@ public class AutomaticGun : MonoBehaviour, IUsable
 
         audioSource.Play();
         RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range, layersToHit))
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, gunData.range, layersToHit))
         {
             Target target = hit.transform.GetComponent<Target>();
             if (target)
             {
-                target.TakeDamage(damage);
-            }
-
-            if (hit.rigidbody != null)
-            {
-                hit.rigidbody.AddForce(-hit.normal * impactForce);
+                target.TakeDamage(gunData.damage);
             }
         }
         bulletsInClip -= 1;
@@ -155,9 +149,9 @@ public class AutomaticGun : MonoBehaviour, IUsable
 
     private void Reload()
     {
-        if (!isReloading && bulletsInClip < clipSize)
+        if (!isReloading && bulletsInClip < gunData.clipSize && ammoInInventory > 0)
         {
-            nextTimeToFire = Time.time + reloadTime;
+            nextTimeToFire = Time.time + gunData.reloadTime;
 
             reloadSlider.gameObject.SetActive(true);
             reloadSlider.value = 0f;
@@ -166,9 +160,23 @@ public class AutomaticGun : MonoBehaviour, IUsable
         }
     }
 
+    private bool LoadAmmo()
+    {
+        if (ammoInInventory <= 0) return false;
+
+        int roundsReloaded = Mathf.Min(gunData.clipSize - bulletsInClip, ammoInInventory);
+        PlayerInventory.Instance.ConsumeItem(gunData.ammoType.itemName, roundsReloaded);
+
+        bulletsInClip += roundsReloaded;
+        ammoInInventory = PlayerInventory.Instance.HasItem(gunData.ammoType.itemName);
+
+        return true;
+    }
+
     private void UpdateAmmoText()
     {
-        ammoText.text = bulletsInClip + "/" + clipSize;
+        totalAmmoText.text = ammoInInventory.ToString();
+        ammoText.text = bulletsInClip + "/" + gunData.clipSize;
         if (bulletsInClip == 0)
         {
             ammoText.color = Color.red;

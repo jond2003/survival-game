@@ -28,13 +28,18 @@ public class EnemyHealth : MonoBehaviour
     public bool DamageEnemy(float damage)
     {
         healthAmount -= damage;
-        //Debug.Log(healthAmount + " health rn");
         if (healthAmount <= 0)
         {
+            Collider collider = GetComponent<Collider>();
+            collider.enabled = false;
             StartCoroutine(DyingAnimation());
-
         }
         return healthAmount <= 0;
+    }
+
+    public float GetHealth()
+    {
+        return healthAmount;
     }
 
 
