@@ -10,7 +10,7 @@ public record ItemDrop
     [Range(1, 10)] public int maxDrops = 1;
     [Range(0, 1)] public float initialDropChance = 1f;  // Probability of 1 item being dropped
     [Range(1, 10)] public float chanceDivisor = 2f;  // Amount that the chance is divided by after each drop
-    [Range(1, 8)] public float exponentStep = 0f;  // Increase in the amount that the divisor is raised to after each drop
+    [Range(1, 8)] public float exponentStep = 1f;  // Increase in the amount that the divisor is raised to after each drop
 }
 
 public class ItemDropper : MonoBehaviour
@@ -64,7 +64,7 @@ public class ItemDropper : MonoBehaviour
         bool winning = true;
         while (winning && numDrops < drop.maxDrops)
         {
-            float randomNum = Random.Range(0, 1);
+            float randomNum = Random.Range(0f, 1f);
             if (randomNum <= currentDropChance)
             {
                 numDrops++;
