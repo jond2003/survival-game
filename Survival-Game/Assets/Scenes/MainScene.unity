@@ -16617,6 +16617,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   craftingRecipeUIObj: {fileID: 6368517024592841864, guid: bc184e47813b53948868ddb0941e5d67, type: 3}
   recipes:
+  - {fileID: 11400000, guid: 407a6b5b45f4f0c4e8e7857c72023e60, type: 2}
+  - {fileID: 11400000, guid: 604fb385ef26f434cbfeff71a0a64228, type: 2}
+  - {fileID: 11400000, guid: c3b9ba00141d69a4faeafc3ce4dc9693, type: 2}
   - {fileID: 11400000, guid: cf6aac5fd93bb03448d0ef4ad7f2e1f2, type: 2}
   - {fileID: 11400000, guid: da429af58d879b844afb873713ac49a6, type: 2}
   - {fileID: 11400000, guid: 690450aa5c6c16748a22cb1f3c1eba21, type: 2}
