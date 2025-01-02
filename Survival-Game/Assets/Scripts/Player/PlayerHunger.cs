@@ -46,16 +46,6 @@ public class PlayerHunger : MonoBehaviour
         StartCoroutine(DecrementHunger());
     }
 
-
-    void Update()
-    {
-        if (Input.GetKeyDown("l")) //JUST FOR TESTING, REMOVE AFTER
-        {
-            Debug.Log("HUNGER INCREASE");
-            IncreaseHunger(20);
-        }
-    }
-
     private IEnumerator DecrementHunger()
     {
         while (true)
