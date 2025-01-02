@@ -21,12 +21,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private GameObject hotbar;
     [SerializeField] private GameObject playerHand;
 
-    [SerializeField] private PlayerLook playerLook;
-
-    public bool IsInventoryOpen = false;
-
-    [SerializeField] private GameObject inventoryUI;
-    [SerializeField] private GameObject craftingMenuUI;
+    private GameObject inventoryUI;
     [SerializeField] private InputAction InventoryInput;
 
     // Hotbar takes up first maxHotbarItems spaces in inventory array
@@ -73,30 +68,20 @@ public class PlayerInventory : MonoBehaviour
         IncrementHotbarSlot(0);
     }
 
+    private void Start()
+    {
+        inventoryUI = HUDManager.Instance.inventoryMenuPanel;
+    }
+
     void Update()
     {
         if (InventoryInput.WasPerformedThisFrame())
         {
-            bool isInventoryActive = !inventoryUI.activeSelf;
-            inventoryUI.SetActive(isInventoryActive);
-            craftingMenuUI.SetActive(isInventoryActive);
+            HUDManager.Instance.ToggleInventory();
 
-            // Now use the assigned reference
-            if (playerLook != null)
-            {
-                playerLook.SetInventoryOpen(isInventoryActive);
-            }
-
-            if (inventoryUI.activeSelf)
+            if (HUDManager.Instance.IsInventoryOpen)
             {
                 UpdateInventoryUI();
-                IsInventoryOpen = true;
-                Cursor.lockState = CursorLockMode.None;
-            }
-            else
-            {
-                IsInventoryOpen = false;
-                Cursor.lockState = CursorLockMode.Locked;
             }
         }
     }
