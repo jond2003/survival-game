@@ -83,6 +83,13 @@ public class CraftingRecipe : MonoBehaviour
     public void Craft()
     {
         if (!isCraftable) return;
+
+        // Consume ingredients
+        foreach (InventorySlot ingredient in currentRecipe.ingredients)
+        {
+            inventory.ConsumeItem(ingredient.Item.itemName, ingredient.Quantity);
+        }
+
         if (currentRecipe.name == "ArmourCraftingRecipe") //Don't instantiate object
         {
             PlayerArmour.instance.UpgradeArmourLevel();
@@ -92,6 +99,7 @@ public class CraftingRecipe : MonoBehaviour
         {
             GameObject craftedResourceObj = Instantiate(currentRecipe.craftedItem.Item.gameObject, null);
             Resource craftedResource = craftedResourceObj.GetComponent<Resource>();
+
             int index = inventory.StoreItem(craftedResource);
 
             // Inventory full

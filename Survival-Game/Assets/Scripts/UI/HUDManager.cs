@@ -8,6 +8,7 @@ public class HUDManager : MonoBehaviour
     public GameObject grenadeInfoPanel;
     public GameObject craftingMenuPanel;
     public GameObject inventoryMenuPanel;
+    public GameObject trashPanel;
 
     public bool IsInventoryOpen { get; private set; } = false;
     public bool IsCraftingMenuOpen { get; private set; } = false;
@@ -23,12 +24,14 @@ public class HUDManager : MonoBehaviour
         grenadeInfoPanel = transform.Find("GrenadeInfo").gameObject;
         craftingMenuPanel = transform.Find("BackgroundCraftingMenu").gameObject;
         inventoryMenuPanel = transform.Find("BackgroundInventory").gameObject;
+        trashPanel = transform.Find("Bin").gameObject;
     }
 
     public void ToggleInventory()
     {
         IsInventoryOpen = !IsInventoryOpen;
         inventoryMenuPanel.SetActive(IsInventoryOpen);
+        trashPanel.SetActive(IsInventoryOpen);
         Cursor.lockState = IsInventoryOpen ? CursorLockMode.None : CursorLockMode.Locked;
         if (IsCraftingMenuOpen && !IsInventoryOpen) ToggleCraftingMenu();
     }
