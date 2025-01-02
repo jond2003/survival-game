@@ -15,8 +15,6 @@ public class PlayerLook : MonoBehaviour
     float xRotate = 0f;
     float yRotate = 0f;
 
-    private bool isInventoryOpen = false;
-
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked; //Hide cursor
@@ -28,7 +26,7 @@ public class PlayerLook : MonoBehaviour
     void Update()
     {
         // Only allow looking around if inventory is not open
-        if (!PauseMenuManager.isPaused && !isInventoryOpen)
+        if (!PauseMenuManager.isPaused && !HUDManager.Instance.IsInventoryOpen)
         {
             playerLook();
         }
@@ -37,7 +35,7 @@ public class PlayerLook : MonoBehaviour
     void FixedUpdate()
     {
         // Only allow rotating when inventory is not open
-        if (!isInventoryOpen)
+        if (!HUDManager.Instance.IsInventoryOpen)
         {
             playerRotate();
         }
@@ -64,14 +62,5 @@ public class PlayerLook : MonoBehaviour
     {
         playerTransform.Rotate(Vector3.up * yRotate); //rotate on horizontal
         yRotate = 0f;
-    }
-
-    // This method will be called when the inventory opens/closes
-    public void SetInventoryOpen(bool isOpen)
-    {
-        isInventoryOpen = isOpen;
-
-        // Optionally, unlock the cursor when the inventory is open
-        Cursor.lockState = isOpen ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }
