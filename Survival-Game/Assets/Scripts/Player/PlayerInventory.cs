@@ -171,9 +171,11 @@ public class PlayerInventory : MonoBehaviour
 
                     if (index < maxHotbarItems)
                     {
-                        UpdateHotbar(index);
+                        UpdateHotbar(i);
+                        UpdateInventoryUI();
                     }
                     item.gameObject.SetActive(false);
+
                     itemStored = true;
                 }
                 i++;
@@ -183,6 +185,7 @@ public class PlayerInventory : MonoBehaviour
         if (!itemStored)
         {
             int i = 0;
+
             while (i < inventory.Length && !itemStored)
             {
                 if (inventory[i] == null)
@@ -191,33 +194,33 @@ public class PlayerInventory : MonoBehaviour
                     inventory[i].Item = item;
                     inventory[i].Quantity = 1;
 
-                    if (itemIndices.TryGetValue(item.itemName, out List<int> inventoryItemPositions))
-                    {
-                        inventoryItemPositions.Add(i);
-                    }
-                    else
-                    {
-                        itemIndices.Add(item.itemName, new List<int> { i });
-                    }
+                    if (itemIndices.TryGetValue(item.itemName, out List<int> inventoryItemPositions)) inventoryItemPositions.Add(i);
+                    else itemIndices.Add(item.itemName, new List<int>(new int[] { i }));
 
                     indexStoredAt = i;
                     itemStored = true;
 
                     Debug.Log("Added " + item.name + " to Inventory!");
 
+                    // If item stored in hotbar slot
                     if (i < maxHotbarItems)
                     {
                         UpdateHotbar(i);
+                        UpdateInventoryUI();
+
+                        // Check if item is stored in player's current hotbar slot
+                        if (i == hotbarIndex) AssignItemToPlayer();
+                        else item.gameObject.SetActive(false);
+
                     }
-                    item.gameObject.SetActive(false);
+                    else  // Hotbar is full
+                    {
+                        item.gameObject.SetActive(false);
+                    }
                 }
                 i++;
             }
         }
-
-        // Refresh the inventory UI after item is stored
-        UpdateInventoryUI();
-        AssignItemToPlayer();
 
         return indexStoredAt;
     }
@@ -252,6 +255,7 @@ public class PlayerInventory : MonoBehaviour
 
             Image image = imageObj.GetComponent<Image>() ?? imageObj.AddComponent<Image>();
             image.sprite = inventory[index].Item.sprite;
+            image.preserveAspect = true;
             image.enabled = true;
         }
         else
@@ -344,29 +348,33 @@ public class PlayerInventory : MonoBehaviour
 
     public void SwapItems(int slotAIndex, int slotBIndex)
     {
-        // Swap indices
         InventorySlot slotA = inventory[slotAIndex];
         InventorySlot slotB = inventory[slotBIndex];
-        if (itemIndices.TryGetValue(slotA.Item.itemName, out List<int> slotAIndices))
+
+        // Return early if both slots are empty (nothing to swap)
+        if (slotA == null && slotB == null) return;
+
+        // Update item indices safely
+        if (slotA != null && itemIndices.TryGetValue(slotA.Item.itemName, out List<int> slotAIndices))
         {
             int oldSlotIndex = slotAIndices.FindIndex(i => i == slotAIndex);
             slotAIndices[oldSlotIndex] = slotBIndex;
         }
-        if (itemIndices.TryGetValue(slotB.Item.itemName, out List<int> slotBIndices))
+
+        if (slotB != null && itemIndices.TryGetValue(slotB.Item.itemName, out List<int> slotBIndices))
         {
             int oldSlotIndex = slotBIndices.FindIndex(i => i == slotBIndex);
             slotBIndices[oldSlotIndex] = slotAIndex;
         }
 
-        // Swap the items in the inventory array
-        InventorySlot temp = inventory[slotAIndex];
-        inventory[slotAIndex] = inventory[slotBIndex];
-        inventory[slotBIndex] = temp;
+        // Perform the swap
+        inventory[slotAIndex] = slotB;
+        inventory[slotBIndex] = slotA;
 
         // Update the inventory UI to reflect the changes
         UnassignHeldItem();
         AssignItemToPlayer();
-        UpdateInventoryUI(); 
+        UpdateInventoryUI();
     }
 
     public int GetStackQuantity(int index)
