@@ -10,6 +10,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Image healthBar;
     [SerializeField] private float healthAmount = 100f;
 
+    [SerializeField] private PlayerArmour playerArmour;
+
 
     void Update()
     {
@@ -24,7 +26,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        healthAmount -= damage;
+        float damageMitigationFromArmour = PlayerArmour.instance.GetDamageMitigation();
+        healthAmount -= (damage * damageMitigationFromArmour);
         healthAmount = Mathf.Clamp(healthAmount, 0, 100);
         healthBar.fillAmount = healthAmount / 100f;
     }
