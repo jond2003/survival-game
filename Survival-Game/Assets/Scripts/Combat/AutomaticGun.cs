@@ -27,10 +27,12 @@ public class AutomaticGun : MonoBehaviour, IUsable
     private bool isInitialised = false;
 
     private AudioSource audioSource;
+    private Animator animator;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
     }
 
     public void Initialise()
@@ -132,8 +134,9 @@ public class AutomaticGun : MonoBehaviour, IUsable
 
     private void Shoot()
     {
-
         audioSource.Play();
+        animator.Play("Shoot", 0, 0f);
+
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, gunData.range, layersToHit))
         {

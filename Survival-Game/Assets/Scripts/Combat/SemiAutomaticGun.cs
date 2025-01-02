@@ -26,10 +26,12 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     private bool isInitialised = false;
 
     private AudioSource audioSource;
+    private Animator animator;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
     }
 
     public void Initialise()
@@ -129,6 +131,7 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     private void Shoot()
     {
         audioSource.Play();
+        if (animator != null) animator.Play("Shoot", 0, 0f);
 
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward, Color.green);
         RaycastHit hit;
