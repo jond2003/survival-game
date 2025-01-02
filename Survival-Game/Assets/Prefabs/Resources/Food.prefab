@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 3494738309370299511, guid: 39a7a0c57d35bd94cad5166ab3167c11, type: 3}
+  offset: 0.5
 --- !u!1 &2725405373976318342
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasPosition: {fileID: 3202699844949903050}
   highlightText: {fileID: 3494738309370299511, guid: 39a7a0c57d35bd94cad5166ab3167c11, type: 3}
-  maxStack: 3
+  maxStack: 5
   itemName: Food
   sprite: {fileID: 21300000, guid: 4f19b14f8fcfdb747a376629c0310705, type: 3}
 --- !u!65 &1707394044866698147
