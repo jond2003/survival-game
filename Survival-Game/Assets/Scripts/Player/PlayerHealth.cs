@@ -26,7 +26,15 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        float damageMitigationFromArmour = PlayerArmour.instance.GetDamageMitigation();
+        float damageMitigationFromArmour;
+        if (damage > 0) //healing uses negative number, and does not use damage mitigation
+        {
+            damageMitigationFromArmour = PlayerArmour.instance.GetDamageMitigation();
+        }
+        else
+        {
+            damageMitigationFromArmour = 1;
+        }
         healthAmount -= (damage * damageMitigationFromArmour);
         healthAmount = Mathf.Clamp(healthAmount, 0, 100);
         healthBar.fillAmount = healthAmount / 100f;
