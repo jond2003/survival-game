@@ -2,40 +2,55 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public int slotIndex;
     private Image itemImage;
     private Transform originalParent;
     private GameObject draggingItem;
 
+    private Image slotBackground;
+    private Color originalColor;
+    private Color highlightColor = new Color32(0, 255, 255, 255);
+
     private void Start()
     {
-        itemImage = GetComponentInChildren<Image>();
+        slotBackground = GetComponent<Image>();
+        originalColor = slotBackground.color;
     }
 
-    // Called when the drag starts
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Dragging");
-        // If there's no item in the slot, return early
-        if (itemImage.sprite == null) return;
+        Transform itemIcon = transform.Find("ItemIcon");
 
-        // Create a new game object to represent the item being dragged
+        // Check if itemIcon exists
+        if (itemIcon == null)
+        {
+            return;
+        }
+
+        itemImage = itemIcon.GetComponent<Image>();
+
+        // Check if itemImage or its sprite is null
+        if (itemImage == null || itemImage.sprite == null)
+        {
+            return;
+        }
+
         draggingItem = new GameObject("DraggingItem");
         draggingItem.transform.SetParent(transform.root);
         draggingItem.transform.SetAsLastSibling();
 
-        // Add an image component to the dragging object to show the sprite of the item
         Image image = draggingItem.AddComponent<Image>();
         image.sprite = itemImage.sprite;
         image.raycastTarget = false;
         image.preserveAspect = true;
 
+        draggingItem.transform.localScale = new Vector3(0.6f, 0.6f, 1f);
         originalParent = transform;
     }
 
-    // Called during the drag as the item is being moved
+    // Sprite follows the mouse on drag
     public void OnDrag(PointerEventData eventData)
     {
         if (draggingItem != null)
@@ -44,41 +59,21 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
 
-    // Called when the drag ends (either dropped or canceled)
+    // Destroys the Sprite when user lets go of mouse button
     public void OnEndDrag(PointerEventData eventData)
     {
         if (draggingItem != null)
         {
             Destroy(draggingItem);
-
-            if (eventData.pointerEnter != null && eventData.pointerEnter.GetComponentInParent<InventorySlotUI>() != null)
-            {
-                InventorySlotUI targetSlot = eventData.pointerEnter.GetComponentInParent<InventorySlotUI>();
-                if (targetSlot != null && targetSlot != this)  // If it's a different slot
-                {
-                    PlayerInventory.Instance.SwapItems(slotIndex, targetSlot.slotIndex);
-                    PlayerInventory.Instance.UpdateInventoryUI();
-
-                    if (slotIndex < 5)
-                    {
-                        PlayerInventory.Instance.UpdateHotbar(slotIndex);
-                    }
-                    if (targetSlot.slotIndex < 5)
-                    {
-                        PlayerInventory.Instance.UpdateHotbar(targetSlot.slotIndex);
-                    }
-                }
-            }
         }
     }
 
-    // Called when an item is dropped onto this slot
+    // Swaps the slots
     public void OnDrop(PointerEventData eventData)
     {
         InventorySlotUI draggedSlot = eventData.pointerDrag.GetComponent<InventorySlotUI>();
-        if (draggedSlot != null && draggedSlot != this)  // Ensure it's a different slot
+        if (draggedSlot != null && draggedSlot != this)
         {
-  
             PlayerInventory.Instance.SwapItems(draggedSlot.slotIndex, slotIndex);
             PlayerInventory.Instance.UpdateInventoryUI();
 
@@ -91,5 +86,17 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 PlayerInventory.Instance.UpdateHotbar(draggedSlot.slotIndex);
             }
         }
+    }
+
+    // Hover starts
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        slotBackground.color = highlightColor;
+    }
+
+    // Hover ends
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        slotBackground.color = originalColor;
     }
 }
