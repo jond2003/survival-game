@@ -9,6 +9,7 @@ public class HUDManager : MonoBehaviour
     public GameObject grenadeInfoPanel;
     public GameObject craftingMenuPanel;
     public GameObject inventoryMenuPanel;
+    public GameObject hotbarPanel;
     public GameObject trashPanel;
     public GameObject inactiveCraftingPanel;
     public GameObject gameInfoPanel;
@@ -28,6 +29,7 @@ public class HUDManager : MonoBehaviour
         grenadeInfoPanel = transform.Find("GrenadeInfo").gameObject;
         craftingMenuPanel = transform.Find("BackgroundCraftingMenu").gameObject;
         inventoryMenuPanel = transform.Find("BackgroundInventory").gameObject;
+        hotbarPanel = transform.Find("BackgroundHotbar").gameObject;
         trashPanel = transform.Find("Bin").gameObject;
         inactiveCraftingPanel = craftingMenuPanel.transform.Find("InactiveCraftingPanel").gameObject;
         gameInfoPanel = transform.Find("GameInfo").gameObject;

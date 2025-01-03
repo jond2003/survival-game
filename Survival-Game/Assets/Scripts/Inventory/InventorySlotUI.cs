@@ -9,19 +9,33 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Transform originalParent;
     private GameObject draggingItem;
 
+    private Transform innerBorder;
     private Image slotBackground;
     private Color originalColor;
-    private Color highlightColor = new Color32(0, 255, 255, 255);
+    private Color highlightColor = new Color32(88, 88, 88, 255);
 
     private void Start()
     {
-        slotBackground = GetComponent<Image>();
+        Transform innerBorder = transform.Find("InnerBorder");
+        if (innerBorder != null)
+        {
+            slotBackground = innerBorder.GetComponent<Image>();
+        }
+        else
+        {
+            slotBackground = GetComponent<Image>();
+        }
         originalColor = slotBackground.color;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Transform itemIcon = transform.Find("ItemIcon");
+        if (innerBorder == null)
+        {
+            return;
+        }
+
+        Transform itemIcon = innerBorder.Find("ResourceIcon");
 
         // Check if itemIcon exists
         if (itemIcon == null)
@@ -91,12 +105,31 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Hover starts
     public void OnPointerEnter(PointerEventData eventData)
     {
-        slotBackground.color = highlightColor;
+        ShowInfo(true);
     }
 
     // Hover ends
     public void OnPointerExit(PointerEventData eventData)
     {
-        slotBackground.color = originalColor;
+        ShowInfo(false);
+    }
+
+    private void OnDisable()
+    {
+        ShowInfo(false);
+    }
+
+    private void ShowInfo(bool show)
+    {
+        if (slotIndex < PlayerInventory.Instance.GetInventory().Length)
+        {
+            slotBackground.color = show ? highlightColor : originalColor;
+
+            if (PlayerInventory.Instance.GetItem(slotIndex) != null)
+            {
+                Transform namePanel = transform.Find("NamePanel");
+                namePanel.gameObject.SetActive(show);
+            }
+        }
     }
 }
