@@ -176,7 +176,7 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     private void UpdateAmmoText()
     {
         totalAmmoText.text = ammoInInventory.ToString();
-        ammoText.text = bulletsInClip + "/" + gunData.clipSize;
+        ammoText.text = bulletsInClip + "/";
         if (bulletsInClip == 0)
         {
             ammoText.color = Color.red;

@@ -292,6 +292,11 @@ public class PlayerInventory : MonoBehaviour
 
         heldItem = currentItem;
 
+        if (HUDManager.Instance)
+        {
+            HUDManager.Instance.heldItemNameText.text = heldItem ? heldItem.itemName : "";
+        }
+
         if (OnHeldItemChanged != null) OnHeldItemChanged(heldItem);
     }
 
