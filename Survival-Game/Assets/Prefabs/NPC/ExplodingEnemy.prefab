@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 0}
+  offset: 0.5
 --- !u!1001 &4799467281016961482
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -360,7 +361,7 @@ AudioSource:
   m_GameObject: {fileID: 5645908378789938331}
   m_Enabled: 0
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1772954858618126695, guid: 817b51f3ccbd2ee4fbe91b58692f6f13, type: 2}
   m_audioClip: {fileID: 8300000, guid: 4d11813f5983ce047873c94858e6a6c1, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.316
