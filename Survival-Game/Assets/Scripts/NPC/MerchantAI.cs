@@ -10,7 +10,10 @@ public class MerchantAI : MonoBehaviour
     private float timeSinceChangedDirection = 0f;
     private Transform destination;
 
+    [SerializeField] private List<AudioClip> voiceLines;
+
     private Animator animator;
+    private AudioSource audioSource;
 
     private float startingSpeed = 2f;
 
@@ -19,6 +22,7 @@ public class MerchantAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.speed = startingSpeed; //starting speed
         animator = transform.GetChild(0).GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -45,5 +49,13 @@ public class MerchantAI : MonoBehaviour
         NavMeshHit navMeshHit;
         NavMesh.SamplePosition(newDestination, out navMeshHit, 50, -1);
         return navMeshHit.position;
+    }
+
+    public void SpeakToMerchant()
+    {
+        agent.SetDestination(transform.position);
+        audioSource.clip = voiceLines[Random.Range(0, voiceLines.Count - 1)];
+        audioSource.Play();
+        timeSinceChangedDirection = Time.time + 30f;
     }
 }

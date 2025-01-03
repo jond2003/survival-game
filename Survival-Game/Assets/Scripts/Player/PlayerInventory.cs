@@ -127,9 +127,12 @@ public class PlayerInventory : MonoBehaviour
 
     private void OnScroll(InputAction.CallbackContext context)
     {
-        float scrollValue = context.ReadValue<Vector2>().y;
+        if (!HUDManager.Instance.IsInventoryOpen)
+        {
+            float scrollValue = context.ReadValue<Vector2>().y;
 
-        IncrementHotbarSlot(Math.Sign(-scrollValue));
+            IncrementHotbarSlot(Math.Sign(-scrollValue));
+        }
     }
 
     // Increment/Decrement the hotbarIndex by the given increment
@@ -291,6 +294,11 @@ public class PlayerInventory : MonoBehaviour
         }
 
         heldItem = currentItem;
+
+        if (HUDManager.Instance)
+        {
+            HUDManager.Instance.heldItemNameText.text = heldItem ? heldItem.itemName : "";
+        }
 
         if (OnHeldItemChanged != null) OnHeldItemChanged(heldItem);
     }
