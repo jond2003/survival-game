@@ -12,7 +12,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Transform innerBorder;
     private Image slotBackground;
     private Color originalColor;
-    private Color highlightColor = Color.gray;
+    private Color highlightColor = new Color32(88, 88, 88, 255);
 
     private void Start()
     {

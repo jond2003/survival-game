@@ -119,12 +119,12 @@ public class PlayerInventory : MonoBehaviour
         UnassignHeldItem();
 
         ResourceUI hotbarSlot = hotbarUI.transform.GetChild(hotbarIndex).GetComponent<ResourceUI>();
-        hotbarSlot.UpdateBackround(Color.white);
+        hotbarSlot.UpdateBackround(new Color32(128, 128, 128, 255));
 
         hotbarIndex = (maxHotbarItems + hotbarIndex + increment) % maxHotbarItems;
 
         hotbarSlot = hotbarUI.transform.GetChild(hotbarIndex).GetComponent<ResourceUI>();
-        hotbarSlot.UpdateBackround(Color.gray);
+        hotbarSlot.UpdateBackround(new Color32(88, 88, 88, 255));
 
         AssignItemToPlayer();
     }
