@@ -17,12 +17,12 @@ public class MainMenu : MonoBehaviour
 
     public void GoToSettingsMenu()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadSceneAsync("SettingsScene");
     }
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadSceneAsync("MainMenuScene");
     }
 
 }
