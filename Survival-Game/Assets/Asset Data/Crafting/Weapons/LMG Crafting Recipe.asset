@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1abdc9836c03dc845913a774c0121c51, type: 3}
   m_Name: LMG Crafting Recipe
   m_EditorClassIdentifier: 
-  ingredients: []
+  ingredients:
+  - Item: {fileID: 8979712513836856141, guid: ce28f7e31204c594287ae5e333a4e18f, type: 3}
+    Quantity: 48
+  - Item: {fileID: 8979712513836856141, guid: c562a15c956c2ba4a86f5f633a9c447b, type: 3}
+    Quantity: 15
   craftedItem:
-    Item: {fileID: 0}
+    Item: {fileID: 7329241252868150544, guid: 5dba92b1db739344289b9402c713fa3c, type: 3}
     Quantity: 0
