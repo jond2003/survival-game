@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredients:
   - Item: {fileID: 8979712513836856141, guid: ce28f7e31204c594287ae5e333a4e18f, type: 3}
-    Quantity: 6
+    Quantity: 18
   - Item: {fileID: 8979712513836856141, guid: c562a15c956c2ba4a86f5f633a9c447b, type: 3}
-    Quantity: 4
+    Quantity: 8
   craftedItem:
     Item: {fileID: 3015014331620821077, guid: 639206373a94eba4ea5552c938aeb9a7, type: 3}
     Quantity: 1
