@@ -289,7 +289,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 66d61a2d71457a947806742c99146c59, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -391,6 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceUIObj: {fileID: 5365622604053124365, guid: 1fe382d77463aec469a9bb73ab788123, type: 3}
+  craftingManager: {fileID: 0}
 --- !u!1 &7493858385741595008
 GameObject:
   m_ObjectHideFlags: 0
