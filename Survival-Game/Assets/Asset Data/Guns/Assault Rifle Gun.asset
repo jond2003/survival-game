@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06409313d3a373447aeb39cd52db0bf2, type: 3}
   m_Name: Assault Rifle Gun
   m_EditorClassIdentifier: 
-  ammoType: {fileID: 7217347402462928274, guid: fb3dacfe7b8c23a4c8cd8e75b40c72ab, type: 3}
+  ammoType: {fileID: 2235011457945597506, guid: 04bc9d296927f2448bc70d6c4d420686, type: 3}
   damage: 22
-  range: 80
+  range: 70
   fireRate: 7
   clipSize: 25
   reloadTime: 1.5
