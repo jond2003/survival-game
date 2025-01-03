@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class HUDManager : MonoBehaviour
@@ -9,9 +10,12 @@ public class HUDManager : MonoBehaviour
     public GameObject craftingMenuPanel;
     public GameObject inventoryMenuPanel;
     public GameObject trashPanel;
+    public GameObject inactiveCraftingPanel;
+    public GameObject gameInfoPanel;
+
+    public TMP_Text heldItemNameText;
 
     public bool IsInventoryOpen { get; private set; } = false;
-    public bool IsCraftingMenuOpen { get; private set; } = false;
 
     public static HUDManager Instance { get; private set; }
     void Awake()
@@ -25,21 +29,19 @@ public class HUDManager : MonoBehaviour
         craftingMenuPanel = transform.Find("BackgroundCraftingMenu").gameObject;
         inventoryMenuPanel = transform.Find("BackgroundInventory").gameObject;
         trashPanel = transform.Find("Bin").gameObject;
+        inactiveCraftingPanel = craftingMenuPanel.transform.Find("InactiveCraftingPanel").gameObject;
+        gameInfoPanel = transform.Find("GameInfo").gameObject;
+        heldItemNameText = transform.Find("HeldItemName").GetComponent<TMP_Text>();
     }
 
     public void ToggleInventory()
     {
         IsInventoryOpen = !IsInventoryOpen;
+
         inventoryMenuPanel.SetActive(IsInventoryOpen);
         trashPanel.SetActive(IsInventoryOpen);
-        Cursor.lockState = IsInventoryOpen ? CursorLockMode.None : CursorLockMode.Locked;
-        if (IsCraftingMenuOpen && !IsInventoryOpen) ToggleCraftingMenu();
-    }
+        craftingMenuPanel.SetActive(IsInventoryOpen);
 
-    public void ToggleCraftingMenu()
-    {
-        IsCraftingMenuOpen = !IsCraftingMenuOpen;
-        craftingMenuPanel.SetActive(IsCraftingMenuOpen);
-        if ((IsInventoryOpen && !IsCraftingMenuOpen) || (!IsInventoryOpen && IsCraftingMenuOpen)) ToggleInventory();
+        Cursor.lockState = IsInventoryOpen ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }
