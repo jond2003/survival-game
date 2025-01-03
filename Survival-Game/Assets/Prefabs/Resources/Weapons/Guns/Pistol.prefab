@@ -371,7 +371,7 @@ MonoBehaviour:
   canvasPosition: {fileID: 8953277537707406534}
   highlightText: {fileID: 3494738309370299511, guid: 39a7a0c57d35bd94cad5166ab3167c11, type: 3}
   maxStack: 1
-  itemName: Handy
+  itemName: G402
   sprite: {fileID: 21300028, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
 --- !u!114 &8096413092920581660
 MonoBehaviour:

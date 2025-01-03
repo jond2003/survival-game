@@ -135,7 +135,7 @@ public class AutomaticGun : MonoBehaviour, IUsable
     private void Shoot()
     {
         audioSource.Play();
-        animator.Play("Shoot", 0, 0f);
+        if (animator != null) animator.Play("Shoot", 0, 0f);
 
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, gunData.range, layersToHit))

@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06409313d3a373447aeb39cd52db0bf2, type: 3}
-  m_Name: SMG Gun
+  m_Script: {fileID: 11500000, guid: 1abdc9836c03dc845913a774c0121c51, type: 3}
+  m_Name: LMG Crafting Recipe
   m_EditorClassIdentifier: 
-  ammoType: {fileID: 7258833989812502514, guid: 5f77a798b208a9342bd6de6356868113, type: 3}
-  damage: 6
-  range: 60
-  fireRate: 12
-  clipSize: 35
-  reloadTime: 0.6
+  ingredients: []
+  craftedItem:
+    Item: {fileID: 0}
+    Quantity: 0
