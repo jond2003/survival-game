@@ -31,7 +31,6 @@ public class Interactor : MonoBehaviour
     private InputAction rmbInput;
     private InputAction reloadInput;
 
-
     private IInteractable interactable;
     private IUsable heldItem;
 
@@ -56,9 +55,9 @@ public class Interactor : MonoBehaviour
     void Update()
     {
         // Skip interaction checks if the inventory is open
-        if (PlayerInventory.Instance.IsInventoryOpen)
+        if (HUDManager.Instance.IsInventoryOpen)
         {
-            return;  
+            return;
         }
 
 

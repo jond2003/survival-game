@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasPosition: {fileID: 5542453126760679200}
   highlightText: {fileID: 3494738309370299511, guid: 39a7a0c57d35bd94cad5166ab3167c11, type: 3}
-  maxStack: 5
+  maxStack: 100
   itemName: Steel
   sprite: {fileID: 21300000, guid: c17928f5ba732f84781cfb4de932a8a3, type: 3}
 --- !u!1001 &4102331313656752178
@@ -206,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8360043584781168402, guid: fb4f1f1843ec8154897112c351a0cad3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8360043584781168402, guid: fb4f1f1843ec8154897112c351a0cad3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

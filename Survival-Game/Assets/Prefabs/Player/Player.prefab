@@ -400,6 +400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
   healthAmount: 100
+  playerArmour: {fileID: 0}
 --- !u!136 &8089682336584280427
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -473,9 +474,6 @@ MonoBehaviour:
   playerInput: {fileID: 7838910914143989060}
   hotbar: {fileID: 0}
   playerHand: {fileID: 8564979594488980245}
-  playerLook: {fileID: 4647518505118886944}
-  IsInventoryOpen: 0
-  inventoryUI: {fileID: 0}
   InventoryInput:
     m_Name: Inventory Input
     m_Type: 0
@@ -515,7 +513,7 @@ AudioSource:
   m_GameObject: {fileID: 2289027266630935537}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1772954858618126695, guid: 817b51f3ccbd2ee4fbe91b58692f6f13, type: 2}
   m_audioClip: {fileID: 8300000, guid: eec53751c4e79a7469fc34e774360128, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.118
@@ -700,7 +698,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
