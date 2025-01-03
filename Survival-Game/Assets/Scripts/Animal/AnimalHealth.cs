@@ -20,4 +20,9 @@ public class AnimalHealth : MonoBehaviour
 
         return healthAmount <= 0;
     }
+
+    public float GetHealth()
+    {
+        return healthAmount;
+    }
 }

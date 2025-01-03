@@ -7,12 +7,7 @@ using UnityEngine.UI;
 
 public class SemiAutomaticGun : MonoBehaviour, IUsable
 {
-    [SerializeField] private float damage = 10f;
-    [SerializeField] private float range = 100f;
-    [SerializeField] private float fireRate = 5f;
-    [SerializeField] private float impactForce = 25f;
-    [SerializeField] private int clipSize = 30;
-    [SerializeField] private float reloadTime = 1f;
+    [SerializeField] GunData gunData;
 
     private HUDManager hudManager;
     private GameObject gunInfoPanel;
@@ -22,6 +17,7 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     private Slider reloadSlider;
 
     private float nextTimeToFire = 0f;
+    private int ammoInInventory;
     private int bulletsInClip;
     private bool isReloading;
 
@@ -30,10 +26,12 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     private bool isInitialised = false;
 
     private AudioSource audioSource;
+    private Animator animator;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
     }
 
     public void Initialise()
@@ -66,7 +64,7 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
 
             layersToHit = LayerMask.GetMask("Default");
 
-            bulletsInClip = clipSize;
+            bulletsInClip = gunData.clipSize;
 
             isInitialised = true;
         }
@@ -79,7 +77,7 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
 
         gunInfoPanel.SetActive(true);
         reloadSlider.gameObject.SetActive(true);
-        reloadSlider.maxValue = reloadTime;
+        reloadSlider.maxValue = gunData.reloadTime;
         reloadSlider.gameObject.SetActive(false);
 
         UpdateAmmoText();
@@ -99,6 +97,7 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     {
         if (isInitialised)
         {
+            ammoInInventory = PlayerInventory.Instance.HasItem(gunData.ammoType.itemName);
             if (isReloading)
             {
                 // Update reload UI
@@ -106,10 +105,12 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
 
                 if (Time.time > nextTimeToFire)
                 {
-                    bulletsInClip = clipSize;
-                    UpdateAmmoText();
-                    isReloading = false;
-                    reloadSlider.gameObject.SetActive(false);
+                    if (LoadAmmo())
+                    {
+                        UpdateAmmoText();
+                        isReloading = false;
+                        reloadSlider.gameObject.SetActive(false);
+                    }
                 }
             }
         }
@@ -119,7 +120,10 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     {
         if (Time.time > nextTimeToFire && bulletsInClip > 0)
         {
-            nextTimeToFire = Time.time + 1f / fireRate;
+            if (gunData.fireRate > 0)
+            {
+                nextTimeToFire = Time.time + 1f / gunData.fireRate;
+            }
             Shoot();
         }
     }
@@ -127,20 +131,16 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     private void Shoot()
     {
         audioSource.Play();
+        if (animator != null) animator.Play("Shoot", 0, 0f);
 
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward, Color.green);
         RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range, layersToHit))
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, gunData.range, layersToHit))
         {
             Target target = hit.transform.GetComponent<Target>();
             if (target)
             {
-                target.TakeDamage(damage);
-            }
-
-            if (hit.rigidbody != null)
-            {
-                hit.rigidbody.AddForce(-hit.normal * impactForce);
+                target.TakeDamage(gunData.damage);
             }
         }
         bulletsInClip -= 1;
@@ -149,9 +149,9 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
 
     private void Reload()
     {
-        if (!isReloading && bulletsInClip < clipSize)
+        if (!isReloading && bulletsInClip < gunData.clipSize && ammoInInventory > 0)
         {
-            nextTimeToFire = Time.time + reloadTime;
+            nextTimeToFire = Time.time + gunData.reloadTime;
 
             reloadSlider.gameObject.SetActive(true);
             reloadSlider.value = 0f;
@@ -160,9 +160,23 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
         }
     }
 
+    private bool LoadAmmo()
+    {
+        if (ammoInInventory <= 0) return false;
+
+        int roundsReloaded = Mathf.Min(gunData.clipSize - bulletsInClip, ammoInInventory);
+        PlayerInventory.Instance.ConsumeItem(gunData.ammoType.itemName, roundsReloaded);
+
+        bulletsInClip += roundsReloaded;
+        ammoInInventory = PlayerInventory.Instance.HasItem(gunData.ammoType.itemName);
+
+        return true;
+    }
+
     private void UpdateAmmoText()
     {
-        ammoText.text = bulletsInClip + "/" + clipSize;
+        totalAmmoText.text = ammoInInventory.ToString();
+        ammoText.text = bulletsInClip + "/" + gunData.clipSize;
         if (bulletsInClip == 0)
         {
             ammoText.color = Color.red;

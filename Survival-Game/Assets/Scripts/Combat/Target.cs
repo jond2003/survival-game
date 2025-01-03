@@ -47,11 +47,13 @@ public class Target : MonoBehaviour
         bool isDead = false;
         if (enemyHealth != null)
         {
-            isDead = enemyHealth.DamageEnemy(damage);
+            isDead = enemyHealth.GetHealth() <= 0;
+            enemyHealth.DamageEnemy(damage);
         }
         else if (animalHealth != null)
         {
-            isDead = animalHealth.DamageAnimal(damage);
+            isDead = animalHealth.GetHealth() <= 0;
+            animalHealth.DamageAnimal(damage);
         }
         if (!isDead) ShowDamage(damage);
     }
