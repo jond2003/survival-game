@@ -9394,7 +9394,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 30
   m_Viewport: {fileID: 868317601}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}
@@ -25274,7 +25274,11 @@ PrefabInstance:
       objectReference: {fileID: 430538305}
     - target: {fileID: 6555558738386032518, guid: d4fb151f7b8953049a7496824777745a, type: 3}
       propertyPath: maxPlayerDistance
-      value: 30
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370964454465683234, guid: d4fb151f7b8953049a7496824777745a, type: 3}
+      propertyPath: DopplerLevel
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8487301678363492140, guid: d4fb151f7b8953049a7496824777745a, type: 3}
       propertyPath: m_LocalPosition.x

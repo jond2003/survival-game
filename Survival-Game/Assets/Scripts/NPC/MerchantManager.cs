@@ -9,7 +9,7 @@ public class MerchantManager : MonoBehaviour, IInteractable
     [SerializeField] private GameObject highlightText;
 
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private float maxPlayerDistance = 30f;
+    [SerializeField] private float maxPlayerDistance = 15f;
 
     private bool isHighlighted = false;
     private GameObject highlightTextObject;
