@@ -180,14 +180,6 @@ public class AutomaticGun : MonoBehaviour, IUsable
     {
         totalAmmoText.text = ammoInInventory.ToString();
         ammoText.text = bulletsInClip + "/";
-        if (bulletsInClip == 0)
-        {
-            ammoText.color = Color.red;
-        }
-        else
-        {
-            ammoText.color = Color.black;
-        }
     }
 
     public void Uninitialise()
