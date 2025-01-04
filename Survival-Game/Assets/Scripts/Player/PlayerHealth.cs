@@ -6,12 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-
     [SerializeField] private Image healthBar;
     [SerializeField] private float healthAmount = 100f;
-
-    [SerializeField] private PlayerArmour playerArmour;
-
 
     void Update()
     {
