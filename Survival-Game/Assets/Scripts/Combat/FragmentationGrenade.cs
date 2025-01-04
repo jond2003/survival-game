@@ -70,7 +70,6 @@ public class FragmentationGrenade : MonoBehaviour, IGrenade
     public void Explode()
     {
         hasExploded = true;
-        Debug.Log("Exploded!");
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
         bool playerTakenDamage = false;
