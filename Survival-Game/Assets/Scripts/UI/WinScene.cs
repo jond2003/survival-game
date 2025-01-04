@@ -8,6 +8,6 @@ public class WinScene : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadSceneAsync(0);
+        SceneManager.LoadSceneAsync("MainMenuScene");
     }
 }

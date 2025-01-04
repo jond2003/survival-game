@@ -7,6 +7,6 @@ public class GameSettingsMenu : MonoBehaviour
 {
     public void LoadGame()
     {
-        SceneManager.LoadSceneAsync("MainScene");
+        SceneManager.LoadSceneAsync("GameScene");
     }
 }
