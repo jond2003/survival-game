@@ -58,7 +58,6 @@ public class ExplodingEnemyAI : MonoBehaviour
             if (Time.time > timeSinceAttacked)
             {
                 timeSinceAttacked = Time.time + timeSinceAttackedLimit;
-                Debug.Log("Exploding at player");
                 AttackPlayer();
             }
         }

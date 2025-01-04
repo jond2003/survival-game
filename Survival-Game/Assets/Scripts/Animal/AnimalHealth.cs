@@ -13,7 +13,6 @@ public class AnimalHealth : MonoBehaviour
         healthAmount -= damage;
         if (healthAmount <= 0)
         {
-            Debug.Log("animal killed");
             itemDropper.DropItem();
             Destroy(this.gameObject);
         }
