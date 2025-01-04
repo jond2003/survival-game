@@ -5,12 +5,8 @@ using UnityEngine.InputSystem;
 
 public class RebindMenuManager : MonoBehaviour
 {
-    public InputActionReference FireRef, InteractRef, CrouchRef, SprintRef, JumpRef, MoveRef, ReloadRef, InventoryRef;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public InputActionReference FireRef, InteractRef, CrouchRef, SprintRef, JumpRef, MoveRef, ReloadRef, InventoryRef, HotkeyKeyboardRef;
+ 
 
     // Disable all action references when the menu is enabled to prevent accidental input during rebind.
     private void OnEnable()
@@ -23,6 +19,7 @@ public class RebindMenuManager : MonoBehaviour
         MoveRef.action.Disable();
         ReloadRef.action.Disable();
         InventoryRef.action.Disable();
+        HotkeyKeyboardRef.action.Disable();
     }
 
     // Re-enable all action references to restore player control.
@@ -36,12 +33,7 @@ public class RebindMenuManager : MonoBehaviour
         MoveRef.action.Enable();
         ReloadRef.action.Enable();
         InventoryRef.action.Enable();
+        HotkeyKeyboardRef.action.Enable();
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

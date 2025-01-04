@@ -19,7 +19,8 @@ public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private PlayerInput playerInput;
     private InputAction scrollInput;
-    private InputAction InventoryInput;
+    private InputAction inventoryInput;
+    private InputAction hotbarKeyboardInput;
     [SerializeField] private GameObject playerHand;
 
     private GameObject inventoryUI;
@@ -53,7 +54,10 @@ public class PlayerInventory : MonoBehaviour
 
         scrollInput = playerInput.actions.FindAction("ScrollWheel");
 
-        InventoryInput = playerInput.actions.FindAction("Inventory");
+
+        inventoryInput = playerInput.actions.FindAction("Inventory");
+
+        hotbarKeyboardInput = playerInput.actions.FindAction("HotbarKeyboard");
     }
 
     private void Start()
@@ -62,11 +66,12 @@ public class PlayerInventory : MonoBehaviour
         hotbarUI = HUDManager.Instance.hotbarPanel;
 
         IncrementHotbarSlot(0);
+
     }
 
     void Update()
     {
-        if (InventoryInput.WasPerformedThisFrame())
+        if (inventoryInput.WasPerformedThisFrame())
         {
             HUDManager.Instance.ToggleInventory();
 
@@ -74,6 +79,11 @@ public class PlayerInventory : MonoBehaviour
             {
                 UpdateInventoryUI();
             }
+        }
+
+        if(hotbarKeyboardInput.WasPerformedThisFrame())
+        {
+            ChangeHotBarWithKeyboard();
         }
     }
 
@@ -433,5 +443,16 @@ public class PlayerInventory : MonoBehaviour
             }
         }
         return quantity;
+    }
+
+    private void ChangeHotBarWithKeyboard()
+    {
+        var currentKey = hotbarKeyboardInput.activeControl;
+
+        int hotBarChosenIndex = hotbarKeyboardInput.GetBindingIndexForControl(currentKey);
+
+        int valueToIncrementHotbar = (hotBarChosenIndex - hotbarIndex + maxHotbarItems) % (maxHotbarItems);
+
+        IncrementHotbarSlot(valueToIncrementHotbar);
     }
 }
