@@ -63,7 +63,7 @@ public class AutomaticGun : MonoBehaviour, IUsable
                 }
             }
 
-            layersToHit = LayerMask.GetMask("Default");
+            layersToHit = LayerMask.GetMask("NPC");
 
             bulletsInClip = gunData.clipSize;
 
