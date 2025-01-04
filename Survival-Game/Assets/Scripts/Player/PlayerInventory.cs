@@ -193,8 +193,6 @@ public class PlayerInventory : MonoBehaviour
                     indexStoredAt = i;
                     itemStored = true;
 
-                    Debug.Log("Added " + item.name + " to Inventory!");
-
                     // If item stored in hotbar slot
                     if (i < maxHotbarItems)
                     {
