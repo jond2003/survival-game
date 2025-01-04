@@ -63,7 +63,7 @@ public class AutomaticGun : MonoBehaviour, IUsable
                 }
             }
 
-            layersToHit = LayerMask.GetMask("Default");
+            layersToHit = LayerMask.GetMask("NPC");
 
             bulletsInClip = gunData.clipSize;
 
@@ -180,14 +180,6 @@ public class AutomaticGun : MonoBehaviour, IUsable
     {
         totalAmmoText.text = ammoInInventory.ToString();
         ammoText.text = bulletsInClip + "/";
-        if (bulletsInClip == 0)
-        {
-            ammoText.color = Color.red;
-        }
-        else
-        {
-            ammoText.color = Color.black;
-        }
     }
 
     public void Uninitialise()

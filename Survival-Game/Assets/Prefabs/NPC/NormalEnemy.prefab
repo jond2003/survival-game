@@ -1991,7 +1991,7 @@ GameObject:
   - component: {fileID: 5852389349409315763}
   - component: {fileID: 6852023630944388478}
   - component: {fileID: 6435243883752078206}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NormalEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
