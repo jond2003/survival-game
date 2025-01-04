@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 4956782743676026329}
   - component: {fileID: 8138660893947140156}
   - component: {fileID: 2694418914038258311}
+  - component: {fileID: 3761063731997829031}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -321,6 +322,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 092f090d-bfea-4f53-a49f-fcec0064705d
     m_ActionName: 'Player/Inventory[/Keyboard/tab]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b9aacef4-6267-4555-95de-6191c65945aa
+    m_ActionName: 'Player/HotbarKeyboard[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4,/Keyboard/5]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -400,7 +405,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
   healthAmount: 100
-  playerArmour: {fileID: 0}
 --- !u!136 &8089682336584280427
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -462,27 +466,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d04dc852ce3e2f446869740de5e69721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollInput:
-    m_Name: Scroll Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 1e147d4f-a54b-44da-bb19-5f884e8ce4b8
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
   playerInput: {fileID: 7838910914143989060}
-  hotbar: {fileID: 0}
   playerHand: {fileID: 8564979594488980245}
-  InventoryInput:
-    m_Name: Inventory Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 2fd5723a-2e5d-4bfa-9993-e2d4040e93b4
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
   maxHotbarItems: 5
   maxInventoryItems: 25
   hotbarIndex: 0
@@ -600,6 +585,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3761063731997829031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289027266630935537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334862c771516d142bf80f6ba1a6b43d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentDamageMitigation: 0
+  currentArmourLevel: 0
+  maxArmourLevel: 3
+  armourText: {fileID: 0}
+  armourRecipeData: {fileID: 0}
 --- !u!1 &8564979594488980245
 GameObject:
   m_ObjectHideFlags: 0
