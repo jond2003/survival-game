@@ -29,6 +29,9 @@ public class PlayerInventory : MonoBehaviour
     // Hotbar takes up first maxHotbarItems spaces in inventory array
     [SerializeField] private int maxHotbarItems = 5;
     [SerializeField] private int maxInventoryItems = 25;
+    [SerializeField] private GameObject startingWeapon;
+    [SerializeField] private GameObject startingAmmo;
+    [SerializeField] private int startingAmmoAmount;
 
     private InventorySlot[] inventory;
     private Dictionary<string, List<int>> itemIndices = new Dictionary<string, List<int>>();
@@ -64,6 +67,19 @@ public class PlayerInventory : MonoBehaviour
     {
         inventoryUI = HUDManager.Instance.inventoryMenuPanel;
         hotbarUI = HUDManager.Instance.hotbarPanel;
+
+        GameObject startingAmmoObj = Instantiate(startingAmmo);
+        Resource startingAmmoResource = startingAmmoObj.GetComponent<Resource>();
+
+        StoreItem(startingAmmoResource);
+        SwapItems(0, 24);
+        SetQuantity(24, startingAmmoAmount);
+        UpdateHotbar(0);
+
+        GameObject startingWeaponObj = Instantiate(startingWeapon);
+        Resource startingWeaponResource = startingWeaponObj.GetComponent<Resource>();
+
+        StoreItem(startingWeaponResource);
 
         IncrementHotbarSlot(0);
 
@@ -164,7 +180,7 @@ public class PlayerInventory : MonoBehaviour
 
                     if (index < maxHotbarItems)
                     {
-                        UpdateHotbar(i);
+                        UpdateHotbar(index);
                     }
                     UpdateInventoryUI();
                     item.gameObject.SetActive(false);
@@ -441,6 +457,15 @@ public class PlayerInventory : MonoBehaviour
             }
         }
         return quantity;
+    }
+
+    private void SetQuantity(int index, int quantity)
+    {
+        InventorySlot slot = inventory[index];
+        if (slot != null)
+        {
+            slot.Quantity = quantity;
+        }
     }
 
     private void ChangeHotBarWithKeyboard()

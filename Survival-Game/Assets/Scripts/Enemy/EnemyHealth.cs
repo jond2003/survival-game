@@ -18,8 +18,6 @@ public class EnemyHealth : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
-
         enemyData = (EnemyData)GameSettingsManager.GetDifficultyData(easyEnemyData, hardEnemyData, impossibleEnemyData);
 
         healthAmount = enemyData.health;
