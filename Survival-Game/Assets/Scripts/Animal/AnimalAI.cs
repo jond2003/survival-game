@@ -13,6 +13,8 @@ public class AnimalAI : MonoBehaviour
 
     private float startingSpeed = 2f;
 
+    [SerializeField] Animator animator;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -29,6 +31,15 @@ public class AnimalAI : MonoBehaviour
             
             Vector3 newDestination = GetRandomDestination(transform.position);
             agent.SetDestination(newDestination);
+        }
+
+        if (agent.velocity.sqrMagnitude > 0f) //means it's moving
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
         }
     }
 
