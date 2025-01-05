@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d84268709d11078d11005b9844295342
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 34490
+  packageName: Sleek Toon Bot (Free)
+  packageVersion: 1.1
+  assetPath: Assets/Standard Assets/Toon Shading/Sources/Shaders/Toony-Basic.shader
+  uploadId: 64529

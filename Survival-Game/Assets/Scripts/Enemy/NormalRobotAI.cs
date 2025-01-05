@@ -32,7 +32,7 @@ public class NormalRobotAI : MonoBehaviour
         playerHealth = player.GetComponent<PlayerHealth>();
         meshAgent = GetComponent<NavMeshAgent>();
         meshAgent.stoppingDistance = 2f; //Stop enemy pushing player
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
 
         enemyData = (EnemyData)GameSettingsManager.GetDifficultyData(easyEnemyData, hardEnemyData, impossibleEnemyData);
 
