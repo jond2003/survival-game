@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoType: {fileID: 7258833989812502514, guid: 5f77a798b208a9342bd6de6356868113, type: 3}
   damage: 6
-  range: 60
+  pelletsCount: 0
+  spreadRadius: 0
+  range: 50
   fireRate: 12
   clipSize: 35
-  reloadTime: 0.6
+  reloadTime: 0.5

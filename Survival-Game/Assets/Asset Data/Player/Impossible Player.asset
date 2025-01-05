@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077f9c06ff1f9fe4b8a4e326ce7288cb, type: 3}
   m_Name: Impossible Player
   m_EditorClassIdentifier: 
-  hungerDamage: 10
-  hungerDamageRate: 4
-  hungerDamageThreshold: 40
-  hungerLossAmount: 4
-  hungerLossRate: 2
-  hungerHealAmount: -5
-  hungerHealRate: 5
-  hungerHealThreshold: 90
+  hungerDamage: 1.5
+  hungerDamageRate: 1
+  hungerDamageThreshold: 50
+  hungerLossAmount: 1
+  hungerLossRate: 1
+  hungerHealAmount: -1
+  hungerHealRate: 1
+  hungerHealThreshold: 70

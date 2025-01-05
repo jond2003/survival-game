@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077f9c06ff1f9fe4b8a4e326ce7288cb, type: 3}
   m_Name: Hard Player
   m_EditorClassIdentifier: 
-  hungerDamage: 5
-  hungerDamageRate: 4
+  hungerDamage: 1
+  hungerDamageRate: 1
   hungerDamageThreshold: 30
-  hungerLossAmount: 5
-  hungerLossRate: 5
-  hungerHealAmount: -5
-  hungerHealRate: 5
-  hungerHealThreshold: 70
+  hungerLossAmount: 0.5
+  hungerLossRate: 1
+  hungerHealAmount: -1
+  hungerHealRate: 0.75
+  hungerHealThreshold: 50

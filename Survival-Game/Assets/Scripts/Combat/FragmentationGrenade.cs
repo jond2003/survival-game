@@ -45,26 +45,12 @@ public class FragmentationGrenade : MonoBehaviour, IGrenade
             this.damage = damage;
             this.timeToExplode = isCooking ? this.timeToExplode : cookTime;
 
-            Cook();
+            isCooking = true;
 
             throwable.Throw(throwDirection);
 
             isThrown = true;
         }
-    }
-
-    public void Cook(float explosionRadius, float damage, float cookTime)
-    {
-        this.explosionRadius = explosionRadius;
-        this.damage = damage;
-        this.timeToExplode = cookTime;
-
-        Cook();
-    }
-
-    private void Cook()
-    {
-        isCooking = true;
     }
 
     public void Explode()

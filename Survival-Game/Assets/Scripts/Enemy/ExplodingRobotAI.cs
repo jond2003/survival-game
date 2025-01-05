@@ -37,6 +37,7 @@ public class ExplodingEnemyAI : MonoBehaviour
         meshAgent.stoppingDistance = 1.6f; //Stop enemy pushing player
 
         enemyData = (EnemyData)GameSettingsManager.GetDifficultyData(easyEnemyData, hardEnemyData, impossibleEnemyData);
+        meshAgent.speed = enemyData.movementSpeed;
 
         timeSinceAttackedLimit = enemyData.attackSpeed;
 

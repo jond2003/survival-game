@@ -13,17 +13,6 @@ MonoBehaviour:
   m_Name: Impossible Normal Enemy
   m_EditorClassIdentifier: 
   health: 100
-  movementSpeed: 7
-  attackDamage: 20
+  movementSpeed: 15
+  attackDamage: 15
   attackSpeed: 4
-  drops:
-  - drop: {fileID: 8979712513836856141, guid: ce28f7e31204c594287ae5e333a4e18f, type: 3}
-    maxDrops: 0
-    initialDropChance: 1
-    chanceDivisor: 0
-    exponentStep: 0
-  - drop: {fileID: 8979712513836856141, guid: c562a15c956c2ba4a86f5f633a9c447b, type: 3}
-    maxDrops: 0
-    initialDropChance: 0.25
-    chanceDivisor: 0
-    exponentStep: 0

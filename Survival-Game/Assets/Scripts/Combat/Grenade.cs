@@ -7,14 +7,13 @@ using UnityEngine.UI;
 interface IGrenade
 {
     public void Throw(Vector3 throwDirection, float explosionRadius, float damage, float cookTime);
-    public void Cook(float explosionRadius, float damage, float cookTime);
     public void Explode();
 }
 
 public class Grenade : MonoBehaviour, IUsable
 {
-    [SerializeField] private float damage = 50f;
-    [SerializeField] private float explosionRadius = 5f;
+    [SerializeField] private float damage = 60f;
+    [SerializeField] private float explosionRadius = 8f;
     [SerializeField] private float cookTime = 3f;
 
     [SerializeField] private GameObject fragGrenade;
@@ -23,22 +22,11 @@ public class Grenade : MonoBehaviour, IUsable
     private GameObject grenadeInfoPanel;
 
     private TMP_Text grenadeCountText;
-    private Slider cookingSlider;
-
-    private bool isCooking = false;
-    private float explosionTime = 0f;
 
     private Camera playerCamera;
-    private PlayerInventory inventory;
-    private GameObject grenade;
     private IGrenade explosiveGrenade;
 
     private bool isInitialised = false;
-
-    void Start()
-    {
-        inventory = PlayerInventory.Instance;
-    }
 
     public void Initialise()
     {
@@ -57,9 +45,6 @@ public class Grenade : MonoBehaviour, IUsable
             {
                 switch (child.name)
                 {
-                    case "Cooking Slider":
-                        cookingSlider = child.GetComponent<Slider>();
-                        break;
                     case "GrenadeCountText":
                         grenadeCountText = child.GetComponent<TMP_Text>();
                         break;
@@ -70,68 +55,25 @@ public class Grenade : MonoBehaviour, IUsable
         }
 
         grenadeInfoPanel.SetActive(true);
-        grenadeCountText.text = inventory.GetStackQuantity(inventory.hotbarIndex).ToString();
+        grenadeCountText.text = PlayerInventory.Instance.GetStackQuantity(PlayerInventory.Instance.hotbarIndex).ToString();
     }
 
     public void LMB_Action(bool isPressed)
     {
-        if (!isPressed && !isCooking) Throw();
+        if (!isPressed) Throw();
     }
 
-    public void RMB_Action(bool isPressed)
-    {
-        if (isPressed) Cook();  // Press and hold
-        if (!isPressed && isCooking) Throw();  // Release
-    }
-
-    void Update()
-    {
-        if (isInitialised)
-        {
-            if (isCooking)
-            {
-                cookingSlider.value -= Time.deltaTime;
-
-                grenade.transform.localScale = Vector3.zero;  // Make unthrown cooking grenade invisible
-                if (Time.time >= explosionTime)
-                {
-                    cookingSlider.gameObject.SetActive(false);
-                    grenade.transform.localScale = Vector3.one;  // Make cooking grenade visible
-                    inventory.ConsumeHeldItem();
-                }
-            }
-        }
-    }
+    public void RMB_Action(bool isPressed) { }
 
     private void Throw()
     {
-        if (!isCooking)
-        {
-            grenade = Instantiate(fragGrenade, transform.parent.position, Quaternion.identity);
-            explosiveGrenade = grenade.GetComponent<IGrenade>();
-        }
-        grenade.transform.localScale = Vector3.one;  // Make cooking grenade visible
+        GameObject grenade = Instantiate(fragGrenade, transform.parent.position, Quaternion.identity);
+        explosiveGrenade = grenade.GetComponent<IGrenade>();
+        //grenade.transform.localScale = Vector3.one;  // Make cooking grenade visible
         explosiveGrenade.Throw(playerCamera.transform.forward, explosionRadius, damage, cookTime);
-        inventory.ConsumeHeldItem();
+        PlayerInventory.Instance.ConsumeHeldItem();
 
-        isCooking = false;
-    }
-
-    private void Cook()
-    {
-        if (!isCooking)
-        {
-            grenade = Instantiate(fragGrenade, transform.parent.position, Quaternion.identity);
-            explosiveGrenade = grenade.GetComponent<IGrenade>();
-            explosiveGrenade.Cook(explosionRadius, damage, cookTime);
-
-            explosionTime = Time.time + cookTime;
-            isCooking = true;
-            
-            cookingSlider.gameObject.SetActive(true);
-            cookingSlider.maxValue = cookTime;
-            cookingSlider.value = cookTime;
-        }
+        grenadeCountText.text = PlayerInventory.Instance.GetStackQuantity(PlayerInventory.Instance.hotbarIndex).ToString();
     }
 
     public void Uninitialise()

@@ -393,6 +393,11 @@ public class PlayerInventory : MonoBehaviour
         UnassignHeldItem();
         AssignItemToPlayer();
         UpdateInventoryUI();
+        
+        if (index < maxHotbarItems)
+        {
+            UpdateHotbar(index);
+        }
 
         if (slot.Item != null) Destroy(slot.Item.gameObject);
 
@@ -437,12 +442,18 @@ public class PlayerInventory : MonoBehaviour
         UnassignHeldItem();
         AssignItemToPlayer();
         UpdateInventoryUI();
+        
+        for (int i = 0; i < maxHotbarItems; i++)
+        {
+            UpdateHotbar(i);
+        }
 
         return true;
     }
 
     public int GetStackQuantity(int index)
     {
+        if (inventory[index] == null) return 0;
         return inventory[index].Quantity;
     }
 
