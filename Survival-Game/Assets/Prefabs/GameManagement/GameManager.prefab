@@ -3425,6 +3425,10 @@ MonoBehaviour:
   pauseMenu: {fileID: 1220621744095366555}
   HUDUI: {fileID: 0}
   playerInput: {fileID: 7838910914143989060, guid: 42dceda374e0cb245a061a9b4b2c60f4, type: 3}
+  settingsMenu: {fileID: 5739078970838105296}
+  soundMenu: {fileID: 7851433566132408227}
+  sensitivityMenu: {fileID: 2484369173811690479}
+  keybindsMenu: {fileID: 6896262670117121039}
 --- !u!1 &4804858844008992129
 GameObject:
   m_ObjectHideFlags: 0
