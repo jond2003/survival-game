@@ -29,14 +29,6 @@ public class PlayerLook : MonoBehaviour
         if (!PauseMenuManager.isPaused && !HUDManager.Instance.IsInventoryOpen)
         {
             playerLook();
-        }
-    }
-
-    void FixedUpdate()
-    {
-        // Only allow rotating when inventory is not open
-        if (!HUDManager.Instance.IsInventoryOpen)
-        {
             playerRotate();
         }
     }

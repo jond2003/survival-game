@@ -81,6 +81,7 @@ public class PlayerArmour : MonoBehaviour
 
     private void UpdateArmourText()
     {
+        if (armourText == null) return;
         armourText.text = currentArmourLevel + "/3";
     }
 
