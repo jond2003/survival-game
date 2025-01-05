@@ -24,15 +24,9 @@ public class Grenade : MonoBehaviour, IUsable
     private TMP_Text grenadeCountText;
 
     private Camera playerCamera;
-    private PlayerInventory inventory;
     private IGrenade explosiveGrenade;
 
     private bool isInitialised = false;
-
-    void Start()
-    {
-        inventory = PlayerInventory.Instance;
-    }
 
     public void Initialise()
     {
@@ -61,7 +55,7 @@ public class Grenade : MonoBehaviour, IUsable
         }
 
         grenadeInfoPanel.SetActive(true);
-        grenadeCountText.text = inventory.GetStackQuantity(inventory.hotbarIndex).ToString();
+        grenadeCountText.text = PlayerInventory.Instance.GetStackQuantity(PlayerInventory.Instance.hotbarIndex).ToString();
     }
 
     public void LMB_Action(bool isPressed)
@@ -77,9 +71,9 @@ public class Grenade : MonoBehaviour, IUsable
         explosiveGrenade = grenade.GetComponent<IGrenade>();
         //grenade.transform.localScale = Vector3.one;  // Make cooking grenade visible
         explosiveGrenade.Throw(playerCamera.transform.forward, explosionRadius, damage, cookTime);
-        inventory.ConsumeHeldItem();
+        PlayerInventory.Instance.ConsumeHeldItem();
 
-        grenadeCountText.text = inventory.GetStackQuantity(inventory.hotbarIndex).ToString();
+        grenadeCountText.text = PlayerInventory.Instance.GetStackQuantity(PlayerInventory.Instance.hotbarIndex).ToString();
     }
 
     public void Uninitialise()
