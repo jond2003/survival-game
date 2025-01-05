@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   playerHealth: {fileID: 0}
-  explosion: {fileID: 7354695869903840038, guid: 8d03efb8852445040b36a90d33f0f5c6, type: 3}
+  explosion: {fileID: 100006, guid: 93485fd5fc2ccf2439cb3239186f6382, type: 3}
   easyEnemyData: {fileID: 11400000, guid: 389c2c3b21be9fa40b298be05c6759f0, type: 2}
   hardEnemyData: {fileID: 11400000, guid: ec9b12cd400bccc499fd3ba1d535adcc, type: 2}
   impossibleEnemyData: {fileID: 11400000, guid: 11d90ee59b0f8964aac15bf7a5386b1e, type: 2}
@@ -278,8 +278,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7, y: 1.7, z: 0.7}
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Size: {x: 1.5543146, y: 1.7, z: 1.8986398}
+  m_Center: {x: 0.019925475, y: 0.9, z: 0.23726362}
 --- !u!114 &8561237117960167792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,7 +351,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -459,6 +459,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: efd7a6bf979ba9b4a9d2666dd8f3136a, type: 2}
+    - target: {fileID: 13700000, guid: 3e700741ef6e18c428496ae23e1d4967, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d130e7abb0e168b4bad874cee1f242ce, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

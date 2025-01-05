@@ -76,7 +76,21 @@ public class ExplodingEnemyAI : MonoBehaviour
 
     private IEnumerator TriggerExplosion()
     {
-        GameObject generatedExplosion = Instantiate(explosion, transform.position, transform.rotation);
+        GameObject generatedExplosion = null;
+
+        Collider collider = GetComponent<Collider>();
+        collider.enabled = false;
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit))
+        {
+            Vector3 ground = hit.point;
+            Vector3 newPosition = transform.position;
+
+            newPosition.y = ground.y + 1f; //fixed axis on y
+
+            generatedExplosion = Instantiate(explosion, newPosition, transform.rotation);
+
+        }
+            
 
         Renderer[] renderersInRobot = GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderersInRobot)
@@ -85,7 +99,7 @@ public class ExplodingEnemyAI : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-        Destroy(generatedExplosion);
+        //Destroy(generatedExplosion);
         Destroy(this.gameObject);
 
 

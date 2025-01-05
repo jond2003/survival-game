@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private Image healthBar;
     [SerializeField] private float healthAmount = 100f;
 
+
+    [SerializeField] private TextMeshProUGUI deadText;
+
     void Update()
     {
-        
+
         if (healthAmount <= 0)
         {
-            Cursor.lockState = CursorLockMode.None;
-            SceneManager.LoadScene("LoseScene"); //Lose scene
+           
+            StartCoroutine(ShowDeathScreen());
         }
     }
 
@@ -53,6 +57,45 @@ public class PlayerHealth : MonoBehaviour
     public void KillPlayer()
     {
         healthAmount = 0;
+    }
+
+    private IEnumerator ShowDeathScreen()
+    {
+
+        //disable player movement and looking
+        Cursor.lockState = CursorLockMode.None;
+        PlayerMovement playerMovement = GetComponent<PlayerMovement>();
+        if (playerMovement != null)
+        {
+            playerMovement.enabled = false;
+
+        }
+
+        Camera playerCamera = GetComponentInChildren<Camera>();
+        if (playerCamera != null)
+        {
+            PlayerLook playerLook = playerCamera.GetComponent<PlayerLook>();
+            if (playerLook != null)
+            {
+                playerLook.enabled = false;
+            }
+        }
+        if (deadText != null)
+        {
+            deadText.gameObject.SetActive(true); //show player died text    
+        }
+
+
+        float showTime = 0f;
+
+        while (showTime < 3) //show death screen for this many secs
+        {
+            showTime += Time.deltaTime;
+            yield return null;
+
+        }
+        SceneManager.LoadScene("LoseScene"); //Lose scene
+
     }
 
 }
