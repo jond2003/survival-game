@@ -23,8 +23,7 @@ public class GameTimer : MonoBehaviour
     {
         if (dayNightCycle.dayNumber >= GameSettingsManager.numofDays)
         {
-            Cursor.lockState = CursorLockMode.None;
-            SceneManager.LoadSceneAsync("WinScene");
+            GameWon.Instance.GameFinished();
         }
     }
 }

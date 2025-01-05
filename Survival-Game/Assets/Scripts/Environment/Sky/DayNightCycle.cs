@@ -29,7 +29,6 @@ public class DayNightCycle : MonoBehaviour
         }
     }
 
-    [SerializeField]
     private int _dayNumber = 0; // Tracks the days passed
     public int dayNumber
     {

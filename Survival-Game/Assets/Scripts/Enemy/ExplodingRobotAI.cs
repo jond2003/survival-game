@@ -99,7 +99,7 @@ public class ExplodingEnemyAI : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-        //Destroy(generatedExplosion);
+        Destroy(generatedExplosion);
         Destroy(this.gameObject);
 
 
