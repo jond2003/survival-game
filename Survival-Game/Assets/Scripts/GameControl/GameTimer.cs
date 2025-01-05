@@ -4,31 +4,26 @@ using UnityEngine.SceneManagement;
 
 public class GameTimer : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI numOfDaysText;
+    [SerializeField] private DayNightCycle dayNightCycle; // Reference to DayNightCycle
 
-    [SerializeField] private TextMeshProUGUI countDownText;
-    private float currentTime;
-
-
-    void Awake()
+    private void Update()
     {
-        currentTime = GameSettingsManager.gameTimeMinutes * 60;
+        UpdateDayDisplay();
+        CheckWinCondition();
     }
 
-    void Update()
+    private void UpdateDayDisplay()
     {
-        currentTime -= Time.deltaTime;
-        int seconds = Mathf.FloorToInt(currentTime % 60);
-        int minutes = Mathf.FloorToInt(currentTime / 60);
-        string timeFormatted = string.Format("{0:00}:{1:00}", minutes, seconds);
+        float maxDays = GameSettingsManager.numofDays;
+        numOfDaysText.text = $"Day {dayNightCycle.dayNumber} / {maxDays}";
+    }
 
-       
-
-        if (currentTime <= 0f) //Won game
+    private void CheckWinCondition()
+    {
+        if (dayNightCycle.dayNumber >= GameSettingsManager.numofDays)
         {
-            Cursor.lockState = CursorLockMode.None;
-            SceneManager.LoadSceneAsync(2);
+            GameWon.Instance.GameFinished();
         }
-
-        countDownText.text = timeFormatted;
     }
 }

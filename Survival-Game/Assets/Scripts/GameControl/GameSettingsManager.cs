@@ -6,11 +6,15 @@ using UnityEngine.UI;
 
 public class GameSettingsManager : MonoBehaviour
 {
-    [SerializeField] private Slider gameTimeSlider;
-    [SerializeField] private TMP_Text gameTimeText;
+    [SerializeField] private Slider numOfDaysSlider;
+    [SerializeField] private Slider gameDayLengthSlider;
+
+    [SerializeField] private TMP_Text numOfDaysText;
+    [SerializeField] private TMP_Text gameDaylengthText;
 
     public static int difficulty = 0;
-    public static float gameTimeMinutes = 10f;
+    public static float numofDays = 5f;
+    public static float gameTimeMinutes = 5f;
 
     public static GameSettingsManager Instance { get; private set; }
 
@@ -28,8 +32,14 @@ public class GameSettingsManager : MonoBehaviour
 
     public void SetGameTime()
     {
-        gameTimeText.text = ((int)gameTimeSlider.value) + " mins";
-        gameTimeMinutes = gameTimeSlider.value;
+        numOfDaysText.text = ((int)numOfDaysSlider.value) + " days";
+        numofDays = numOfDaysSlider.value;
+    }
+
+    public void SetGameLengthOfDay()
+    {
+        gameDaylengthText.text = ((int)gameDayLengthSlider.value) + " min";
+        gameTimeMinutes = gameDayLengthSlider.value;
     }
 
     // Takes 3 scriptable objects representing the easy, hard and impossible versions
