@@ -13,17 +13,6 @@ MonoBehaviour:
   m_Name: Easy Normal Enemy
   m_EditorClassIdentifier: 
   health: 50
-  movementSpeed: 5
+  movementSpeed: 11
   attackDamage: 10
   attackSpeed: 2
-  drops:
-  - drop: {fileID: 8979712513836856141, guid: ce28f7e31204c594287ae5e333a4e18f, type: 3}
-    maxDrops: 3
-    initialDropChance: 1
-    chanceDivisor: 1.67
-    exponentStep: 0
-  - drop: {fileID: 8979712513836856141, guid: c562a15c956c2ba4a86f5f633a9c447b, type: 3}
-    maxDrops: 2
-    initialDropChance: 0.75
-    chanceDivisor: 2
-    exponentStep: 1.5

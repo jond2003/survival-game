@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Assault Rifle 2 Gun
   m_EditorClassIdentifier: 
   ammoType: {fileID: 7217347402462928274, guid: fb3dacfe7b8c23a4c8cd8e75b40c72ab, type: 3}
-  damage: 30
+  damage: 34
+  pelletsCount: 0
+  spreadRadius: 0
   range: 80
-  fireRate: 4
+  fireRate: 2
   clipSize: 30
   reloadTime: 2

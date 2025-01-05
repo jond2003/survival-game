@@ -15,6 +15,8 @@ MonoBehaviour:
   ingredients:
   - Item: {fileID: 8979712513836856141, guid: ce28f7e31204c594287ae5e333a4e18f, type: 3}
     Quantity: 1
+  - Item: {fileID: 8979712513836856141, guid: 25be791f54a62504cad7abc0e523c4cf, type: 3}
+    Quantity: 1
   craftedItem:
     Item: {fileID: 7217347402462928274, guid: fb3dacfe7b8c23a4c8cd8e75b40c72ab, type: 3}
-    Quantity: 5
+    Quantity: 6

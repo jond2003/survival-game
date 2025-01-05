@@ -20,6 +20,6 @@ MonoBehaviour:
     exponentStep: 1
   - drop: {fileID: 8979712513836856141, guid: c562a15c956c2ba4a86f5f633a9c447b, type: 3}
     maxDrops: 1
-    initialDropChance: 0.25
+    initialDropChance: 0.5
     chanceDivisor: 1
     exponentStep: 1
