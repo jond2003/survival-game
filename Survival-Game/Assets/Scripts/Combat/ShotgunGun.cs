@@ -150,7 +150,7 @@ public class ShotgunGun : MonoBehaviour, IUsable
                 Target target = hit.transform.GetComponent<Target>();
                 if (target)
                 {
-                    target.TakeDamage(gunData.damage / gunData.pelletsCount);
+                    target.TakeDamage(Mathf.Ceil(gunData.damage / gunData.pelletsCount));
                 }
             }
         }
