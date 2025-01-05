@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class FlickeringLight : MonoBehaviour
 {
-    public Light spotlight; // Reference to light component
+    public Light spotlight;
     public Material bulbMaterial; // Material of the bulb object, used for emission effects
-    public Color emissionColor = Color.yellow; // Base color of the bulb's emission
+    public Color emissionColor = Color.yellow;
     public float minIntensity = 0.5f; // Minimum light intensity when flickering
-    public float maxIntensity = 2.0f; // Maximum light intensity
+    public float maxIntensity = 2.0f;
     public float minFlickerDuration = 0.1f; // Shortest duration of the flicker
-    public float maxFlickerDuration = 0.5f; // The longest duration
+    public float maxFlickerDuration = 0.5f;
     public float minOffDuration = 1.0f; // The shortest duration of the off phase
-    public float maxOffDuration = 3.0f; // The longest duration
+    public float maxOffDuration = 3.0f;
 
     private float phaseTimer; // Tracks the remaining time in the current phase (flicker or off).
     private bool isFlickering; // Is currently in flickering phase?
@@ -35,17 +35,14 @@ public class FlickeringLight : MonoBehaviour
         {
             if (isFlickering)
             {
-                // Switch to off phase (if flicker is done)
                 EnterOffPhase();
             }
             else
             {
-                // Switch to flicker phase (if off is done)
                 EnterFlickerPhase();
             }
         }
 
-        // If in flicker, update light intensity to create a flickering effect
         if (isFlickering)
         {
             Flicker();
