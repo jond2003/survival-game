@@ -453,6 +453,7 @@ public class PlayerInventory : MonoBehaviour
 
     public int GetStackQuantity(int index)
     {
+        if (inventory[index] == null) return 0;
         return inventory[index].Quantity;
     }
 

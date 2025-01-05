@@ -170,8 +170,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e670a1f8abdaee6408f397ec4d68dd28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 40
-  explosionRadius: 5
+  damage: 60
+  explosionRadius: 8
   cookTime: 3
   fragGrenade: {fileID: 1543755912402619151, guid: c32a2e4f1a28aec4ca9bab86a1287e51, type: 3}
 --- !u!1 &1955409856956856224
