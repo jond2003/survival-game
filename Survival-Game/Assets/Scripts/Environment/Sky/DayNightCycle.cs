@@ -9,8 +9,7 @@ public class DayNightCycle : MonoBehaviour
 
     [Header("Time")]
     [Tooltip("Day Length in Minutes")]
-    [SerializeField]
-    private float _targetDayLength = 0.5f; // Length of a day in minutes
+    private float _targetDayLength = GameSettingsManager.gameTimeMinutes; // Length of a day in minutes
     public float targetDayLength
     {
         get
@@ -30,7 +29,6 @@ public class DayNightCycle : MonoBehaviour
         }
     }
 
-    [SerializeField]
     private int _dayNumber = 0; // Tracks the days passed
     public int dayNumber
     {

@@ -10,22 +10,27 @@ public class GameWon : MonoBehaviour
 
     [SerializeField] private GameObject gameWonCheckPoint;
 
+    public static GameWon Instance { get; private set; }
+
+    void Awake()
+    {
+        // Singleton
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
+    }
+
     void Start()
     {
         gameFinishedText.gameObject.SetActive(false);
         gameWonCheckPoint.SetActive(false);
     }
 
-    void GameFinished()
+    public void GameFinished()
     {
         if (gameFinishedText != null && gameWonCheckPoint != null)
         {
             gameFinishedText.gameObject.SetActive(true);
             gameWonCheckPoint.SetActive(true);
         }
-
-
-
-
     }
 }
