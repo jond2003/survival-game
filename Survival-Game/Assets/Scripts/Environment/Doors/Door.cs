@@ -6,12 +6,12 @@ public class Door : MonoBehaviour, IInteractable
 {
     private bool isOpen = false;
 
-    private Vector3 closedRotation; // The door's rotation when closed (used for rotating doors)
-    private Vector3 openRotation; // The door's rotation when open (used for rotating doors)
-    private Vector3 closedPosition; // The door's position when closed (used for sliding doors)
-    private Vector3 openPosition; // The door's position when open (used for sliding doors)
+    private Vector3 closedRotation; // Used for rotating doors
+    private Vector3 openRotation;
+    private Vector3 closedPosition; // Used for sliding doors
+    private Vector3 openPosition;
 
-    [SerializeField] private DoorType doorType = DoorType.Rotating; // Is the door is rotating or sliding
+    [SerializeField] private DoorType doorType = DoorType.Rotating;
     [SerializeField] private float openAngle = 90f; // Angle the door rotates to opening (for rotating doors)
     [SerializeField] private float slideDistance = 2f; // Distance the door slides when opening (for sliding doors)
     [SerializeField] private float openSpeed = 2f;
@@ -40,18 +40,17 @@ public class Door : MonoBehaviour, IInteractable
     // When interacting with door
     public void Interact()
     {
-        if (!isOpen) // Check if the door is not already open
+        if (!isOpen)
         {
             StopAllCoroutines(); // Stop ongoing door animations
             StartCoroutine(OpenDoor()); // Start coroutine to open door
         }
     }
 
-    // Hightlight door when looking at it (should we keep this?)
     public void Highlight(bool isOn)
     {
-        Renderer renderer = GetComponent<Renderer>(); // Get the Renderer component
-        if (renderer != null) // Ensure the renderer exists
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer != null)
         {
             // Change the material color based on whether the door is highlighted
             Color color = isOn ? Color.yellow : Color.white;
@@ -59,10 +58,9 @@ public class Door : MonoBehaviour, IInteractable
         }
     }
 
-    // Handle the opening of the door
     private IEnumerator OpenDoor()
     {
-        isOpen = true; // Mark door as open
+        isOpen = true;
         float elapsed = 0f; // Tracks the elapsed time for the animation
 
         // Rotate rotating/ normal door
@@ -72,8 +70,8 @@ public class Door : MonoBehaviour, IInteractable
             {
                 // Smoothly interpolate the door's rotation from closed to open
                 transform.eulerAngles = Vector3.Lerp(closedRotation, openRotation, elapsed);
-                elapsed += Time.deltaTime * openSpeed; // Increment the elapsed time
-                yield return null; // Wait for the next frame
+                elapsed += Time.deltaTime * openSpeed;
+                yield return null;
             }
             transform.eulerAngles = openRotation; // Ensure the door's final rotation is set to the open position
         }
@@ -84,8 +82,8 @@ public class Door : MonoBehaviour, IInteractable
             {
                 // Smoothly interpolate the door's position from closed to open
                 transform.position = Vector3.Lerp(closedPosition, openPosition, elapsed);
-                elapsed += Time.deltaTime * openSpeed; // Increment the elapsed time
-                yield return null; // Wait for the next frame
+                elapsed += Time.deltaTime * openSpeed;
+                yield return null;
             }
             transform.position = openPosition; // Ensure the door's final position is set to the open position
         }
