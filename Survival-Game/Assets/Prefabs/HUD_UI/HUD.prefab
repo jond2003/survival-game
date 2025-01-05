@@ -6703,7 +6703,7 @@ PrefabInstance:
     - target: {fileID: 7436671474398170221, guid: b6ad40cc9ddc49040827a3b3b4044cb4, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 33d1250ea8970a8499be0ebf5fb23fe8, type: 3}
+      objectReference: {fileID: 21300000, guid: af22abb2ecbc2ad4db43d0df7738cc0d, type: 3}
     - target: {fileID: 7832173534215125050, guid: b6ad40cc9ddc49040827a3b3b4044cb4, type: 3}
       propertyPath: m_Name
       value: HungerBar

@@ -12,6 +12,12 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] private GameObject HUDUI;
     [SerializeField] private PlayerInput playerInput;
 
+    [SerializeField] private GameObject settingsMenu;
+    [SerializeField] private GameObject soundMenu;
+    [SerializeField] private GameObject sensitivityMenu;
+    [SerializeField] private GameObject keybindsMenu;
+
+
     public static bool isPaused = false;
 
     float beforePauseVolume; //Used to mute during pause 
@@ -29,7 +35,7 @@ public class PauseMenuManager : MonoBehaviour
         if (pauseInput.WasPerformedThisFrame())
         {
             if (!isPaused) PauseGame();
-            else ResumeGame();
+            else PressedEsc();
         }
 
     }
@@ -43,7 +49,17 @@ public class PauseMenuManager : MonoBehaviour
         isPaused = true;
         beforePauseVolume = Mathf.FloorToInt(AudioListener.volume);
         AudioListener.volume = 0f;
-        
+
+    }
+
+    public void PressedEsc()
+    {
+        ResumeGame();
+        settingsMenu.SetActive(true);
+        soundMenu.SetActive(false);
+        sensitivityMenu.SetActive(false);
+        keybindsMenu.SetActive(false);
+
     }
 
     public void ResumeGame()
@@ -58,7 +74,7 @@ public class PauseMenuManager : MonoBehaviour
         {
             AudioListener.volume = beforePauseVolume;
         }
-        
+
     }
 
     public void GoToMainMenu()
