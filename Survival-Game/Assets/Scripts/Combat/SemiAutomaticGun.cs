@@ -24,6 +24,7 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     private Camera playerCamera;
     private LayerMask layersToHit;
     private bool isInitialised = false;
+    private bool isActive = false;
 
     private AudioSource audioSource;
     private Animator animator;
@@ -81,6 +82,8 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
         reloadSlider.gameObject.SetActive(false);
 
         UpdateAmmoText();
+
+        isActive = true;
     }
 
     public void LMB_Action(bool isPressed)
@@ -107,11 +110,15 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
                 {
                     if (LoadAmmo())
                     {
-                        UpdateAmmoText();
                         isReloading = false;
                         reloadSlider.gameObject.SetActive(false);
                     }
                 }
+            }
+
+            if (isActive)
+            {
+                UpdateAmmoText();
             }
         }
     }
@@ -133,7 +140,6 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
         audioSource.Play();
         if (animator != null) animator.Play("Shoot", 0, 0f);
 
-        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward, Color.green);
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, gunData.range, layersToHit))
         {
@@ -144,7 +150,6 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
             }
         }
         bulletsInClip -= 1;
-        UpdateAmmoText();
     }
 
     private void Reload()
@@ -182,6 +187,7 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
     public void Uninitialise()
     {
         gunInfoPanel.gameObject.SetActive(false);
+        isActive = false;
     }
 
     public void RMB_Action(bool isPressed) { }
