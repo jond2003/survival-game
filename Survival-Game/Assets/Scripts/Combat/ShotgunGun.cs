@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class SemiAutomaticGun : MonoBehaviour, IUsable
+public class ShotgunGun : MonoBehaviour, IUsable
 {
     [SerializeField] GunData gunData;
 
@@ -140,13 +139,19 @@ public class SemiAutomaticGun : MonoBehaviour, IUsable
         audioSource.Play();
         if (animator != null) animator.Play("Shoot", 0, 0f);
 
-        RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, gunData.range, layersToHit))
+        for (int i = 0; i < gunData.pelletsCount; i++)
         {
-            Target target = hit.transform.GetComponent<Target>();
-            if (target)
+            float randomX = (Random.Range(-gunData.spreadRadius, gunData.spreadRadius) + Random.Range(-gunData.spreadRadius, gunData.spreadRadius)) / 2;
+            float randomY = (Random.Range(-gunData.spreadRadius, gunData.spreadRadius) + Random.Range(-gunData.spreadRadius, gunData.spreadRadius)) / 2;
+            Vector3 pelletDirection = new Vector3(playerCamera.transform.forward.x + randomX, playerCamera.transform.forward.y + randomY, playerCamera.transform.forward.z);
+            RaycastHit hit;
+            if (Physics.Raycast(playerCamera.transform.position, pelletDirection, out hit, gunData.range, layersToHit))
             {
-                target.TakeDamage(gunData.damage);
+                Target target = hit.transform.GetComponent<Target>();
+                if (target)
+                {
+                    target.TakeDamage(gunData.damage / gunData.pelletsCount);
+                }
             }
         }
         bulletsInClip -= 1;

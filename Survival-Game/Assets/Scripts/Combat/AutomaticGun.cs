@@ -25,6 +25,7 @@ public class AutomaticGun : MonoBehaviour, IUsable
     private Camera playerCamera;
     private LayerMask layersToHit;
     private bool isInitialised = false;
+    private bool isActive = false;
 
     private AudioSource audioSource;
     private Animator animator;
@@ -82,6 +83,8 @@ public class AutomaticGun : MonoBehaviour, IUsable
         reloadSlider.gameObject.SetActive(false);
 
         UpdateAmmoText();
+
+        isActive = true;
     }
 
     public void LMB_Action(bool isPressed)
@@ -108,7 +111,6 @@ public class AutomaticGun : MonoBehaviour, IUsable
                 {
                     if (LoadAmmo())
                     {
-                        UpdateAmmoText();
                         isReloading = false;
                         isFiring = false;
                         reloadSlider.gameObject.SetActive(false);
@@ -119,6 +121,11 @@ public class AutomaticGun : MonoBehaviour, IUsable
             if (isFiring)
             {
                 CheckShoot();
+            }
+
+            if (isActive)
+            {
+                UpdateAmmoText();
             }
         }
     }
@@ -147,7 +154,6 @@ public class AutomaticGun : MonoBehaviour, IUsable
             }
         }
         bulletsInClip -= 1;
-        UpdateAmmoText();
     }
 
     private void Reload()
@@ -185,6 +191,7 @@ public class AutomaticGun : MonoBehaviour, IUsable
     public void Uninitialise()
     {
         gunInfoPanel.gameObject.SetActive(false);
+        isActive = false;
     }
 
     public void RMB_Action(bool isPressed) { }
