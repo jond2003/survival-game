@@ -16,9 +16,7 @@ MonoBehaviour:
   damage: 70
   pelletsCount: 12
   spreadRadius: 0.3
-  projectileSpeed: 0
-  projectileExplosionRadius: 0
-  range: 30
-  fireRate: 1
+  range: 25
+  fireRate: 0.9
   clipSize: 8
-  reloadTime: 0.9
+  reloadTime: 1.2

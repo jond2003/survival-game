@@ -16,5 +16,5 @@ MonoBehaviour:
   - drop: {fileID: 3505231996041249065, guid: b93d49c45323da745ac19c37ce2a33a7, type: 3}
     maxDrops: 2
     initialDropChance: 1
-    chanceDivisor: 3
+    chanceDivisor: 2
     exponentStep: 1.5

@@ -7,26 +7,28 @@ using UnityEngine;
 
 public class Food : MonoBehaviour, IUsable
 {
-
-    private PlayerInventory inventory;
-
     [SerializeField] private PlayerHunger playerHunger;
+
+    [SerializeField] private FoodData easyFoodData;
+    [SerializeField] private FoodData hardFoodData;
+    [SerializeField] private FoodData impossibleFoodData;
+
+    private FoodData foodData;
 
     void Start()
     {
-        inventory = PlayerInventory.Instance;
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
             playerHunger = player.GetComponent<PlayerHunger>();
         }
 
+        foodData = (FoodData)GameSettingsManager.GetDifficultyData(easyFoodData, hardFoodData, impossibleFoodData);
     }
-
 
     public void LMB_Action(bool isPressed)
     {
-        if (isPressed ) Eat();
+        if (!isPressed) Eat();
     }
     public void Initialise()
     {
@@ -45,7 +47,7 @@ public class Food : MonoBehaviour, IUsable
 
     void Eat()
     {
-        playerHunger.IncreaseHunger(50);
+        playerHunger.IncreaseHunger(foodData.hungerIncrease);
         PlayerInventory.Instance.ConsumeHeldItem();
     }
 
