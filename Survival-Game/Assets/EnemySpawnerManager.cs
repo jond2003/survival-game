@@ -9,7 +9,6 @@ public class EnemySpawnerManager : MonoBehaviour
     [SerializeField] private EnemySpawnerData impossibleSpawnerData;
     private EnemySpawnerData spawnerData;
 
-    private List<EnemySpawner> spawners = new List<EnemySpawner>();
     private List<GameObject> enemies = new List<GameObject>();
     public static EnemySpawnerManager Instance { get; private set; }
 
@@ -18,11 +17,6 @@ public class EnemySpawnerManager : MonoBehaviour
         // Singleton
         if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
-
-        foreach (Transform spawnerTransform in transform)
-        {
-            spawners.Add(spawnerTransform.GetComponent<EnemySpawner>());
-        }
 
         spawnerData = (EnemySpawnerData)GameSettingsManager.GetDifficultyData(easySpawnerData, hardSpawnerData, impossibleSpawnerData);
     }
