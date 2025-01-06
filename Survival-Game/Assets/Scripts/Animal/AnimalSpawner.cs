@@ -16,7 +16,11 @@ public class AnimalSpawner : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(animalPrefab, transform.position, Quaternion.identity);
+            if (AnimalSpawnerManager.Instance.CanSpawn())
+            {
+                GameObject animal = Instantiate(animalPrefab, transform.position, Quaternion.identity);
+                AnimalSpawnerManager.Instance.AddAnimal(animal);
+            }
 
             yield return new WaitForSeconds(spawnRate);
         }
