@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb7c3bc0df188b4ebe128b2e3651099, type: 3}
   m_Name: Easy Food
   m_EditorClassIdentifier: 
-  hungerIncrease: 40
+  hungerIncrease: 35

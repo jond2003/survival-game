@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
 {
-    private bool isOpen = false;
+    [SerializeField] private bool isOpen = false;
 
     private Vector3 closedRotation; // Used for rotating doors
     private Vector3 openRotation;
@@ -35,6 +35,12 @@ public class Door : MonoBehaviour, IInteractable
             closedPosition = transform.position; // Closed position is the current position
             openPosition = closedPosition + transform.right * slideDistance; // Open position found by moving along the right axis
         }
+
+        if (isOpen)
+        {
+            transform.eulerAngles = openRotation;
+            transform.position = openPosition;
+        }
     }
 
     // When interacting with door
@@ -44,6 +50,11 @@ public class Door : MonoBehaviour, IInteractable
         {
             StopAllCoroutines(); // Stop ongoing door animations
             StartCoroutine(OpenDoor()); // Start coroutine to open door
+        }
+        else
+        {
+            StopAllCoroutines(); // Stop ongoing door animations
+            StartCoroutine(CloseDoor()); // Start coroutine to open door
         }
     }
 
@@ -86,6 +97,37 @@ public class Door : MonoBehaviour, IInteractable
                 yield return null;
             }
             transform.position = openPosition; // Ensure the door's final position is set to the open position
+        }
+    }
+
+    private IEnumerator CloseDoor()
+    {
+        isOpen = false;
+        float elapsed = 0f; // Tracks the elapsed time for the animation
+
+        // Rotate rotating/ normal door
+        if (doorType == DoorType.Rotating)
+        {
+            while (elapsed < 1f) // Continue until the animation is complete
+            {
+                // Smoothly interpolate the door's rotation from open to closed
+                transform.eulerAngles = Vector3.Lerp(openRotation, closedRotation, elapsed);
+                elapsed += Time.deltaTime * openSpeed;
+                yield return null;
+            }
+            transform.eulerAngles = closedRotation; // Ensure the door's final rotation is set to the closed position
+        }
+        // Position change for sliding doors
+        else if (doorType == DoorType.Sliding)
+        {
+            while (elapsed < 1f) // Continue until the animation is complete
+            {
+                // Smoothly interpolate the door's position from open to closed
+                transform.position = Vector3.Lerp(openPosition, closedPosition, elapsed);
+                elapsed += Time.deltaTime * openSpeed;
+                yield return null;
+            }
+            transform.position = closedPosition; // Ensure the door's final position is set to the closed position
         }
     }
 }

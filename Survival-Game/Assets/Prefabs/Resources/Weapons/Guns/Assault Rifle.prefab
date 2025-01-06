@@ -137,7 +137,7 @@ MonoBehaviour:
   canvasPosition: {fileID: 5617354989168866007}
   highlightText: {fileID: 3494738309370299511, guid: 39a7a0c57d35bd94cad5166ab3167c11, type: 3}
   maxStack: 1
-  itemName: AK657
+  itemName: AK-657
   sprite: {fileID: 21300044, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
 --- !u!114 &3227260995381123173
 MonoBehaviour:

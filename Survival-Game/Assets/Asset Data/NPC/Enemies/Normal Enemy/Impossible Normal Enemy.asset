@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Impossible Normal Enemy
   m_EditorClassIdentifier: 
   health: 100
-  movementSpeed: 15
-  attackDamage: 15
-  attackSpeed: 4
+  movementSpeed: 6
+  attackDamage: 20
+  attackSpeed: 1

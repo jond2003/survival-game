@@ -8,26 +8,35 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject ExplodingEnemyPrefab;
 
     [SerializeField] float spawnRate = 10.0f;
+    [SerializeField] float normalEnemyChance = 0.7f;
 
     void Start()
     {
         StartCoroutine(spawnEnemies());
     }
+
     private IEnumerator spawnEnemies()
     {
         while (true)
         {
-            float randomNumber = Random.Range(0, 10.0f); //more likely for normal enemy
-            if (randomNumber > 3.0f)
+            if (EnemySpawnerManager.Instance.CanSpawn())
             {
-                Instantiate(normalEnemyPrefab, transform.position, Quaternion.identity);
+                GameObject enemy;
+
+                float randomNumber = Random.Range(0f, 1f); //more likely for normal enemy
+                if (randomNumber < normalEnemyChance)
+                {
+                    enemy = Instantiate(normalEnemyPrefab, transform.position, Quaternion.identity);
+                }
+                else
+                {
+                    enemy = Instantiate(ExplodingEnemyPrefab, transform.position, Quaternion.identity);
+                }
+
+                EnemySpawnerManager.Instance.AddEnemy(enemy);
             }
-            else
-            {
-                Instantiate(ExplodingEnemyPrefab, transform.position, Quaternion.identity);
-            }
-           
-            yield return new WaitForSeconds(spawnRate); 
+
+            yield return new WaitForSeconds(spawnRate);
         }
     }
 }
