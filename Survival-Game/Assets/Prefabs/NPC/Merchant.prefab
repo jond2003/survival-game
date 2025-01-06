@@ -121,7 +121,7 @@ MonoBehaviour:
   canvasPosition: {fileID: 2803811954054879523}
   highlightText: {fileID: 3494738309370299511, guid: 39a7a0c57d35bd94cad5166ab3167c11, type: 3}
   playerTransform: {fileID: 0}
-  maxPlayerDistance: 15
+  maxPlayerDistance: 20
 --- !u!82 &8370964454465683234
 AudioSource:
   m_ObjectHideFlags: 0

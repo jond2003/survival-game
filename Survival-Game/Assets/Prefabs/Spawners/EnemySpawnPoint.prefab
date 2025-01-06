@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalEnemyPrefab: {fileID: 4653366148795233411, guid: 9b7beec77d9bba140aa67a301ea7ca6d, type: 3}
   ExplodingEnemyPrefab: {fileID: 4653366148795233411, guid: b16d546262695cf45b1a861348e6cf7d, type: 3}
-  spawnRate: 3
+  spawnRate: 10

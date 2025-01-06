@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drops:
   - drop: {fileID: 8979712513836856141, guid: ce28f7e31204c594287ae5e333a4e18f, type: 3}
-    maxDrops: 3
+    maxDrops: 6
     initialDropChance: 1
     chanceDivisor: 1.5
-    exponentStep: 2
+    exponentStep: 1.25
   - drop: {fileID: 8979712513836856141, guid: c562a15c956c2ba4a86f5f633a9c447b, type: 3}
-    maxDrops: 2
-    initialDropChance: 0.75
-    chanceDivisor: 3
+    maxDrops: 4
+    initialDropChance: 1
+    chanceDivisor: 1.5
     exponentStep: 1
