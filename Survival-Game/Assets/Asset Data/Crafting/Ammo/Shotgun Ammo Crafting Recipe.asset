@@ -19,4 +19,4 @@ MonoBehaviour:
     Quantity: 1
   craftedItem:
     Item: {fileID: 2235011457945597506, guid: d46a8535c02193447aafb2c1de333d84, type: 3}
-    Quantity: 8
+    Quantity: 16
