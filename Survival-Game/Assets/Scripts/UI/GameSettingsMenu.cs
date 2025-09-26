@@ -8,5 +8,6 @@ public class GameSettingsMenu : MonoBehaviour
     public void LoadGame()
     {
         SceneManager.LoadSceneAsync("GameScene");
+        SoundManager.SelfDestruct();
     }
 }

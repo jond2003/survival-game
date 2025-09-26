@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 265585926}
   - component: {fileID: 265585925}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -557,12 +557,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265585924}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.0082073, y: 2.955511, z: 18.348404}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -347.34995, y: -288.59592, z: -49.856186}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1367806662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &379263585
 GameObject:
@@ -937,27 +937,27 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Survive a set amount of days and nights to win the game.
 
-    
 
-    Do
-    this by defending yourself from robots with weapons that you can craft, and by
-    crafting better armour.
 
-    
+    Do this
+    by defending yourself from robots with weapons that you can craft, and by crafting
+    better armour.
 
-    Health or hunger, when fully depleted will
-    cause the player to die so hunting the animals in the forest are essential to
-    winning.
 
-    
 
-    Crafting can be done when the crafting menu is enabled and
-    that the player is close to the merchant.
+    Health or hunger, when fully depleted will cause the player
+    to die so hunting the animals in the forest are essential to winning.
 
-    
 
-    Player controls are mappable
-    to any key which the player wants to use.'
+
+    Crafting
+    can be done when the crafting menu is enabled and that the player is close to
+    the merchant.
+
+
+
+    Player controls are mappable to any key which the player
+    wants to use.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1488,6 +1488,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1208274808}
   m_CullTransparentMesh: 1
+--- !u!1 &1367806660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1367806662}
+  - component: {fileID: 1367806661}
+  m_Layer: 0
+  m_Name: Sound Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1367806661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367806660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4b3e751f894a54b99c115eaedcad3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 817b51f3ccbd2ee4fbe91b58692f6f13, type: 2}
+--- !u!4 &1367806662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367806660}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 354.35815, y: 291.55142, z: 68.20459}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 265585926}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1447954060
 GameObject:
   m_ObjectHideFlags: 0
@@ -2581,4 +2627,4 @@ SceneRoots:
   - {fileID: 1004160379}
   - {fileID: 1801471825}
   - {fileID: 1533459745}
-  - {fileID: 265585926}
+  - {fileID: 1367806662}

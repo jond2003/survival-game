@@ -6,87 +6,66 @@ using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
-
     public AudioMixer audioMixer;
 
-    [SerializeField] Slider gameVolumeSlider;
-    [SerializeField] TMPro.TextMeshProUGUI gameVolumeText;
+    private static string gameVolumeKey = "GameVolume";
+    private static string musicVolumeKey = "MusicVolume";
 
+    public static SoundManager Instance { get; private set; }
 
-    [SerializeField] Slider musicVolumeSlider;
-    [SerializeField] TMPro.TextMeshProUGUI musicVolumeText;
+    void Awake()
+    {
+        // Singleton
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
-        // Check if a game volume value exists in PlayerPrefs, if not, set a default value of 1.
-        if (!PlayerPrefs.HasKey("GameVolume"))
+        // Check if a game volume value exists in PlayerPrefs, if not, set a default value of 100
+        if (!PlayerPrefs.HasKey(gameVolumeKey))
         {
-            PlayerPrefs.SetFloat("GameVolume", 100f);
+            PlayerPrefs.SetFloat(gameVolumeKey, 100f);
         }
 
-        if (!PlayerPrefs.HasKey("MusicVolume"))
+        if (!PlayerPrefs.HasKey(musicVolumeKey))
         {
-            PlayerPrefs.SetFloat("MusicVolume", 100f);
+            PlayerPrefs.SetFloat(musicVolumeKey, 100f);
         }
 
-
-
-        // Load the saved volume value and apply it to the slider.
-        LoadGameVolume();
-        UpdateGameVolumeText();
-
-        LoadMusicVolume();
-        UpdateMusicVolumeText();
+        LoadGameVolume(GetGameVolume());
+        LoadMusicVolume(GetMusicVolume());
     }
 
-    // Save the new volume value whenever the slider is adjusted.
-    public void ChangeGameVolume()
+    // Set the saved volumes
+    private void LoadGameVolume(float volume) { audioMixer.SetFloat(gameVolumeKey, Mathf.Log10(volume) * 20f); }
+    private void LoadMusicVolume(float volume) { audioMixer.SetFloat(musicVolumeKey, Mathf.Log10(volume) * 20f); }
+
+    // Get the saved volume levels
+    public static float GetGameVolume() { return PlayerPrefs.GetFloat(gameVolumeKey); }
+    public static float GetMusicVolume() { return PlayerPrefs.GetFloat(musicVolumeKey); }
+
+    // Update the volume and save to storage
+    public static void SaveGameVolume(float newVolume)
     {
-        audioMixer.SetFloat("GameVolume", Mathf.Log10(gameVolumeSlider.value) * 20f);
-        SaveGameVolume();
-        UpdateGameVolumeText();
+        Instance.LoadGameVolume(newVolume);
+        PlayerPrefs.SetFloat(gameVolumeKey, newVolume);
+    }
+    public static void SaveMusicVolume(float newVolume)
+    {
+        Instance.LoadMusicVolume(newVolume);
+        PlayerPrefs.SetFloat(musicVolumeKey, newVolume);
     }
 
-    public void ChangeMusicVolume()
+    public static void SelfDestruct()
     {
-        audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolumeSlider.value) * 20f);
-        SaveMusicVolume();
-        UpdateMusicVolumeText();
-    }
-
-    // Retrieve the saved volume value and apply it to the slider.
-    private void LoadGameVolume()
-    {
-        float savedVolume = PlayerPrefs.GetFloat("GameVolume");
-        gameVolumeSlider.value = savedVolume;
-
-        audioMixer.SetFloat("GameVolume", Mathf.Log10(gameVolumeSlider.value) * 20f);
-    }
-
-    private void LoadMusicVolume()
-    {
-        float savedVolume = PlayerPrefs.GetFloat("MusicVolume");
-        musicVolumeSlider.value = savedVolume;
-
-        audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolumeSlider.value) * 20f);
-    }
-
-    private void SaveGameVolume()
-    {
-        PlayerPrefs.SetFloat("GameVolume", gameVolumeSlider.value);
-    }
-    private void SaveMusicVolume()
-    {
-        PlayerPrefs.SetFloat("MusicVolume", musicVolumeSlider.value);
-    }
-
-    private void UpdateGameVolumeText()
-    {
-        gameVolumeText.text = (((gameVolumeSlider.value - 0.0001) / (1 - 0.0001)) * 100) .ToString("0") + "%";
-    }
-
-    private void UpdateMusicVolumeText()
-    {
-        musicVolumeText.text = (((musicVolumeSlider.value - 0.0001) / (1 - 0.0001)) * 100).ToString("0") + "%";
+        Destroy(Instance.gameObject);
     }
 }
